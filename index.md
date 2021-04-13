@@ -72,7 +72,6 @@
 				<br>
 				<img src="images/AE_workflow_1.png" style="vertical-align:middle" alt="Trulli" style="width:100%">
 				<br>
-				<br>
 				<div class="col-lg-6 col-lg-offset-3">
 				</div>
 			</div>
@@ -96,7 +95,7 @@
 							</p>
 						</div>
 						<div class="col-6 col-12-medium imp-medium">
-							<span class="image fit"><img src="images/cml.png" alt="" /></span>
+							<span class="image fit"><img src="images/Cytokines_alpha_diversity.tif" alt="" style="float:right; margin: 5px;"/></span>
 						</div>
 					</div>
 				</div>
