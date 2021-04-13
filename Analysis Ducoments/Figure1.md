@@ -1,6 +1,11 @@
-Vignette Title
-================
+---
+sort: 1
+title: "Untitled"
+output: github_document
+---
 Vignette Author
+================
+
 
 [`Return`](./)
 `{r setup, include=FALSE} knitr::opts_chunk$set(echo = TRUE)`
