@@ -1,12 +1,13 @@
 ---
 sort: 1
 ---
+##retuen to the documents list
+[`Return`](./)
 
 # Background
 
 This document describes the methodology for obtaining raw data and closed-reference OTU picking. All code is run either in R or bash.
 
-[`Return`](./)
 
 ```
 :root {
@@ -20,6 +21,11 @@ This document describes the methodology for obtaining raw data and closed-refere
 }
 ```
 # Environment
+
+<script src="toggleR.js"></script> 
+```{r}
+summary(cars)
+```
 
 **Highlight:**
 
