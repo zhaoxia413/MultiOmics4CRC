@@ -59,7 +59,6 @@ library(reshape2)
   ```
   </details>
 
-</style>
 <script>
 (document).ready(function () {
   window.initializeSourceEmbed("Untitled.Rmd");
@@ -68,13 +67,12 @@ library(reshape2)
 </script>
 
 <div class="fluid-row" id="header">
-
 <div class="btn-group pull-right">
 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-<li role="separator" class="divider"></li>
+<li> role="separator" class="divider"></li>
 <li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
