@@ -30,8 +30,25 @@ This document describes the methodology for obtaining raw data and closed-refere
 
 # Environment
 
-<script src="toggleR.js"></script> 
-```{r}
+<script src="toggleR.js">
+```{r }
+
+library(data.table)
+library(tidyverse)
+library(ggthemes)
+library(ggsci)
+library(ggpubr)
+library(survminer)
+library(survival)
+library(survivalROC)
+library(reshape2)
+
+```
+
+</script> 
+
+```{r }
+
 library(data.table)
 library(tidyverse)
 library(ggthemes)
@@ -62,6 +79,7 @@ library(reshape2)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
 # Metadata
