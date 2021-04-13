@@ -44,6 +44,22 @@ library(reshape2)
 
 ```
 
+<details>
+<summary>code</summary>
+```
+  library(data.table)
+  library(tidyverse)
+  library(ggthemes)
+  library(ggsci)
+  library(ggpubr)
+  library(survminer)
+  library(survival)
+  library(survivalROC)
+  library(reshape2)
+  ```
+  </details>
+
+
 
 **Highlight:**
 
@@ -75,14 +91,14 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 <details>
-  <summary>点击时的区域标题</summary>
+  <summary>code</summary>
   ```bash
   echo "hello shell"
   echo "hello python"
   ```
 </details>
 
-```{r cars}
+```{r}
 summary(cars)
 ```
 
