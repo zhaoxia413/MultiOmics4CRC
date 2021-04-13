@@ -78,6 +78,9 @@ library(reshape2)
 <li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
+<h1 class="title toc-ignore">R Notebook</h1>
+
+</div>
 
 
 **Highlight:**
