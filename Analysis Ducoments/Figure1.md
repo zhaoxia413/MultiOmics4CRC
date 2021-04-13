@@ -7,8 +7,6 @@ code_folding:hide
 toc_float:TRUE
 runtime:shiny
 ---
-```{r setup, include=FALSE}
-```
 
 [`Return`](./)
 
