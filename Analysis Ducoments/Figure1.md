@@ -1,13 +1,14 @@
 ---
 sort: 1
-title: "An Example Using the Tufte Style"
-author: "John Smith"
-output:
-  tufte::tufte_handout: default
-  tufte::tufte_html: default
+title: "Mrakdown for Figure1"
+author: "Xia Zhao"
+output: html_document
+code_folding:hide
+toc_float:TRUE
+runtime:shiny
 ---
-
-# Mrakdown for Figure1
+```{r setup, include=FALSE}
+```
 
 [`Return`](./)
 
@@ -33,14 +34,18 @@ This document describes the methodology for obtaining raw data and closed-refere
 
 <script src="toggleR.js"></script> 
 ```{r}
-summary(cars)
+library(data.table)
+library(tidyverse)
+library(ggthemes)
+library(ggsci)
+library(ggpubr)
+library(survminer)
+library(survival)
+library(survivalROC)
+library(reshape2)
+
 ```
----
-title: &quot;Habits&quot;
-output:
-  html_document:
-    code_folding: hide
----
+
 
 **Highlight:**
 
@@ -61,7 +66,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Metadata
+
+```
+summary(data)
+
+```
+
+
+# R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
@@ -79,7 +92,7 @@ When you click the **Knit** button a document will be generated that includes bo
 summary(cars)
 ```
 
-## Including Plots
+# Including Plots
 
 You can also embed plots, for example:
 
@@ -89,8 +102,8 @@ plot(pressure)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
-# Metadata
 
 
-## Including Plots
+
+
 
