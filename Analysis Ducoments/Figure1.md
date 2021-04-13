@@ -1,7 +1,9 @@
 ---
 sort: 1
 ---
-##retuen to the documents list
+
+# Mrakdown for Figure1
+
 [`Return`](./)
 
 # Background
@@ -20,12 +22,20 @@ This document describes the methodology for obtaining raw data and closed-refere
   }
 }
 ```
+
+
 # Environment
 
 <script src="toggleR.js"></script> 
 ```{r}
 summary(cars)
 ```
+---
+title: &quot;Habits&quot;
+output:
+  html_document:
+    code_folding: hide
+---
 
 **Highlight:**
 
