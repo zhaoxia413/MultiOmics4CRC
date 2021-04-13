@@ -1,10 +1,7 @@
 ---
 sort: 1
----
-
----
 title: "An Example Using the Tufte Style"
-author: "Xia Zhao"
+author: "John Smith"
 output:
   tufte::tufte_handout: default
   tufte::tufte_html: default
