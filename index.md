@@ -181,6 +181,7 @@
 						    <li data-target="#carousel-example-generic" data-slide-to="3">Developing new strategies to overcome drug resistance of cancer cells;</li>
 							<li data-target="#carousel-example-generic" data-slide-to="4">Conducting clinical trials for developing optimal treatments for cancer patients;</li>
 							<li data-target="#carousel-example-generic" data-slide-to="5">Decoding microbiome for clinical success.</li>
+						    <br>
 						</ol>
 				</div><!-- col-lg-8 -->
 			</div><!-- row -->
