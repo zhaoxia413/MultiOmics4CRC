@@ -175,13 +175,6 @@
 			<div class="row centered">
 				<h3>Xu’s Lab is interested in:</h3>
 				<p class="centered"><i class="icon icon-circle"></i><i class="icon icon-circle"></i><i class="icon icon-circle"></i></p>
-				<div class="col-lg-6 col-lg-offset-3">
-					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-						<!-- Wrapper for slides -->
-							<div class="item centered">
-								<img class="img-responsive" src="assets/img/c3.png" alt="">
-							</div>
-						</div>
 						<ol class="carousel-indicators">
 						    <li data-target="#carousel-example-generic" data-slide-to="1" class="active">Finding novel molecular mechanisms of gastrointestinal cancer metastasis;</li>
 						    <li data-target="#carousel-example-generic" data-slide-to="2">Identifying potential diagnostic and prognostic biomarkers to guide individualized therapy for cancer patients;</li>
