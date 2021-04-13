@@ -183,7 +183,6 @@
 							<li data-target="#carousel-example-generic" data-slide-to="5">Decoding microbiome for clinical success.</li>
 						    <br>
 						</ol>
-				</div><!-- col-lg-8 -->
 			</div><!-- row -->
 		</div><!-- container -->
 	</div>	<!-- f -->
