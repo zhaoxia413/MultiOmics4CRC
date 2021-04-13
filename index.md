@@ -48,7 +48,7 @@
 		<div class="menu-wrap">
 			<h1 class="logo"><a href="index.html#home">Muti-omics assays</a></h1>
 			<i class="icon-remove menu-close"></i>
-			<a href="#introduction" class="smoothScroll">Introduction</a>
+			<a href="#introduction" class="smoothScroll"><u>Introduction</u></a>
 			<a href="#data" class="smoothScroll">Data</a>
 			<a href="#analysis" class="smoothScroll">Analysis</a>
 			<a href="#software" class="smoothScroll">Software</a>
