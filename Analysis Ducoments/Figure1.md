@@ -3,7 +3,7 @@ sort: 1
 title: "Mrakdown for Figure1"
 author: "Xia Zhao"
 output: html_document
-code_folding:hide
+code_folding:show
 toc_float:TRUE
 runtime:shiny
 ---
