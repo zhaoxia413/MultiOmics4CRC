@@ -15,22 +15,20 @@ runtime:shiny
 This document describes the methodology for obtaining raw data and closed-reference OTU picking. All code is run either in R or bash.
 
 <script src="toggleR.js">
+  ```
+  library(data.table)
+  library(tidyverse)
+  library(ggthemes)
+  library(ggsci)
+  library(ggpubr)
+  library(survminer)
+  library(survival)
+  library(survivalROC)
+  library(reshape2)
 ```
-
-library(data.table)
-library(tidyverse)
-library(ggthemes)
-library(ggsci)
-library(ggpubr)
-library(survminer)
-library(survival)
-library(survivalROC)
-library(reshape2)
-
-```
-
 </script>
 
+## test
 ```
 :root {
   @for $level from 1 through 12 {
@@ -61,8 +59,9 @@ library(reshape2)
 ```
 
 <details>
-<summary>code</summary>
-```
+ <summary>code</summary>
+
+   ```
   library(data.table)
   library(tidyverse)
   library(ggthemes)
@@ -72,7 +71,7 @@ library(reshape2)
   library(survival)
   library(survivalROC)
   library(reshape2)
-  ```
+   ```
   </details>
 
 <script>
