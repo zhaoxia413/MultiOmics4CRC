@@ -14,6 +14,22 @@ runtime:shiny
 
 This document describes the methodology for obtaining raw data and closed-reference OTU picking. All code is run either in R or bash.
 
+<script src="toggleR.js">
+```
+
+library(data.table)
+library(tidyverse)
+library(ggthemes)
+library(ggsci)
+library(ggpubr)
+library(survminer)
+library(survival)
+library(survivalROC)
+library(reshape2)
+
+```
+
+</script>
 
 ```
 :root {
