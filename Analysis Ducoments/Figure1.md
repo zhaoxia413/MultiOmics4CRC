@@ -2,6 +2,14 @@
 sort: 1
 ---
 
+---
+title: "An Example Using the Tufte Style"
+author: "Xia Zhao"
+output:
+  tufte::tufte_handout: default
+  tufte::tufte_html: default
+---
+
 # Mrakdown for Figure1
 
 [`Return`](./)
