@@ -48,11 +48,11 @@
 		<div class="menu-wrap">
 			<h1 class="logo"><a href="index.html#home">Muti-omics assays</a></h1>
 			<i class="icon-remove menu-close"></i>
-			<a href="#introduction" class="smoothScroll"><u>Introduction</u></a>
-			<a href="#data" class="smoothScroll">Data</a>
-			<a href="#analysis" class="smoothScroll">Analysis</a>
-			<a href="#software" class="smoothScroll">Software</a>
-			<a href="#contact" class="smoothScroll">Contact</a>
+			<a href="#introduction" class="smoothScroll"><b><u>Introduction</u></b></a>
+			<a href="#data" class="smoothScroll"><b><u>Data</u></b></a>
+			<a href="#analysis" class="smoothScroll"><b><u>Analysis</u></b></a>
+			<a href="#software" class="smoothScroll"><b><u>Software</u></b></a>
+			<a href="#contact" class="smoothScroll"><b><u>Contact</u></b></a>
 		</div>
 		
 		<!-- Menu button -->
