@@ -31,8 +31,7 @@ This document describes the methodology for obtaining raw data and closed-refere
 # Environment
 
 <script src="toggleR.js">
-```{r }
-
+```
 library(data.table)
 library(tidyverse)
 library(ggthemes)
@@ -42,9 +41,7 @@ library(survminer)
 library(survival)
 library(survivalROC)
 library(reshape2)
-
 ```
-
 </script> 
 
 ```{r }
