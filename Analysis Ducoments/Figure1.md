@@ -2,11 +2,11 @@
 sort: 1
 ---
 
-#Figure 1
+# Background
 
-`inline code`
+This document describes the methodology for obtaining raw data and closed-reference OTU picking. All code is run either in R or bash.
 
-[`inline code inside link`](./)
+[`Return`](./)
 
 ```
 :root {
@@ -19,6 +19,7 @@ sort: 1
   }
 }
 ```
+# Environment
 
 **Highlight:**
 
@@ -67,5 +68,8 @@ plot(pressure)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
+# Metadata
 
+
+## Including Plots
 
