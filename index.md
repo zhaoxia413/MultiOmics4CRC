@@ -95,7 +95,7 @@
 							</p>
 						</div>
 						<div class="col-6 col-12-medium imp-medium">
-							<span class="image fit"><img src="images/Cytokines_alpha_diversity.tif" alt="" style="float:right; margin: 5px;"/></span>
+							<span class="image fit"><img src="images/thelancet2019.jpeg" alt="" style="float:right; margin: 5px;"/></span>
 						</div>
 					</div>
 				</div>
