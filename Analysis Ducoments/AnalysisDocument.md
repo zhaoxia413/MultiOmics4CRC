@@ -10,7 +10,7 @@
 1 Introduction
 ==============
 
-```Introduction
+```tip
 For documentation, see: https://kramdown.gettalong.org/syntax.html#math-blocks
 ```
 
