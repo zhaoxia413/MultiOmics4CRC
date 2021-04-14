@@ -56,19 +56,19 @@ options(stringsAsFactors = F)
 
 ```{r}
 cli<-fread("../Data/Data/clinical.csv",data.table = F)
-knitr::kable(cli,digits = 1)
+knitr::kable(cli,digits = 1,row.names = 1)
 
 ```
 # Samples sequending statistics
 
-```{r fig.width=10/2.54, fig.height=10/2.54, dpi=300}
+```{r fig.width=10/2.54, fig.height=10/2.54, dpi=600}
 data<-fread("../Data/Data/samples_seqInfo.csv",data.table = F)
 knitr::include_graphics("../images/samples_seqInfo.png")
 ```        
 
 # Vsisualization
 
-```{r fig.width=7, fig.height=4, dpi=300}
+```{r fig.width=7, fig.height=4, dpi=600}
 df<-fread("../Data/Data/Phylum_cli_111samples.csv",data.table = F)
 df$FBratio<-df$Firmicutes/df$Bacteroidetes
 df$FBratio_g<-ifelse(df$FBratio>=median(df$FBratio),"High","Low")
@@ -102,7 +102,7 @@ ggsurvplot(fit, data=data,xlab = "Time(months)",conf.int = T,tables.theme = them
                 risk.table.y.text = FALSE )
 ```
 
-```{r fig.width=10, fig.height=4,dpi=300}
+```{r fig.width=10, fig.height=4,dpi=600}
 p1<-ggscatter(subset(df,Cycle=="BL"&Response!="NE"&FBratio<10), x = "FBratio", y = "BMI",size=0.5,mean.point = T,
           color = "Site", add.params = list(c(size=0.5,color="Site")),
           add = "reg.line", conf.int = TRUE)+
@@ -133,7 +133,7 @@ plot_grid(p1,p2, p3,labels = c("A","B","C"), ncol =3, nrow = 1)
 
 ```
 
-```{r fig.height=4, fig.width=6, collapse=TRUE, dpi=300, paged.print=FALSE, results='hold', tidy=TRUE}
+```{r fig.height=4, fig.width=6, collapse=TRUE, dpi=600, paged.print=FALSE, results='hold', tidy=TRUE}
 df<-fread("../Data/Data/paired_BL_treat_16patients.csv",data.table = F)
 
 df$Hand_food_syndrom<-as.factor(df$Hand_food_syndrom)
@@ -206,13 +206,11 @@ bar2<-ggplot(df,aes(Group,Desulfovibrionaceae,fill=Diarrhea_g))+
   theme(legend.key = element_blank(),
         axis.title.x = element_blank())
 ```
-```{r fig.height=4, fig.width=6, dpi=300}
+```{r fig.height=4, fig.width=6, dpi=600}
 plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 ```
 
-```tip
-Edit this page to see how to add this to your docs, theme can use [@primer/css utilities](https://primer.style/css/utilities)
-```
+
 
 
 
