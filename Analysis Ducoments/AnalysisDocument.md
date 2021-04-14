@@ -1,7 +1,7 @@
--   [1 Introduction](#introduction)
--   [2 Clinical](#clinical)
--   [3 Samples sequending statistics](#samples-sequending-statistics)
--   [4 Vsisualization](#vsisualization)
+- [1 Introduction](#1-introduction)
+- [2 Clinical](#2-clinical)
+- [3 Samples sequending statistics](#3-samples-sequending-statistics)
+- [4 Vsisualization](#4-vsisualization)
 
 ================
 
@@ -9,6 +9,10 @@
 
 1 Introduction
 ==============
+
+```Introduction
+For documentation, see: https://kramdown.gettalong.org/syntax.html#math-blocks
+```
 
 <table>
 <tr>
@@ -21,31 +25,29 @@
 <summary>
 <font size=4>Requires</font>
 </summary>
-
-    library(tidyverse)
-    library(ggthemes)
-    library(ggsci)
-    library(ggpubr)
-    library(survminer)
-    library(survival)
-    library(survivalROC)
-    library(reshape2)
-    library(data.table)
-    library(ggExtra)
-    library(cowplot)
-    library(ComplexHeatmap)
-    library(scico)
-    library(colorspace)
-    library(RColorBrewer)
-    library(lubridate)
-    library(tableone)
-    library(kableExtra)
-    source("../R_function/colors.R")
-    source("../R_function/surv_plot.R")
-    theme_set(theme_cowplot())
-    "%ni%" <- Negate("%in%")
-    options(stringsAsFactors = F)
-
+    library(tidyverse)<br>
+    library(ggthemes)<br>
+    library(ggsci)<br>
+    library(ggpubr)<br>
+    library(survminer)<br>
+    library(survival)<br>
+    library(survivalROC)<br>
+    library(reshape2)<br>
+    library(data.table)<br>
+    library(ggExtra)<br>
+    library(cowplot)<br>
+    library(ComplexHeatmap)<br>
+    library(scico)<br>
+    library(colorspace)<br>
+    library(RColorBrewer)<br>
+    library(lubridate)<br>
+    library(tableone)<br>
+    library(kableExtra)<br>
+    source("../R_function/colors.R")<br>
+    source("../R_function/surv_plot.R")<br>
+    theme_set(theme_cowplot())<br>
+    "%ni%" <- Negate("%in%")<br>
+    options(stringsAsFactors = F)<br>
 </details>
 
 2 Clinical
@@ -935,3 +937,7 @@ exact
     plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 
 ![](AnalysisDocument_files/figure-markdown_strict/unnamed-chunk-8-1.png)
+
+```tip
+Edit this page to see how to add this to your docs, theme can use [@primer/css utilities](https://primer.style/css/utilities)
+```
