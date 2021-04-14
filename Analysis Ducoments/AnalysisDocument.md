@@ -53,8 +53,8 @@
 <a href="../Data/Data/clinical.csv" target="csv">Clinical.csv</a>
 
     cli<-fread("../Data/Data/clinical.csv",data.table = F)
-    factorvars <- colnames(cli)[-c(1:3,23:28)]
-    tableone_groups <- CreateTableOne(vars = colnames(cli)[-c(1:3,23:28)],
+    factorvars <- colnames(cli)[-c(1:3,22:25)]
+    tableone_groups <- CreateTableOne(vars = colnames(cli)[-c(1:3,22:25)],
                                       strata = 'Response',
                                       data = cli, 
                                       factorVars = factorvars)
@@ -471,7 +471,7 @@ exact
 </tr>
 <tr>
 <td style="text-align:left;">
-Age\_g = &gt;60 (%)
+Age = &gt;60 (%)
 </td>
 <td style="text-align:left;">
 0 (0.0)
@@ -491,7 +491,7 @@ exact
 </tr>
 <tr>
 <td style="text-align:left;">
-BMI\_g = &gt;=25 (%)
+BMI = &gt;=25 (%)
 </td>
 <td style="text-align:left;">
 2 (33.3)
@@ -704,26 +704,6 @@ OtherM = yes (%)
 </td>
 <td style="text-align:left;">
 0.162
-</td>
-<td style="text-align:left;">
-exact
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MetastasisNum = 3or4 (%)
-</td>
-<td style="text-align:left;">
-3 (50.0)
-</td>
-<td style="text-align:left;">
-7 (33.3)
-</td>
-<td style="text-align:left;">
-5 (38.5)
-</td>
-<td style="text-align:left;">
-0.824
 </td>
 <td style="text-align:left;">
 exact

@@ -58,8 +58,8 @@ options(stringsAsFactors = F)
 
 ```{r}
 cli<-fread("../Data/Data/clinical.csv",data.table = F)
-factorvars <- colnames(cli)[-c(1:3,23:28)]
-tableone_groups <- CreateTableOne(vars = colnames(cli)[-c(1:3,23:28)],
+factorvars <- colnames(cli)[-c(1:3,22:25)]
+tableone_groups <- CreateTableOne(vars = colnames(cli)[-c(1:3,22:25)],
                                   strata = 'Response',
                                   data = cli, 
                                   factorVars = factorvars)
