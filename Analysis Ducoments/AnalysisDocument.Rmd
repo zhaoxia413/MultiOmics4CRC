@@ -43,6 +43,7 @@ library(scico)
 library(colorspace)
 library(RColorBrewer)
 library(lubridate)
+library(tableone)
 source("../R_function/colors.R")
 source("../R_function/surv_plot.R")
 theme_set(theme_cowplot())
@@ -56,7 +57,18 @@ options(stringsAsFactors = F)
 
 ```{r}
 cli<-fread("../Data/Data/clinical.csv",data.table = F)
-knitr::kable(cli,digits = 1,row.names = 1)
+factorvars <- colnames(cli)[-c(1:3,23:26)]
+tableone_groups <- CreateTableOne(vars = colnames(cli)[-1],
+                                  strata = 'Response',
+                                  data = cli, 
+                                  factorVars = factorvars)
+table1_groups <- print(x = tableone_groups, 
+                       contDigits = 1,     
+                       exact = factorvars, 
+                       showAllLevels = FALSE, 
+                       noSpaces = TRUE, 
+                       printToggle = FALSE) 
+knitr::kable(table1_groups,digits = 1,row.names = 1)
 
 ```
 # Samples sequending statistics
@@ -84,7 +96,7 @@ fit
 ```
 
 
-```{r fig.width=5, fig.height=5}
+```{r fig.width=5, fig.height=5,dpi=600}
 ggsurvplot(fit, data=data,xlab = "Time(months)",conf.int = T,tables.theme = theme_few(base_size = 10),
            linetype = "strata",
                 legend.title = "",palette = c("black","red"),
