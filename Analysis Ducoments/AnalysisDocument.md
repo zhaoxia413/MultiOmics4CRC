@@ -38,6 +38,7 @@
     library(RColorBrewer)
     library(lubridate)
     library(tableone)
+    library(kableExtra)
     source("../R_function/colors.R")
     source("../R_function/surv_plot.R")
     theme_set(theme_cowplot())
@@ -52,8 +53,8 @@
 <a href="../Data/Data/clinical.csv" target="csv">Clinical.csv</a>
 
     cli<-fread("../Data/Data/clinical.csv",data.table = F)
-    factorvars <- colnames(cli)[-c(1:3,23:26)]
-    tableone_groups <- CreateTableOne(vars = colnames(cli)[-1],
+    factorvars <- colnames(cli)[-c(1:3,23:28)]
+    tableone_groups <- CreateTableOne(vars = colnames(cli)[-c(1:3,23:28)],
                                       strata = 'Response',
                                       data = cli, 
                                       factorVars = factorvars)
@@ -63,907 +64,690 @@
                            showAllLevels = FALSE, 
                            noSpaces = TRUE, 
                            printToggle = FALSE) 
-    knitr::kable(table1_groups,digits = 1,row.names = 1)
+    table1_groups %>%
+      knitr::kable(caption = "Recreating booktabs style table") 
 
 <table>
+<caption>
+Recreating booktabs style table
+</caption>
 <thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">NE</th>
-<th style="text-align: left;">NR</th>
-<th style="text-align: left;">R</th>
-<th style="text-align: left;">p</th>
-<th style="text-align: left;">test</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+NE
+</th>
+<th style="text-align:left;">
+NR
+</th>
+<th style="text-align:left;">
+R
+</th>
+<th style="text-align:left;">
+p
+</th>
+<th style="text-align:left;">
+test
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">n</td>
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">21</td>
-<td style="text-align: left;">13</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Response (%)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">&lt;0.001</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NE</td>
-<td style="text-align: left;">6 (100.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NR</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">21 (100.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">13 (100.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Effect (%)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">&lt;0.001</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">NE</td>
-<td style="text-align: left;">6 (100.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PD</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">21 (100.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PR</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">5 (38.5)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">SD</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">8 (61.5)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hand_food_syndrom (%)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">0.347</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Level0</td>
-<td style="text-align: left;">3 (50.0)</td>
-<td style="text-align: left;">12 (57.1)</td>
-<td style="text-align: left;">3 (23.1)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Level1</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">3 (14.3)</td>
-<td style="text-align: left;">2 (15.4)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Level2</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">5 (23.8)</td>
-<td style="text-align: left;">4 (30.8)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Level3</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">4 (30.8)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Rash (%)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">0.836</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Level0</td>
-<td style="text-align: left;">5 (83.3)</td>
-<td style="text-align: left;">13 (61.9)</td>
-<td style="text-align: left;">9 (69.2)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Level1</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">4 (19.0)</td>
-<td style="text-align: left;">3 (23.1)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Level2</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Level3</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Fever (%)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">0.481</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Level0</td>
-<td style="text-align: left;">5 (83.3)</td>
-<td style="text-align: left;">18 (85.7)</td>
-<td style="text-align: left;">9 (69.2)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Level1</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Level2</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">3 (23.1)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Diarrhea (%)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">0.957</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Level0</td>
-<td style="text-align: left;">5 (83.3)</td>
-<td style="text-align: left;">16 (76.2)</td>
-<td style="text-align: left;">12 (92.3)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Level1</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">3 (14.3)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Level2</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Level3</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Gender = Male (%)</td>
-<td style="text-align: left;">2 (33.3)</td>
-<td style="text-align: left;">12 (57.1)</td>
-<td style="text-align: left;">7 (53.8)</td>
-<td style="text-align: left;">0.623</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Age (%)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">0.243</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">37</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (15.4)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">39</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">42</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">44</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">3 (14.3)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">45</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">46</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">47</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">48</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">49</td>
-<td style="text-align: left;">2 (33.3)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">51</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">52</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">53</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">54</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">55</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">56</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">57</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">61</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">64</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">65</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">66</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">69</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BMI (%)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">1.000</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">18.82</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">19.3</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">19.82</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">19.96</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">20.44</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">20.7</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">20.93</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">21.09</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">21.2</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">21.3</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">21.34</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">21.36</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">21.41</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">21.45</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">21.46</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">22.31</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">22.65</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">22.72</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">23.31</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">23.42</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">23.61</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">23.62</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">23.88</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">23.92</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">23.99</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">24.68</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">24.69</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">25.15</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">25.33</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">25.39</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">25.51</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">25.89</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">25.95</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">25.97</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (7.7)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">26.78</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">27.34</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">28.32</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">31.77</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">1 (4.8)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">History = yes (%)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">7 (33.3)</td>
-<td style="text-align: left;">4 (30.8)</td>
-<td style="text-align: left;">0.276</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Smoking = yes (%)</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">3 (14.3)</td>
-<td style="text-align: left;">2 (15.4)</td>
-<td style="text-align: left;">1.000</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Dringking = yes (%)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (9.5)</td>
-<td style="text-align: left;">3 (23.1)</td>
-<td style="text-align: left;">0.417</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">anitEGFR = yes (%)</td>
-<td style="text-align: left;">3 (50.0)</td>
-<td style="text-align: left;">4 (19.0)</td>
-<td style="text-align: left;">5 (38.5)</td>
-<td style="text-align: left;">0.289</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">antiVEGF = yes (%)</td>
-<td style="text-align: left;">2 (33.3)</td>
-<td style="text-align: left;">14 (66.7)</td>
-<td style="text-align: left;">7 (53.8)</td>
-<td style="text-align: left;">0.316</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LiverM = yes (%)</td>
-<td style="text-align: left;">4 (66.7)</td>
-<td style="text-align: left;">16 (76.2)</td>
-<td style="text-align: left;">8 (61.5)</td>
-<td style="text-align: left;">0.642</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">LungM = yes (%)</td>
-<td style="text-align: left;">4 (66.7)</td>
-<td style="text-align: left;">12 (57.1)</td>
-<td style="text-align: left;">8 (61.5)</td>
-<td style="text-align: left;">1.000</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LymphM = yes (%)</td>
-<td style="text-align: left;">3 (50.0)</td>
-<td style="text-align: left;">10 (47.6)</td>
-<td style="text-align: left;">5 (38.5)</td>
-<td style="text-align: left;">0.911</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PeritonealM = yes (%)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">6 (28.6)</td>
-<td style="text-align: left;">4 (30.8)</td>
-<td style="text-align: left;">0.415</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OtherM = yes (%)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">4 (19.0)</td>
-<td style="text-align: left;">2 (15.4)</td>
-<td style="text-align: left;">0.838</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">MetastasisNum (%)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">0.081</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">2 (33.3)</td>
-<td style="text-align: left;">3 (14.3)</td>
-<td style="text-align: left;">6 (46.2)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">3 (50.0)</td>
-<td style="text-align: left;">9 (42.9)</td>
-<td style="text-align: left;">2 (15.4)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">1 (16.7)</td>
-<td style="text-align: left;">9 (42.9)</td>
-<td style="text-align: left;">3 (23.1)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">0 (0.0)</td>
-<td style="text-align: left;">2 (15.4)</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Location = right (%)</td>
-<td style="text-align: left;">2 (33.3)</td>
-<td style="text-align: left;">7 (33.3)</td>
-<td style="text-align: left;">4 (30.8)</td>
-<td style="text-align: left;">1.000</td>
-<td style="text-align: left;">exact</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PFS (mean (SD))</td>
-<td style="text-align: left;">0.8 (0.4)</td>
-<td style="text-align: left;">1.0 (0.0)</td>
-<td style="text-align: left;">0.8 (0.4)</td>
-<td style="text-align: left;">0.080</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OS (mean (SD))</td>
-<td style="text-align: left;">0.3 (0.5)</td>
-<td style="text-align: left;">0.4 (0.5)</td>
-<td style="text-align: left;">0.2 (0.4)</td>
-<td style="text-align: left;">0.266</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PFStime (mean (SD))</td>
-<td style="text-align: left;">5.4 (1.6)</td>
-<td style="text-align: left;">1.9 (0.4)</td>
-<td style="text-align: left;">6.2 (2.1)</td>
-<td style="text-align: left;">&lt;0.001</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OStime (mean (SD))</td>
-<td style="text-align: left;">7.4 (1.9)</td>
-<td style="text-align: left;">6.8 (2.8)</td>
-<td style="text-align: left;">9.5 (2.7)</td>
-<td style="text-align: left;">0.023</td>
-<td style="text-align: left;"></td>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+21
+</td>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hand\_food\_syndrom (%)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.347
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level0
+</td>
+<td style="text-align:left;">
+3 (50.0)
+</td>
+<td style="text-align:left;">
+12 (57.1)
+</td>
+<td style="text-align:left;">
+3 (23.1)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level1
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+3 (14.3)
+</td>
+<td style="text-align:left;">
+2 (15.4)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level2
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+5 (23.8)
+</td>
+<td style="text-align:left;">
+4 (30.8)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level3
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+1 (4.8)
+</td>
+<td style="text-align:left;">
+4 (30.8)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rash (%)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.836
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level0
+</td>
+<td style="text-align:left;">
+5 (83.3)
+</td>
+<td style="text-align:left;">
+13 (61.9)
+</td>
+<td style="text-align:left;">
+9 (69.2)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level1
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+4 (19.0)
+</td>
+<td style="text-align:left;">
+3 (23.1)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level2
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+2 (9.5)
+</td>
+<td style="text-align:left;">
+1 (7.7)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level3
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+2 (9.5)
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fever (%)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.481
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level0
+</td>
+<td style="text-align:left;">
+5 (83.3)
+</td>
+<td style="text-align:left;">
+18 (85.7)
+</td>
+<td style="text-align:left;">
+9 (69.2)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level1
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+1 (4.8)
+</td>
+<td style="text-align:left;">
+1 (7.7)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level2
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+2 (9.5)
+</td>
+<td style="text-align:left;">
+3 (23.1)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Diarrhea (%)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.957
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level0
+</td>
+<td style="text-align:left;">
+5 (83.3)
+</td>
+<td style="text-align:left;">
+16 (76.2)
+</td>
+<td style="text-align:left;">
+12 (92.3)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level1
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+3 (14.3)
+</td>
+<td style="text-align:left;">
+1 (7.7)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level2
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+1 (4.8)
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level3
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+1 (4.8)
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gender = Male (%)
+</td>
+<td style="text-align:left;">
+2 (33.3)
+</td>
+<td style="text-align:left;">
+12 (57.1)
+</td>
+<td style="text-align:left;">
+7 (53.8)
+</td>
+<td style="text-align:left;">
+0.623
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age\_g = &gt;60 (%)
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+6 (28.6)
+</td>
+<td style="text-align:left;">
+3 (23.1)
+</td>
+<td style="text-align:left;">
+0.505
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BMI\_g = &gt;=25 (%)
+</td>
+<td style="text-align:left;">
+2 (33.3)
+</td>
+<td style="text-align:left;">
+7 (33.3)
+</td>
+<td style="text-align:left;">
+2 (15.4)
+</td>
+<td style="text-align:left;">
+0.550
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+History = yes (%)
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+6 (28.6)
+</td>
+<td style="text-align:left;">
+4 (30.8)
+</td>
+<td style="text-align:left;">
+1.000
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Smoking = yes (%)
+</td>
+<td style="text-align:left;">
+2 (33.3)
+</td>
+<td style="text-align:left;">
+2 (9.5)
+</td>
+<td style="text-align:left;">
+2 (15.4)
+</td>
+<td style="text-align:left;">
+0.265
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dringking = yes (%)
+</td>
+<td style="text-align:left;">
+2 (33.3)
+</td>
+<td style="text-align:left;">
+1 (4.8)
+</td>
+<td style="text-align:left;">
+2 (15.4)
+</td>
+<td style="text-align:left;">
+0.154
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+anitEGFR = yes (%)
+</td>
+<td style="text-align:left;">
+2 (33.3)
+</td>
+<td style="text-align:left;">
+5 (23.8)
+</td>
+<td style="text-align:left;">
+5 (38.5)
+</td>
+<td style="text-align:left;">
+0.642
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+antiVEGF = yes (%)
+</td>
+<td style="text-align:left;">
+3 (50.0)
+</td>
+<td style="text-align:left;">
+13 (61.9)
+</td>
+<td style="text-align:left;">
+7 (53.8)
+</td>
+<td style="text-align:left;">
+0.829
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LiverM = yes (%)
+</td>
+<td style="text-align:left;">
+5 (83.3)
+</td>
+<td style="text-align:left;">
+14 (66.7)
+</td>
+<td style="text-align:left;">
+9 (69.2)
+</td>
+<td style="text-align:left;">
+0.896
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LungM = yes (%)
+</td>
+<td style="text-align:left;">
+5 (83.3)
+</td>
+<td style="text-align:left;">
+10 (47.6)
+</td>
+<td style="text-align:left;">
+9 (69.2)
+</td>
+<td style="text-align:left;">
+0.248
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LymphM = yes (%)
+</td>
+<td style="text-align:left;">
+2 (33.3)
+</td>
+<td style="text-align:left;">
+10 (47.6)
+</td>
+<td style="text-align:left;">
+6 (46.2)
+</td>
+<td style="text-align:left;">
+0.911
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PeritonealM = yes (%)
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+8 (38.1)
+</td>
+<td style="text-align:left;">
+2 (15.4)
+</td>
+<td style="text-align:left;">
+0.142
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OtherM = yes (%)
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+5 (23.8)
+</td>
+<td style="text-align:left;">
+0 (0.0)
+</td>
+<td style="text-align:left;">
+0.162
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MetastasisNum = 3or4 (%)
+</td>
+<td style="text-align:left;">
+3 (50.0)
+</td>
+<td style="text-align:left;">
+7 (33.3)
+</td>
+<td style="text-align:left;">
+5 (38.5)
+</td>
+<td style="text-align:left;">
+0.824
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Location = right (%)
+</td>
+<td style="text-align:left;">
+3 (50.0)
+</td>
+<td style="text-align:left;">
+6 (28.6)
+</td>
+<td style="text-align:left;">
+4 (30.8)
+</td>
+<td style="text-align:left;">
+0.590
+</td>
+<td style="text-align:left;">
+exact
+</td>
 </tr>
 </tbody>
 </table>

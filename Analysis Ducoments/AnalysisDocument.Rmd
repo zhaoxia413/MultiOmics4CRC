@@ -44,6 +44,7 @@ library(colorspace)
 library(RColorBrewer)
 library(lubridate)
 library(tableone)
+library(kableExtra)
 source("../R_function/colors.R")
 source("../R_function/surv_plot.R")
 theme_set(theme_cowplot())
@@ -57,8 +58,8 @@ options(stringsAsFactors = F)
 
 ```{r}
 cli<-fread("../Data/Data/clinical.csv",data.table = F)
-factorvars <- colnames(cli)[-c(1:3,23:26)]
-tableone_groups <- CreateTableOne(vars = colnames(cli)[-1],
+factorvars <- colnames(cli)[-c(1:3,23:28)]
+tableone_groups <- CreateTableOne(vars = colnames(cli)[-c(1:3,23:28)],
                                   strata = 'Response',
                                   data = cli, 
                                   factorVars = factorvars)
@@ -68,8 +69,8 @@ table1_groups <- print(x = tableone_groups,
                        showAllLevels = FALSE, 
                        noSpaces = TRUE, 
                        printToggle = FALSE) 
-knitr::kable(table1_groups,digits = 1,row.names = 1)
-
+table1_groups %>%
+  knitr::kable(caption = "Recreating booktabs style table") 
 ```
 # Samples sequending statistics
 
