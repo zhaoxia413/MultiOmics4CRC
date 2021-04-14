@@ -12,13 +12,13 @@
 <table>
 <tr>
 <td bgcolor="#AFEEEE">
-<font size=6>**This is introduction**</font>
+<font size=4>This is introduction</font>
 </td>
 </tr>
 </table>
 <details>
 <summary>
-<font size=4>**Requires**</font>
+<font size=4>Requires</font>
 </summary>
 
     library(tidyverse)
@@ -1478,3 +1478,5 @@
     plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 
 ![](AnalysisDocument_files/figure-markdown_strict/unnamed-chunk-8-1.png)
+
+    Edit this page to see how to add this to your docs, theme can use [@primer/css utilities](https://primer.style/css/utilities)
