@@ -1,0 +1,27 @@
+surv_plot<-function(fit,data,colors,title){
+  library(survcomp)
+  library(survminer)
+  library(survival)
+  library(grid)
+  library(ggplotify)
+  p<-ggsurvplot(fit, data=data,xlab = "Time(months)", linetype = "strata",
+                legend.title = "",censor.size=0.5, size = 0.5,
+                risk.table = F,
+                #legend = c(0.84, 0.8),
+                pval = TRUE,pval.size = 4, 
+                pval.coord=c(0.8,0.2),pval.method=F,
+                pval.method.coord=c(0.05,0.3), 
+                ggtheme = theme_minimal() + 
+                  theme(line = element_line(size = 0.1),
+                        text  = element_text(size = 8),
+                        legend.direction = "vertical"),
+                palette = colors,
+                main=title,
+                risk.table.col = "strata",
+                surv.median.line = "hv",
+                risk.table.y.text.col = T,
+                risk.table.y.text = FALSE )
+  return(p)
+}
+
+theme()
