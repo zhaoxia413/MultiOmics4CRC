@@ -766,8 +766,9 @@ exact
     ## BMI_g=High 10      8   3.28    2.20      NA
     ## BMI_g=Low  22     21   1.97    1.87     4.2
 
-    ggsurvplot(fit, data=data,xlab = "Time(months)",censor.size=1, size = 1,
-               conf.int = T,tables.theme = theme_few(base_size = 8),
+    ggsurvplot(fit, data=data,xlab = "Time(months)",
+               censor.size=0.5, size = 0.5,
+               conf.int = T,tables.theme = theme_few(base_size = 6),
                linetype = "strata",
                     legend.title = "",palette = c("black","red"),
                     risk.table = T,
@@ -777,7 +778,7 @@ exact
                     pval.method.coord=c(0.05,0.3), 
                     ggtheme = theme_minimal() + 
                       theme(line = element_line(size = 0.1),
-                            text  = element_text(size = 8)),
+                            text  = element_text(size = 6)),
                     risk.table.col = "strata",
                     surv.median.line = "hv",
                     risk.table.y.text.col = T,
