@@ -12,7 +12,8 @@ output:
 
 
 
-=======================================================================
+================
+
 [`Return`](./)
 
 
@@ -97,13 +98,14 @@ fit
 ```
 
 
-```{r fig.width=5, fig.height=5,dpi=600}
-ggsurvplot(fit, data=data,xlab = "Time(months)",conf.int = T,tables.theme = theme_few(base_size = 10),
+```{r fig.width=3, fig.height=3,dpi=600}
+ggsurvplot(fit, data=data,xlab = "Time(months)",censor.size=1, size = 1,
+           conf.int = T,tables.theme = theme_few(base_size = 8),
            linetype = "strata",
                 legend.title = "",palette = c("black","red"),
                 risk.table = T,
                 #legend = c(0.84, 0.8),
-                pval = TRUE,pval.size = 4, 
+                pval = TRUE,pval.size = 3, 
                 pval.coord=c(0.8,0.2),pval.method=F,
                 pval.method.coord=c(0.05,0.3), 
                 ggtheme = theme_minimal() + 

@@ -1,4 +1,4 @@
-patientID,Response,Effect,Hand_food_syndrom,Rash,Fever,Diarrhea,Gender,Age,BMI,History,Smoking,Dringking,anitEGFR,antiVEGF,LiverM,LungM,LymphM,PeritonealM,OtherM,Location,PFS,OS,PFStime,OStime
+patientID,Response,Effect,HandFoodSyndrom,Rash,Fever,Diarrhea,Gender,Age,BMI,History,Smoking,Dringking,anitEGFR,antiVEGF,LiverM,LungM,LymphM,PeritonealM,OtherM,Location,PFS,OS,PFStime,OStime
 Patient10,R,SD,Level1,Level2,Level2,Level0,Female,<60,<25,yes,no,no,no,yes,no,yes,no,no,no,right,1,0,7.7,10.6
 Patient42,NE,NE,Level1,Level0,Level1,Level0,Male,<60,<25,no,no,no,no,no,no,yes,no,no,no,left,1,0,4.9,8.266666667
 Patient37,R,SD,Level1,Level0,Level0,Level1,Female,<60,<25,yes,no,yes,no,yes,yes,no,no,no,no,right,1,0,1.233333333,2.666666667

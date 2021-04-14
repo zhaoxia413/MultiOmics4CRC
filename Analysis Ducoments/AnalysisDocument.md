@@ -3,7 +3,8 @@
 -   [3 Samples sequending statistics](#samples-sequending-statistics)
 -   [4 Vsisualization](#vsisualization)
 
-=======================================================================
+================
+
 [`Return`](./)
 
 1 Introduction
@@ -113,7 +114,7 @@ n
 </tr>
 <tr>
 <td style="text-align:left;">
-Hand\_food\_syndrom (%)
+HandFoodSyndrom (%)
 </td>
 <td style="text-align:left;">
 </td>
@@ -765,12 +766,13 @@ exact
     ## BMI_g=High 10      8   3.28    2.20      NA
     ## BMI_g=Low  22     21   1.97    1.87     4.2
 
-    ggsurvplot(fit, data=data,xlab = "Time(months)",conf.int = T,tables.theme = theme_few(base_size = 10),
+    ggsurvplot(fit, data=data,xlab = "Time(months)",censor.size=1, size = 1,
+               conf.int = T,tables.theme = theme_few(base_size = 8),
                linetype = "strata",
                     legend.title = "",palette = c("black","red"),
                     risk.table = T,
                     #legend = c(0.84, 0.8),
-                    pval = TRUE,pval.size = 4, 
+                    pval = TRUE,pval.size = 3, 
                     pval.coord=c(0.8,0.2),pval.method=F,
                     pval.method.coord=c(0.05,0.3), 
                     ggtheme = theme_minimal() + 
