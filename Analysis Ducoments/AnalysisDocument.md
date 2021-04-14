@@ -1284,7 +1284,7 @@
     data<-fread("../Data/Data/samples_seqInfo.csv",data.table = F)
     knitr::include_graphics("../images/samples_seqInfo.png")
 
-<img src="../images/samples_seqInfo.png" width="3246" />
+<img src="../images/samples_seqInfo.png" width="1039" />
 
 4 Vsisualization
 ================
