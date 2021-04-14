@@ -19,16 +19,14 @@ output:
 # Introduction
 
 <table><tr><td bgcolor=#AFEEEE>
-<font size=6>`This is introduction`</font></td></tr></table>
+<font size=6>**This is introduction**</font></td></tr></table>
 
-
-# Environment
 
 <details>
 <summary>
-<font size=4>**Requires and  Environment**</font>
+<font size=4>**Requires**</font>
 </summary>
-```{r tidy=TRUE,results='hold'}
+```{r tidy=TRUE,results='hold',message=FALSE}
 library(tidyverse)
 library(ggthemes)
 library(ggsci)
@@ -50,7 +48,6 @@ source("../R_function/surv_plot.R")
 theme_set(theme_cowplot())
 "%ni%"<-Negate("%in%")
 options(stringsAsFactors = F)
-sessionInfo()
 ```
 </details>
 

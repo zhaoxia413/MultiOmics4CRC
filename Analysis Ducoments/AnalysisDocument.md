@@ -1,8 +1,7 @@
 -   [1 Introduction](#introduction)
--   [2 Environment](#environment)
--   [3 Clinical](#clinical)
--   [4 Samples sequending statistics](#samples-sequending-statistics)
--   [5 Vsisualization](#vsisualization)
+-   [2 Clinical](#clinical)
+-   [3 Samples sequending statistics](#samples-sequending-statistics)
+-   [4 Vsisualization](#vsisualization)
 
 =======================================================================
 [`Return`](./)
@@ -13,32 +12,16 @@
 <table>
 <tr>
 <td bgcolor="#AFEEEE">
-<font size=6>`This is introduction`</font>
+<font size=6>**This is introduction**</font>
 </td>
 </tr>
 </table>
-
-2 Environment
-=============
-
 <details>
 <summary>
-<font size=4>**Requires and Environment**</font>
+<font size=4>**Requires**</font>
 </summary>
 
     library(tidyverse)
-
-    ## ─ Attaching packages ──────────────────── tidyverse 1.3.0 ─
-
-    ## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
-    ## ✓ tibble  3.1.0     ✓ dplyr   1.0.5
-    ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-    ## ✓ readr   1.4.0     ✓ forcats 0.5.1
-
-    ## ─ Conflicts ───────────────────── tidyverse_conflicts() ─
-    ## x dplyr::filter() masks stats::filter()
-    ## x dplyr::lag()    masks stats::lag()
-
     library(ggthemes)
     library(ggsci)
     library(ggpubr)
@@ -46,146 +29,23 @@
     library(survival)
     library(survivalROC)
     library(reshape2)
-
-    ## 
-    ## Attaching package: 'reshape2'
-
-    ## The following object is masked from 'package:tidyr':
-    ## 
-    ##     smiths
-
     library(data.table)
-
-    ## 
-    ## Attaching package: 'data.table'
-
-    ## The following objects are masked from 'package:reshape2':
-    ## 
-    ##     dcast, melt
-
-    ## The following objects are masked from 'package:dplyr':
-    ## 
-    ##     between, first, last
-
-    ## The following object is masked from 'package:purrr':
-    ## 
-    ##     transpose
-
     library(ggExtra)
     library(cowplot)
-
-    ## 
-    ## Attaching package: 'cowplot'
-
-    ## The following object is masked from 'package:ggpubr':
-    ## 
-    ##     get_legend
-
-    ## The following object is masked from 'package:ggthemes':
-    ## 
-    ##     theme_map
-
     library(ComplexHeatmap)
-
-    ## Loading required package: grid
-
-    ## ========================================
-    ## ComplexHeatmap version 2.2.0
-    ## Bioconductor page: http://bioconductor.org/packages/ComplexHeatmap/
-    ## Github page: https://github.com/jokergoo/ComplexHeatmap
-    ## Documentation: http://jokergoo.github.io/ComplexHeatmap-reference
-    ## 
-    ## If you use it in published research, please cite:
-    ## Gu, Z. Complex heatmaps reveal patterns and correlations in multidimensional 
-    ##   genomic data. Bioinformatics 2016.
-    ## ========================================
-
     library(scico)
     library(colorspace)
     library(RColorBrewer)
     library(lubridate)
-
-    ## 
-    ## Attaching package: 'lubridate'
-
-    ## The following object is masked from 'package:cowplot':
-    ## 
-    ##     stamp
-
-    ## The following objects are masked from 'package:data.table':
-    ## 
-    ##     hour, isoweek, mday, minute, month, quarter, second, wday, week,
-    ##     yday, year
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     date, intersect, setdiff, union
-
     source("../R_function/colors.R")
     source("../R_function/surv_plot.R")
     theme_set(theme_cowplot())
     "%ni%" <- Negate("%in%")
     options(stringsAsFactors = F)
-    sessionInfo()
-
-    ## R version 3.6.2 (2019-12-12)
-    ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-    ## Running under: macOS Catalina 10.15.4
-    ## 
-    ## Matrix products: default
-    ## BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
-    ## LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
-    ## 
-    ## locale:
-    ## [1] zh_CN.UTF-8/zh_CN.UTF-8/zh_CN.UTF-8/C/zh_CN.UTF-8/zh_CN.UTF-8
-    ## 
-    ## attached base packages:
-    ## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-    ## [8] base     
-    ## 
-    ## other attached packages:
-    ##  [1] lubridate_1.7.10     RColorBrewer_1.1-2   colorspace_2.0-0    
-    ##  [4] scico_1.2.0          ComplexHeatmap_2.2.0 cowplot_1.1.1       
-    ##  [7] ggExtra_0.9          data.table_1.13.6    reshape2_1.4.4      
-    ## [10] survivalROC_1.0.3    survival_3.2-7       survminer_0.4.9     
-    ## [13] ggpubr_0.4.0         ggsci_2.9            ggthemes_4.2.4      
-    ## [16] forcats_0.5.1        stringr_1.4.0        dplyr_1.0.5         
-    ## [19] purrr_0.3.4          readr_1.4.0          tidyr_1.1.3         
-    ## [22] tibble_3.1.0         ggplot2_3.3.3        tidyverse_1.3.0     
-    ## 
-    ## loaded via a namespace (and not attached):
-    ##  [1] fs_1.5.0            httr_1.4.2          tools_3.6.2        
-    ##  [4] backports_1.2.1     utf8_1.1.4          R6_2.5.0           
-    ##  [7] DBI_1.1.1           GetoptLong_1.0.5    withr_2.4.1        
-    ## [10] tidyselect_1.1.0    gridExtra_2.3       curl_4.3           
-    ## [13] compiler_3.6.2      cli_2.3.1           rvest_1.0.0        
-    ## [16] formatR_1.7         xml2_1.3.2          scales_1.1.1       
-    ## [19] survMisc_0.5.5      digest_0.6.27       foreign_0.8-76     
-    ## [22] rmarkdown_2.7       rio_0.5.26          pkgconfig_2.0.3    
-    ## [25] htmltools_0.5.1.1   fastmap_1.1.0       dbplyr_2.1.0       
-    ## [28] GlobalOptions_0.1.2 rlang_0.4.10        readxl_1.3.1       
-    ## [31] rstudioapi_0.13     shiny_1.6.0         shape_1.4.5        
-    ## [34] generics_0.1.0      zoo_1.8-9           jsonlite_1.7.2     
-    ## [37] zip_2.1.1           car_3.0-10          magrittr_2.0.1     
-    ## [40] Matrix_1.3-2        Rcpp_1.0.6          munsell_0.5.0      
-    ## [43] fansi_0.4.2         abind_1.4-5         lifecycle_1.0.0    
-    ## [46] stringi_1.5.3       yaml_2.2.1          carData_3.0-4      
-    ## [49] plyr_1.8.6          parallel_3.6.2      promises_1.2.0.1   
-    ## [52] crayon_1.4.1        miniUI_0.1.1.1      lattice_0.20-41    
-    ## [55] haven_2.3.1         splines_3.6.2       circlize_0.4.12    
-    ## [58] hms_1.0.0           knitr_1.31          pillar_1.5.1       
-    ## [61] rjson_0.2.20        ggsignif_0.6.1      reprex_1.0.0       
-    ## [64] glue_1.4.2          evaluate_0.14       modelr_0.1.8       
-    ## [67] png_0.1-7           httpuv_1.5.5        vctrs_0.3.6        
-    ## [70] cellranger_1.1.0    gtable_0.3.0        clue_0.3-58        
-    ## [73] km.ci_0.5-2         assertthat_0.2.1    xfun_0.21          
-    ## [76] openxlsx_4.2.3      mime_0.10           xtable_1.8-4       
-    ## [79] broom_0.7.5         later_1.1.0.1       rstatix_0.7.0      
-    ## [82] KMsurv_0.1-5        cluster_2.1.1       ellipsis_0.3.1
 
 </details>
 
-3 Clinical
+2 Clinical
 ==========
 
 <a href="../Data/Data/clinical.csv" target="csv">Clinical.csv</a>
@@ -1418,7 +1278,7 @@
 </tbody>
 </table>
 
-4 Samples sequending statistics
+3 Samples sequending statistics
 ===============================
 
     data<-fread("../Data/Data/samples_seqInfo.csv",data.table = F)
@@ -1426,7 +1286,7 @@
 
 <img src="../images/samples_seqInfo.png" width="3246" />
 
-5 Vsisualization
+4 Vsisualization
 ================
 
     df<-fread("../Data/Data/Phylum_cli_111samples.csv",data.table = F)
