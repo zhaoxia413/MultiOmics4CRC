@@ -95,7 +95,6 @@
 							</p>
 						</div>
 						<div class="col-6 col-12-medium imp-medium">
-							<span class="image fit"><img src="images/" alt="" style="float:right; margin: 5px;"/></span>
 						</div>
 					</div>
 				</div>
@@ -134,6 +133,7 @@
 							<header class="major">
 								<h2> Software </h2>
 							</header>
+							<span class="image fit"><img src="images/analysis_workflow.png" alt="" style="float:right; margin: 5px;"/></span>
 							<h4>OTUanalysis</h4>
 							<p>
 							<a href="https://ccb.jhu.edu/software/FLASH/index.shtml">Flash v1.2.11</a><br>
@@ -150,13 +150,18 @@
 							</p>
 							<h4>Vsisualization</h4>
 							<p>
-							<a href="https://www.drive5.com/usearch/">usearch v11</a><br>
 							<a href="https://github.com/bflammers/ANN2">ANN2</a><br>
 							<a href="https://github.com/cran/randomForest">randomForest</a><br>
 							<a href="https://topepo.github.io/caret/">caret</a><br>
 							<a href="https://github.com/therneau/survival">survival</a><br>
 							<a href="https://github.com/kassambara/survminer">survminer</a><br>
 							</p>
+							<h4>Survival analysis and machine learning</h4>
+							<a href="https://github.com/bflammers/ANN2">ANN2</a><br>
+							<a href="https://github.com/cran/randomForest">randomForest</a><br>
+							<a href="https://topepo.github.io/caret/">caret</a><br>
+							<a href="https://github.com/therneau/survival">survival</a><br>
+							<a href="https://github.com/kassambara/survminer">survminer</a><br>
 						</div>
 						<div class="col-6 col-12-medium imp-medium">
 							<span class="image fit"><img src="images/rs.png" alt="" /></span>
