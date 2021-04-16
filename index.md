@@ -133,7 +133,7 @@
 							<header class="major">
 								<h2> Software </h2>
 							</header>
-							<img src="images/analysis_workflow.png" style="vertical-align:middle" alt="Trulli" style="float:right;width:50%;height:auto;border:1px solid black；margin-right:10px">
+							<span class="image fit"><img src="images/analysis_workflow.png" style="vertical-align:middle" alt="Trulli" style="float:right;width:50%;height:auto;border:1px solid black；margin-right:10px"></span>
 							<h4>OTUanalysis</h4>
 							<p>
 							<a href="https://ccb.jhu.edu/software/FLASH/index.shtml">Flash v1.2.11</a><br>

@@ -3,7 +3,7 @@
     -   [1.2 Code](#code)
 -   [2 Rank-Abundance](#rank-abundance)
     -   [2.1 Code](#code-1)
-        -   [2.1.1 Shannon-Winne](#shannon-winne)
+        -   [2.1.1 Rank abundance curve](#rank-abundance-curve)
 -   [3 Pan/Core物种分析](#pancore物种分析)
     -   [3.1 Code](#code-2)
     -   [3.2 Including Plots](#including-plots)
@@ -73,7 +73,7 @@ Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度
 2.1 Code
 --------
 
-### 2.1.1 Shannon-Winne
+### 2.1.1 Rank abundance curve
 
     otu<-fread("../Data/Data/OTUtable_ori.csv",data.table = F)
     meta<-fread("../Data/Data/meta.csv",data.table = F)

@@ -72,7 +72,7 @@ Rank-Abundance 曲线是分析多样性的一种方式。构建方法是统计�
 Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度和群落均匀度。在水平方向，物种的丰富度由曲线的宽度来反映，曲线在横轴上的范围越大，物种的丰富度就越高；曲线的形状（平缓程度）反映了样本中群落的均匀度，曲线越平缓，物种分布越均匀。
 
 ## Code
-### Shannon-Winne
+### Rank abundance curve
 ```{r}
 otu<-fread("../Data/Data/OTUtable_ori.csv",data.table = F)
 meta<-fread("../Data/Data/meta.csv",data.table = F)
@@ -97,7 +97,7 @@ p<-ggplot(rank_dat, aes(rank, log(abundance, 10), color = Site)) +
   scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
 ```
 
-```{r fig.width=7, fig.height=4, dpi=600}
+```{r fig.width=3, fig.height=3, dpi=600,warning=F}
 p
 
 ```
