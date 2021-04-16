@@ -97,7 +97,7 @@ p<-ggplot(rank_dat, aes(rank, log(abundance, 10), color = Site)) +
   scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
 ```
 
-```{r nice-fig,out.width = "30%",fig.height=3,fig.width=6, dpi=600,fig.align='center'}
+```{r nice-fig,out.width = "50%",fig.height=3,fig.width=6, dpi=600,fig.align='center'}
 p
 ```
 

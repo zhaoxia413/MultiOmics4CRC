@@ -84,7 +84,7 @@ knitr::include_graphics("../images/samples_seqInfo.png")
 
 # Vsisualization
 
-```{r fig.width=7, fig.height=4, dpi=600,fig.align='center'}
+```{r}
 df<-fread("../Data/Data/Phylum_cli_111samples.csv",data.table = F)
 df$FBratio<-df$Firmicutes/df$Bacteroidetes
 df$FBratio_g<-ifelse(df$FBratio>=median(df$FBratio),"High","Low")
@@ -100,7 +100,7 @@ fit
 ```
 
 
-```{r fig.width=3, fig.height=3,dpi=600,fig.align='center'}
+```{r fig.width=4, fig.height=3,dpi=600,fig.align='center',,out.width = "40%"}
 ggsurvplot(fit, data=data,xlab = "Time(months)",
            censor.size=0.5, size = 0.5,
            conf.int = T,tables.theme = theme_few(base_size = 6),
@@ -120,7 +120,7 @@ ggsurvplot(fit, data=data,xlab = "Time(months)",
                 risk.table.y.text = FALSE )
 ```
 
-```{r fig.width=10, fig.height=4,dpi=600,fig.align='center'}
+```{r fig.width=10, fig.height=4,dpi=600,fig.align='center',,out.width = "90%"}
 p1<-ggscatter(subset(df,Cycle=="BL"&Response!="NE"&FBratio<10), x = "FBratio", y = "BMI",size=0.5,mean.point = T,
           color = "Site", add.params = list(c(size=0.5,color="Site")),
           add = "reg.line", conf.int = TRUE)+
@@ -224,7 +224,7 @@ bar2<-ggplot(df,aes(Group,Desulfovibrionaceae,fill=Diarrhea_g))+
   theme(legend.key = element_blank(),
         axis.title.x = element_blank())
 ```
-```{r fig.height=4, fig.width=6, dpi=600,fig.align='center'}
+```{r fig.height=4, fig.width=6, dpi=600,fig.align='center',out.width = "50%"}
 plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 ```
 
