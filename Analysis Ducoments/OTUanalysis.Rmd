@@ -73,7 +73,7 @@ Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度
 
 ## Code
 ### Rank abundance curve
-```{r}
+```{r warning=F}
 otu<-fread("../Data/Data/OTUtable_ori.csv",data.table = F)
 meta<-fread("../Data/Data/meta.csv",data.table = F)
 otu<-t(data.frame(row.names = otu$OTU,otu[,-1]))
@@ -97,7 +97,7 @@ p<-ggplot(rank_dat, aes(rank, log(abundance, 10), color = Site)) +
   scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
 ```
 
-```{r fig.width=3, fig.height=3, dpi=600,warning=F}
+```{r fig.width=5, fig.height=3, dpi=600}
 p
 
 ```
