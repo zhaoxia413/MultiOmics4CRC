@@ -133,7 +133,6 @@
 							<header class="major">
 								<h2> Software </h2>
 							</header>
-							<span class="image fit"><img src="images/analysis_workflow.png" alt="" style="float:right; margin: 5px;"/></span>
 							<img src="images/analysis_workflow.png" style="vertical-align:middle" alt="Trulli" style="float:right;width:20%;height:auto;border:1px solid black">
 							<h4>OTUanalysis</h4>
 							<p>
