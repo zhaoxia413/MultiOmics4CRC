@@ -17,6 +17,38 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+<details>
+<summary>
+<font size=4>Requires</font>
+</summary>
+```{r tidy=TRUE,results='hold',message=FALSE}
+library(tidyverse)
+library(ggthemes)
+library(ggsci)
+library(ggpubr)
+library(survminer)
+library(survival)
+library(survivalROC)
+library(reshape2)
+library(data.table)
+library(ggExtra)
+library(cowplot)
+library(ComplexHeatmap)
+library(scico)
+library(colorspace)
+library(RColorBrewer)
+library(lubridate)
+library(tableone)
+library(kableExtra)
+library(BiodiversityR)
+source("../R_function/colors.R")
+source("../R_function/surv_plot.R")
+theme_set(theme_cowplot())
+"%ni%"<-Negate("%in%")
+options(stringsAsFactors = F)
+```
+</details>
+
 # Summary
 
 OTU（Operational TaxonomicUnits）是在系统发生学或群体遗传学研究中，为了便于进行分析，人为给某一个分类单元（品系，属，种、分组等）设置的统一标志。要了解一个样本测序结果中的菌种、菌属等数目信息，就需要对序列进行聚类（cluster）。通过聚类操作，将序列按照彼此的相似性分归为许多小组，一个小组就是一个OTU。可根据不同的相似度水平，对所有序列进行OTU划分，通常对97%相似水平下的OTU进行生物信息统计分析。
@@ -40,6 +72,35 @@ Rank-Abundance 曲线是分析多样性的一种方式。构建方法是统计�
 Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度和群落均匀度。在水平方向，物种的丰富度由曲线的宽度来反映，曲线在横轴上的范围越大，物种的丰富度就越高；曲线的形状（平缓程度）反映了样本中群落的均匀度，曲线越平缓，物种分布越均匀。
 
 ## Code
+### Shannon-Winne
+```{r}
+otu<-fread("../Data/Data/OTUtable_ori.csv",data.table = F)
+meta<-fread("../Data/Data/meta.csv",data.table = F)
+otu<-t(data.frame(row.names = otu$OTU,otu[,-1]))
+otu_relative <- otu / rowSums(otu)
+rank_dat <- data.frame()
+for (i in rownames(otu_relative)) {
+  rank_dat_i <- data.frame(rankabundance(subset(otu_relative, 
+                                                rownames(otu_relative) == i), 
+                                         digits = 6))[1:2]
+  rank_dat_i$sample <- i
+  rank_dat <- rbind(rank_dat, rank_dat_i)
+}
+rank_dat <- subset(rank_dat, abundance != 0)
+colnames(rank_dat)[3]="Samples"
+rank_dat<-merge(rank_dat,meta,by="Samples")
+p<-ggplot(rank_dat, aes(rank, log(abundance, 10), color = Site)) +
+  geom_line(size=0.2) +
+  scale_colour_manual(limits = c('Saliva','Stool'), values = c('darkblue','orange')) +
+  labs(x = 'OTUs rank', y = 'Relative adundance (%)', color = NULL) +
+  theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.key = element_rect(fill = 'transparent')) +
+  scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
+```
+
+```{r fig.width=7, fig.height=4, dpi=600}
+p
+
+```
 
 # Pan/Core物种分析
 Pan/Core物种分析用于描述随着样本量增加物种总量和核心物种量变化的情况，在微生物多样性和群落研究中，被广泛用于判断样本量是否充足以及评估环境中总物种丰富度( species richness)和核心物种数。Pan/Core物种分析可以在各分类学水平上进行，包括domain（域），kingdom（界），phylum（门），class（纲），order（目），family（科），genus（属），species（种），OTU等。

@@ -3,11 +3,44 @@
     -   [1.2 Code](#code)
 -   [2 Rank-Abundance](#rank-abundance)
     -   [2.1 Code](#code-1)
+        -   [2.1.1 Shannon-Winne](#shannon-winne)
 -   [3 Pan/Core物种分析](#pancore物种分析)
     -   [3.1 Code](#code-2)
     -   [3.2 Including Plots](#including-plots)
 
 ================
+
+<details>
+<summary>
+<font size=4>Requires</font>
+</summary>
+
+    library(tidyverse)
+    library(ggthemes)
+    library(ggsci)
+    library(ggpubr)
+    library(survminer)
+    library(survival)
+    library(survivalROC)
+    library(reshape2)
+    library(data.table)
+    library(ggExtra)
+    library(cowplot)
+    library(ComplexHeatmap)
+    library(scico)
+    library(colorspace)
+    library(RColorBrewer)
+    library(lubridate)
+    library(tableone)
+    library(kableExtra)
+    library(BiodiversityR)
+    source("../R_function/colors.R")
+    source("../R_function/surv_plot.R")
+    theme_set(theme_cowplot())
+    "%ni%" <- Negate("%in%")
+    options(stringsAsFactors = F)
+
+</details>
 
 1 Summary
 =========
@@ -39,6 +72,257 @@ Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度
 
 2.1 Code
 --------
+
+### 2.1.1 Shannon-Winne
+
+    otu<-fread("../Data/Data/OTUtable_ori.csv",data.table = F)
+    meta<-fread("../Data/Data/meta.csv",data.table = F)
+    otu<-t(data.frame(row.names = otu$OTU,otu[,-1]))
+    otu_relative <- otu / rowSums(otu)
+    rank_dat <- data.frame()
+    for (i in rownames(otu_relative)) {
+      rank_dat_i <- data.frame(rankabundance(subset(otu_relative, 
+                                                    rownames(otu_relative) == i), 
+                                             digits = 6))[1:2]
+      rank_dat_i$sample <- i
+      rank_dat <- rbind(rank_dat, rank_dat_i)
+    }
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    ## Warning in qt(0.975, df = n - 1): 产生了NaNs
+
+    rank_dat <- subset(rank_dat, abundance != 0)
+    colnames(rank_dat)[3]="Samples"
+    rank_dat<-merge(rank_dat,meta,by="Samples")
+    p<-ggplot(rank_dat, aes(rank, log(abundance, 10), color = Site)) +
+      geom_line(size=0.2) +
+      scale_colour_manual(limits = c('Saliva','Stool'), values = c('darkblue','orange')) +
+      labs(x = 'OTUs rank', y = 'Relative adundance (%)', color = NULL) +
+      theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.key = element_rect(fill = 'transparent')) +
+      scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
+
+    p
+
+![](OTUanalysis_files/figure-markdown_strict/unnamed-chunk-3-1.png)
 
 3 Pan/Core物种分析
 ==================
