@@ -99,7 +99,7 @@ Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度
 
     p
 
-![](OTUanalysis_files/figure-markdown_strict/unnamed-chunk-3-1.png)
+<img src="OTUanalysis_files/figure-markdown_strict/nice-fig-1.png" width="30%" style="display: block; margin: auto;" />
 
 3 Pan/Core物种分析
 ==================
