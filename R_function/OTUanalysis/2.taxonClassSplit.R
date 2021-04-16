@@ -1,0 +1,40 @@
+taxonClassSplit<-function(taxon_matrix){
+  require(dplyr)
+  Kindom<-taxon_matrix$Kindom
+  taxon_matrix$Kindom<-Kindom %>%
+    gsub("k__","",.)%>%
+    gsub("\\|p__.*$","",.)
+  Phylum<-taxon_matrix$Phylum
+  taxon_matrix$Phylum<-Phylum %>%
+    gsub("^.*p__","",.)%>%
+    gsub("\\|c__.*$","",.)%>%
+    gsub("k__.*$","NA",.)
+  Class<-taxon_matrix$Class
+  taxon_matrix$Class<-Class%>%
+    gsub("^.*c__","",.)%>%
+    gsub("\\|o__.*$","",.)%>%
+    gsub("k__.*$","NA",.)
+  Order<-taxon_matrix$Order
+  taxon_matrix$Order<-Order%>%
+    gsub("^.*o__","",.)%>%
+    gsub("\\|f__.*$","",.)%>%
+    gsub("k__.*$","NA",.)
+  Family<-taxon_matrix$Family
+  taxon_matrix$Family<-Family%>%
+    gsub("^.*f__","",.)%>%
+    gsub("\\|g__.*$","",.)%>%
+    gsub("k__.*$","NA",.)
+  Genus<-taxon_matrix$Genus
+  taxon_matrix$Genus<-Genus%>%
+    gsub("^.*g__","",.)%>%
+    gsub("\\|s__.*$","",.)%>%
+    gsub("k__.*$","NA",.)
+  Species<-taxon_matrix$Species
+  taxon_matrix$Species<-Species%>%
+    gsub("^.*s__","",.)%>%
+    gsub("\\|t__.*$","",.)%>%
+    gsub("k__.*$","NA",.)
+  TaxonClass<-c("Taxon","Kindom","Phylum","Class","Order","Family","Genus","Species")
+  taxon_matrix<-data.frame(taxon_matrix[TaxonClass],select(taxon_matrix,-TaxonClass))
+  return(taxon_matrix)
+}

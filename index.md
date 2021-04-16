@@ -95,7 +95,7 @@
 							</p>
 						</div>
 						<div class="col-6 col-12-medium imp-medium">
-							<span class="image fit"><img src="images/test.png" alt="" style="float:right; margin: 5px;"/></span>
+							<span class="image fit"><img src="images/" alt="" style="float:right; margin: 5px;"/></span>
 						</div>
 					</div>
 				</div>
@@ -134,6 +134,21 @@
 							<header class="major">
 								<h2> Software </h2>
 							</header>
+							<h4>OTUanalysis</h4>
+							<p>
+							<a href="https://ccb.jhu.edu/software/FLASH/index.shtml">Flash v1.2.11</a><br>
+							<a href="https://github.com/OpenGene/fastp/">Fastp  v0.19.6</a><br>
+							<a href="http://qiime.org/install/index.html">Qiime v1.9.1</a><br>
+							<a href="http://www.drive5.com/uparse/">Uparse v7.0.1090</a><br>
+							<a href="http://www.drive5.com/usearch/">Usearch v11</a><br>
+							<a href="https://sourceforge.net/projects/rdp-classifier/">RDP Classifier v2.11</a><br>
+							<a href="https://www.mothur.org/wiki/Download_mothur">Mothur v1.30.2</a><br>
+							<a href="http://picrust.github.io/picrust/">PICRUSt v1.1.0</a><br>
+							<a href="https://www.mothur.org/wiki/Download_mothur">Mothur v1.30.2</a><br>
+							<a href="https://www.megasoftware.net/">Mega7</a><br>
+							<a href="https://www.arb-silva.de/">SILVA132</a><br>
+							</p>
+							<h4>Vsisualization</h4>
 							<p>
 							<a href="https://www.drive5.com/usearch/">usearch v11</a><br>
 							<a href="https://github.com/bflammers/ANN2">ANN2</a><br>
