@@ -7,6 +7,7 @@
 -   [3 Pan/Core物种分析](#pancore物种分析)
     -   [3.1 Code](#code-2)
 -   [4 Microbiome compostion](#microbiome-compostion)
+    -   [4.1 Code](#code-3)
 
 ================
 
@@ -148,6 +149,7 @@ more inclusive taxon). The predominant taxa belonged to Firmicutes
 Proteobacteria (genus Neisseria, Haemophilus), Actinobacteria (genus
 Corynebacterium, Rothia, Actinomyces), Bacteroidetes (genus Prevotella,
 Capnocytophaga, Porphyromonas) and Fusobacteria (genus Fusobacterium).
+
 ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 “core microbiome” of oral microbial communities. BMC Microbiol 9, 259
 (2009).
@@ -168,6 +170,14 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
 4 Microbiome compostion
 =======================
+
+4.1 Code
+--------
+
+<details>
+<summary>
+<font size=4>‘code detail’</font>
+</summary>
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     meta$Cycle<-factor(meta$Cycle,levels = c("BL","C2","C3","C4","C5","C6","C8","C10"))
@@ -243,8 +253,6 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       x<-mutate(x,Microname=rownames(x))
     })
 
-    ##plot
-
     otu_abundance<-list()
     areaPlot<-list()
     for (i in seq_along(stoolComp)) {
@@ -285,33 +293,35 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       names(areaPlot)[i]=names(stoolComp)[i]
     }
 
+</details>
+
     areaPlot[[1]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="60%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="80%" style="display: block; margin: auto;" />
 
     areaPlot[[2]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-2.png" width="60%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-2.png" width="80%" style="display: block; margin: auto;" />
 
     areaPlot[[3]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-3.png" width="60%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-3.png" width="80%" style="display: block; margin: auto;" />
 
     areaPlot[[4]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-4.png" width="60%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-4.png" width="80%" style="display: block; margin: auto;" />
 
     areaPlot[[5]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-5.png" width="60%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-5.png" width="80%" style="display: block; margin: auto;" />
 
     areaPlot[[6]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-6.png" width="60%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-6.png" width="80%" style="display: block; margin: auto;" />
 
     areaPlot[[7]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="60%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="80%" style="display: block; margin: auto;" />
 
 You can also embed plots, for example:
 

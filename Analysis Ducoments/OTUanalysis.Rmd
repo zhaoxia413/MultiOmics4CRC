@@ -115,6 +115,7 @@ ref:Applying the core microbiome to understand host–microbe systems.J Anim Eco
 ref: Turnbaugh, P., Hamady, M., Yatsunenko, T. et al. A core gut microbiome in obese and lean twins. Nature 457, 480–484 (2009). https://doi.org/10.1038/nature07540
 
 Within an individual oral cavity, we found over 3600 unique sequences, over 500 different OTUs or "species-level" phylotypes (sequences that clustered at 3% genetic difference) and 88 - 104 higher taxa (genus or more inclusive taxon). The predominant taxa belonged to Firmicutes (genus Streptococcus, family Veillonellaceae, genus Granulicatella), Proteobacteria (genus Neisseria, Haemophilus), Actinobacteria (genus Corynebacterium, Rothia, Actinomyces), Bacteroidetes (genus Prevotella, Capnocytophaga, Porphyromonas) and Fusobacteria (genus Fusobacterium).
+
 ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy "core microbiome" of oral microbial communities. BMC Microbiol 9, 259 (2009). https://doi.org/10.1186/1471-2180-9-259
 
 ## Code
@@ -124,7 +125,11 @@ summary(cars)
 ```
 
 # Microbiome compostion
-
+## Code
+<details>
+<summary>
+<font size=4>'code detail'</font>
+</summary>
 ```{r warning=F}
 meta<-fread("../Data/Data/meta.csv",data.table = F)
 meta$Cycle<-factor(meta$Cycle,levels = c("BL","C2","C3","C4","C5","C6","C8","C10"))
@@ -200,8 +205,6 @@ salivaComp<-Saliva$TaxonomyComposition%>%lapply(.,function(x){
   x<-mutate(x,Microname=rownames(x))
 })
 
-##plot
-
 otu_abundance<-list()
 areaPlot<-list()
 for (i in seq_along(stoolComp)) {
@@ -241,8 +244,11 @@ for (i in seq_along(stoolComp)) {
   names(otu_abundance)[i]=names(stoolComp)[i]
   names(areaPlot)[i]=names(stoolComp)[i]
 }
+```
+</details>
 
-```{r fig.height=4,fig.width=4,dpi=600,fig.align='center',warning=F,out.width ="60%"}
+  
+```{r fig.height=7,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
 areaPlot[[1]]
 areaPlot[[2]]
 areaPlot[[3]]
