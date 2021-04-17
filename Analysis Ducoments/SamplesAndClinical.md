@@ -1,13 +1,13 @@
--   [1 Introduction](#introduction)
--   [2 Clinical](#clinical)
--   [3 Samples sequending statistics](#samples-sequending-statistics)
+-   [0.1 Introduction](#introduction)
+-   [0.2 Clinical](#clinical)
+-   [0.3 Samples sequending statistics](#samples-sequending-statistics)
 
 ================
 
 [`Return`](./)
 
-1 Introduction
-==============
+0.1 Introduction
+----------------
 
 <table>
 <tr>
@@ -47,8 +47,8 @@
 
 </details>
 
-2 Clinical
-==========
+0.2 Clinical
+------------
 
 <a href="../Data/Data/clinical.csv" target="csv">Clinical.csv</a>
 
@@ -732,8 +732,8 @@ exact
 </tbody>
 </table>
 
-3 Samples sequending statistics
-===============================
+0.3 Samples sequending statistics
+---------------------------------
 
     data<-fread("../Data/Data/samples_seqInfo.csv",data.table = F)
     knitr::include_graphics("../images/samples_seqInfo.png")

@@ -3,7 +3,11 @@ sort: 4
 title: "Visulaization"
 author: "XiaZhao"
 date: "4/17/2021"
-output: html_document
+output: 
+  md_document: 
+    df_print: kable
+    number_sections: yes
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}

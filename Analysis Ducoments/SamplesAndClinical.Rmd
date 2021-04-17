@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 [`Return`](./)
 
 
-# Introduction
+## Introduction
 
 <table><tr><td bgcolor=#AFEEEE>
 <font size=4>This is introduction</font></td></tr></table>
@@ -56,7 +56,7 @@ options(stringsAsFactors = F)
 ```
 </details>
 
-# Clinical
+## Clinical
 <a href="../Data/Data/clinical.csv" target="csv">Clinical.csv</a>
 
 ```{r}
@@ -75,7 +75,7 @@ table1_groups <- print(x = tableone_groups,
 table1_groups %>%
   knitr::kable(caption = "Recreating booktabs style table") 
 ```
-# Samples sequending statistics
+## Samples sequending statistics
 
 ```{r fig.width=10/2.54, fig.height=10/2.54, dpi=600,fig.align='center'}
 data<-fread("../Data/Data/samples_seqInfo.csv",data.table = F)
