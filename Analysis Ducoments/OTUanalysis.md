@@ -174,11 +174,6 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 4.1 Code
 --------
 
-<details>
-<summary>
-<font size=4>‘code detail’</font>
-</summary>
-
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     meta$Cycle<-factor(meta$Cycle,levels = c("BL","C2","C3","C4","C5","C6","C8","C10"))
     meta$Time<-meta$Cycle
@@ -293,35 +288,39 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       names(areaPlot)[i]=names(stoolComp)[i]
     }
 
-</details>
+<details>
+<summary>
+<font size=4>Figures</font>
+</summary>
 
     areaPlot[[1]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" />
 
     areaPlot[[2]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto;" />
 
     areaPlot[[3]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-3.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto;" />
 
     areaPlot[[4]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-4.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-4.png" width="100%" style="display: block; margin: auto;" />
 
     areaPlot[[5]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-5.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-5.png" width="100%" style="display: block; margin: auto;" />
 
     areaPlot[[6]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-6.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-6.png" width="100%" style="display: block; margin: auto;" />
 
     areaPlot[[7]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="100%" style="display: block; margin: auto;" />
+</details>
 
 You can also embed plots, for example:
 

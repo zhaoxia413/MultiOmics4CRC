@@ -126,10 +126,7 @@ summary(cars)
 
 # Microbiome compostion
 ## Code
-<details>
-<summary>
-<font size=4>'code detail'</font>
-</summary>
+
 ```{r warning=F}
 meta<-fread("../Data/Data/meta.csv",data.table = F)
 meta$Cycle<-factor(meta$Cycle,levels = c("BL","C2","C3","C4","C5","C6","C8","C10"))
@@ -245,10 +242,12 @@ for (i in seq_along(stoolComp)) {
   names(areaPlot)[i]=names(stoolComp)[i]
 }
 ```
-</details>
 
-  
-```{r fig.height=7,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
+<details>
+<summary>
+<font size=4>Figures</font>
+</summary>  
+```{r fig.height=7,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot[[1]]
 areaPlot[[2]]
 areaPlot[[3]]
@@ -257,6 +256,7 @@ areaPlot[[5]]
 areaPlot[[6]]
 areaPlot[[7]]
 ```
+</details>
 
 You can also embed plots, for example:
 

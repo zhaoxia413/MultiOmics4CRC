@@ -752,7 +752,7 @@ exact
     hist(data$BMI,main="Frequence of BMI",xlab = "BMI")
     hist(data$FBratio,main="Frequence of FBratio",xlab = "FBratio")
 
-![](AnalysisDocument_files/figure-markdown_strict/unnamed-chunk-4-1.png)
+![](SamplesAndClinical_files/figure-markdown_strict/unnamed-chunk-4-1.png)
 
     data$BMI_g<-ifelse(data$BMI>25,"High","Low")
     data$FBratio_g<-ifelse(data$FBratio>median(data$FBratio),"High","Low")
@@ -784,7 +784,7 @@ exact
                     risk.table.y.text.col = T,
                     risk.table.y.text = FALSE )
 
-<img src="AnalysisDocument_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="40%" style="display: block; margin: auto;" />
+<img src="SamplesAndClinical_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="40%" style="display: block; margin: auto;" />
 
     p1<-ggscatter(subset(df,Cycle=="BL"&Response!="NE"&FBratio<10), x = "FBratio", y = "BMI",size=0.5,mean.point = T,
               color = "Site", add.params = list(c(size=0.5,color="Site")),
@@ -827,7 +827,7 @@ exact
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-<img src="AnalysisDocument_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="SamplesAndClinical_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" />
 
     df <- fread("../Data/Data/paired_BL_treat_16patients.csv", data.table = F)
 
@@ -878,7 +878,7 @@ exact
     splots[[8]] <- surv_plot(fit_OS, df_treat, colors = c("black", "red"), title = "Diarrhea_OS")
     arrange_ggsurvplots(splots, print = TRUE, ncol = 4, nrow = 2)
 
-<img src="AnalysisDocument_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="SamplesAndClinical_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
 
     bar1 <- ggplot(df, aes(Group, Desulfovibrionaceae, fill = Response)) + geom_boxplot() + 
@@ -934,4 +934,4 @@ exact
 
     plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 
-<img src="AnalysisDocument_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="SamplesAndClinical_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" />
