@@ -3,10 +3,12 @@
     -   [0.1.2 Code](#code)
 -   [0.2 Rank-Abundance](#rank-abundance)
     -   [0.2.1 Code](#code-1)
+    -   [0.2.2 Figures](#figures)
 -   [1 Pan/Core物种分析](#pancore物种分析)
     -   [1.0.1 Code](#code-2)
     -   [1.1 Microbiome compostion](#microbiome-compostion)
         -   [1.1.1 Code](#code-3)
+        -   [1.1.2 Figures](#figures-1)
 
 ================
 
@@ -93,6 +95,8 @@ Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度
       labs(x = 'OTUs rank', y = 'Relative adundance (%)', color = NULL) +
       theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.key = element_rect(fill = 'transparent')) +
       scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
+
+### 0.2.2 Figures
 
     p
 
@@ -281,6 +285,8 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       names(otu_abundance)[i]=names(stoolComp)[i]
       names(areaPlot)[i]=names(stoolComp)[i]
     }
+
+### 1.1.2 Figures
 
 <details>
 <summary>

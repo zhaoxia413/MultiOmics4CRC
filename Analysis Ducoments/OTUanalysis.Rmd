@@ -96,7 +96,7 @@ p<-ggplot(rank_dat, aes(rank, log(abundance, 10), color = Site)) +
   theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.key = element_rect(fill = 'transparent')) +
   scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
 ```
-
+### Figures
 ```{r out.width = "50%",fig.height=4,fig.width=6, dpi=600,fig.align='center'}
 p
 ```
@@ -242,7 +242,7 @@ for (i in seq_along(stoolComp)) {
   names(areaPlot)[i]=names(stoolComp)[i]
 }
 ```
-
+### Figures
 <details>
 <summary>
 <font size=4>Figures</font>
