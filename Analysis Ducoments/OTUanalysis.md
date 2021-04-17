@@ -1,13 +1,12 @@
--   [1 Summary](#summary)
-    -   [1.1 OTU聚类步骤如下：](#otu聚类步骤如下)
-    -   [1.2 Code](#code)
--   [2 Rank-Abundance](#rank-abundance)
-    -   [2.1 Code](#code-1)
-        -   [2.1.1 Rank abundance curve](#rank-abundance-curve)
--   [3 Pan/Core物种分析](#pancore物种分析)
-    -   [3.1 Code](#code-2)
--   [4 Microbiome compostion](#microbiome-compostion)
-    -   [4.1 Code](#code-3)
+-   [0.1 Summary](#summary)
+    -   [0.1.1 OTU clustering：](#otu-clustering)
+    -   [0.1.2 Code](#code)
+-   [0.2 Rank-Abundance](#rank-abundance)
+    -   [0.2.1 Code](#code-1)
+-   [1 Pan/Core物种分析](#pancore物种分析)
+    -   [1.0.1 Code](#code-2)
+    -   [1.1 Microbiome compostion](#microbiome-compostion)
+        -   [1.1.1 Code](#code-3)
 
 ================
 
@@ -43,8 +42,8 @@
 
 </details>
 
-1 Summary
-=========
+0.1 Summary
+-----------
 
 OTU（Operational
 TaxonomicUnits）是在系统发生学或群体遗传学研究中，为了便于进行分析，人为给某一个分类单元（品系，属，种、分组等）设置的统一标志。要了解一个样本测序结果中的菌种、菌属等数目信息，就需要对序列进行聚类（cluster）。通过聚类操作，将序列按照彼此的相似性分归为许多小组，一个小组就是一个OTU。可根据不同的相似度水平，对所有序列进行OTU划分，通常对97%相似水平下的OTU进行生物信息统计分析。
@@ -52,29 +51,26 @@ TaxonomicUnits）是在系统发生学或群体遗传学研究中，为了便于
 软件平台：Uparse（vsesion 7.1
 <a href="http://drive5.com/uparse/" class="uri">http://drive5.com/uparse/</a>）
 
-1.1 OTU聚类步骤如下：
----------------------
+### 0.1.1 OTU clustering：
 
 1.  对优化序列提取非重复序列，便于降低分析中间过程冗余计算量（<a href="http://drive5.com/usearch/manual/dereplication.html" class="uri">http://drive5.com/usearch/manual/dereplication.html</a>）；
     2）去除没有重复的单序列（<a href="http://drive5.com/usearch/manual/singletons.html" class="uri">http://drive5.com/usearch/manual/singletons.html</a>)；
     3）按照97%相似性对非重复序列（不含单序列）进行OTU聚类，在聚类过程中去除嵌合体，得到OTU的代表序列;
     4）将所有优化序列map至OTU代表序列，选出与代表序列相似性在97%以上的序列，生成OTU表格。
 
-1.2 Code
---------
+### 0.1.2 Code
 
-2 Rank-Abundance
-================
+0.2 Rank-Abundance
+------------------
 
 Rank-Abundance
 曲线是分析多样性的一种方式。构建方法是统计每个样本中，每个OTU所含的序列数，将OTUs按丰度（所含有的序列条数）由大到小等级排序，再以OTU的排序等级为横坐标，以每个OTU中所含的序列数（也可用OTU中序列数的相对百分含量）为纵坐标作图。
 
 Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度和群落均匀度。在水平方向，物种的丰富度由曲线的宽度来反映，曲线在横轴上的范围越大，物种的丰富度就越高；曲线的形状（平缓程度）反映了样本中群落的均匀度，曲线越平缓，物种分布越均匀。
 
-2.1 Code
---------
+### 0.2.1 Code
 
-### 2.1.1 Rank abundance curve
+#### 0.2.1.1 Rank abundance curve
 
     otu<-fread("../Data/Data/OTUtable_ori.csv",data.table = F)
     meta<-fread("../Data/Data/meta.csv",data.table = F)
@@ -102,7 +98,7 @@ Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" />
 
-3 Pan/Core物种分析
+1 Pan/Core物种分析
 ==================
 
 Pan/Core物种分析用于描述随着样本量增加物种总量和核心物种量变化的情况，在微生物多样性和群落研究中，被广泛用于判断样本量是否充足以及评估环境中总物种丰富度(
@@ -155,8 +151,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 (2009).
 <a href="https://doi.org/10.1186/1471-2180-9-259" class="uri">https://doi.org/10.1186/1471-2180-9-259</a>
 
-3.1 Code
---------
+### 1.0.1 Code
 
     summary(cars)
 
@@ -168,11 +163,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
     ##  3rd Qu.:19.0   3rd Qu.: 56.00  
     ##  Max.   :25.0   Max.   :120.00
 
-4 Microbiome compostion
-=======================
+1.1 Microbiome compostion
+-------------------------
 
-4.1 Code
---------
+### 1.1.1 Code
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     meta$Cycle<-factor(meta$Cycle,levels = c("BL","C2","C3","C4","C5","C6","C8","C10"))

@@ -1,0 +1,187 @@
+---
+sort: 4
+title: "Visulaization"
+author: "XiaZhao"
+date: "4/17/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<details>
+<summary>
+<font size=4>Requires</font>
+</summary>
+```{r tidy=TRUE,results='hold',message=FALSE}
+library(tidyverse)
+library(ggthemes)
+library(ggsci)
+library(ggpubr)
+library(survminer)
+library(survival)
+library(survivalROC)
+library(reshape2)
+library(data.table)
+library(ggExtra)
+library(cowplot)
+library(ComplexHeatmap)
+library(scico)
+library(colorspace)
+library(RColorBrewer)
+library(lubridate)
+library(tableone)
+library(kableExtra)
+source("../R_function/colors.R")
+source("../R_function/surv_plot.R")
+theme_set(theme_cowplot())
+"%ni%"<-Negate("%in%")
+options(stringsAsFactors = F)
+```
+</details>
+
+## BMI and FBratio
+
+```{r}
+df<-fread("../Data/Data/Phylum_cli_111samples.csv",data.table = F)
+df$FBratio<-df$Firmicutes/df$Bacteroidetes
+df$FBratio_g<-ifelse(df$FBratio>=median(df$FBratio),"High","Low")
+data<-subset(df,Site=="Stool"&Response!="NE"&Cycle=="BL")
+par(mfrow=c(1,2))
+hist(data$BMI,main="Frequence of BMI",xlab = "BMI")
+hist(data$FBratio,main="Frequence of FBratio",xlab = "FBratio")
+data$BMI_g<-ifelse(data$BMI>25,"High","Low")
+data$FBratio_g<-ifelse(data$FBratio>median(data$FBratio),"High","Low")
+fit<-survfit(Surv(PFStime,PFS) ~ BMI_g,
+                   data = data)
+fit
+```
+
+
+```{r fig.width=4, fig.height=3,dpi=600,fig.align='center',,out.width = "40%"}
+ggsurvplot(fit, data=data,xlab = "Time(months)",
+           censor.size=0.5, size = 0.5,
+           conf.int = T,tables.theme = theme_few(base_size = 6),
+           linetype = "strata",
+                legend.title = "",palette = c("black","red"),
+                risk.table = T,
+                #legend = c(0.84, 0.8),
+                pval = TRUE,pval.size = 3, 
+                pval.coord=c(0.8,0.2),pval.method=F,
+                pval.method.coord=c(0.05,0.3), 
+                ggtheme = theme_minimal() + 
+                  theme(line = element_line(size = 0.1),
+                        text  = element_text(size = 6)),
+                risk.table.col = "strata",
+                surv.median.line = "hv",
+                risk.table.y.text.col = T,
+                risk.table.y.text = FALSE )
+```
+
+```{r fig.width=10, fig.height=4,dpi=600,fig.align='center',,out.width = "90%"}
+p1<-ggscatter(subset(df,Cycle=="BL"&Response!="NE"&FBratio<10), x = "FBratio", y = "BMI",size=0.5,mean.point = T,
+          color = "Site", add.params = list(c(size=0.5,color="Site")),
+          add = "reg.line", conf.int = TRUE)+
+  stat_cor(label.x = 0.3,aes(color=Site))+
+  theme_few(base_size = 8)+
+  scale_color_aaas()+
+  scale_color_manual(values = col11)
+
+
+p2<-ggscatter(subset(df,Cycle=="BL"&Response!="NE"), x = "Firmicutes", y = "Bacteroidetes",size=0.5,mean.point = T,
+          color = "Site", add.params = list(c(size=0.5,color="Site")),
+          add = "reg.line", conf.int = TRUE)+
+  stat_cor(label.x = 0.2,aes(color=Site))+
+  theme_few(base_size = 8)+
+  scale_color_aaas()
+
+p3<-ggstatsplot::ggbarstats(data = data,x=Response,ggtheme = ggplot2::theme_bw(base_size=8),bias.correct = T,
+                        y =FBratio_g,subtitle = F,results.subtitle=F,
+                        ggstatsplot.layer = FALSE,
+                        legend.position="right",
+                        messages = FALSE,
+                        package = "ggsci",
+                        palette = "default_nejm",
+                        main = Response, nboot = 100,
+                        legend.title = "Response")
+plot_grid(p1,p2, p3,labels = c("A","B","C"), ncol =3, nrow = 1)
+
+
+```
+## Treated-related aderse events
+```{r fig.height=4, fig.width=6, collapse=TRUE, dpi=600, paged.print=FALSE, results='hold', tidy=TRUE,fig.align='center'}
+df<-fread("../Data/Data/paired_BL_treat_16patients.csv",data.table = F)
+
+df$Hand_food_syndrom<-as.factor(df$Hand_food_syndrom)
+df$Hand_food_syndrom_g<-ifelse(df$Hand_food_syndrom%in%c("0","1"),"no","yes")
+df$Rash<-as.factor(df$Rash)
+df$Rash_g<-ifelse(df$Rash=="0","no","yes")
+df$Fever<-as.factor(df$Fever)
+df$Fever_g<-ifelse(df$Fever=="0","no","yes")
+df$Diarrhea<-as.factor(df$Diarrhea)
+df$Diarrhea_g<-ifelse(df$Diarrhea=="0","no","yes")
+
+df_treat<-subset(df,Group=="Treat")
+# List of ggsurvplots
+require("survminer")
+splots <- list()
+
+fit_PFS<-survfit(Surv(PFStime,PFS) ~ Hand_food_syndrom_g,
+                     data = df_treat)
+fit_PFS
+fit_OS<-survfit(Surv(OStime,OS) ~ Hand_food_syndrom_g,
+                 data = df_treat)
+fit_OS
+splots[[1]]<-surv_plot(fit_PFS,df_treat,colors = c("darkgreen","darkorange"),title="HandFoodSyndrom_PFS")
+splots[[2]]<-surv_plot(fit_OS,df_treat,colors = c("black","red"),title="HandFoodSyndrom_OS")
+
+fit_PFS<-survfit(Surv(PFStime,PFS) ~ Rash_g,
+                 data = df_treat)
+fit_PFS
+fit_OS<-survfit(Surv(OStime,OS) ~ Rash_g,
+                data = df_treat)
+fit_OS
+splots[[3]]<-surv_plot(fit_PFS,df_treat,colors = c("darkgreen","darkorange"),title="Rash_PFS")
+splots[[4]]<-surv_plot(fit_OS,df_treat,colors = c("black","red"),title="Rash_OS")
+
+fit_PFS<-survfit(Surv(PFStime,PFS) ~ Fever_g,
+                 data = df_treat)
+fit_PFS
+fit_OS<-survfit(Surv(OStime,OS) ~ Fever_g,
+                data = df_treat)
+fit_OS
+splots[[5]]<-surv_plot(fit_PFS,df_treat,colors = c("darkgreen","darkorange"),title="Fever_PFS")
+splots[[6]]<-surv_plot(fit_OS,df_treat,colors = c("black","red"),title="Fever_OS")
+fit_PFS<-survfit(Surv(PFStime,PFS) ~ Diarrhea_g,
+                 data = df_treat)
+fit_PFS
+fit_OS<-survfit(Surv(OStime,OS) ~ Diarrhea_g,
+                data = df_treat)
+fit_OS
+splots[[7]]<-surv_plot(fit_PFS,df_treat,colors = c("darkgreen","darkorange"),title="Diarrhea_PFS")
+splots[[8]]<-surv_plot(fit_OS,df_treat,colors = c("black","red"),title="Diarrhea_OS")
+arrange_ggsurvplots(splots, print = TRUE,
+  ncol = 4, nrow =2)
+
+bar1<-ggplot(df,aes(Group,Desulfovibrionaceae,fill=Response))+
+  geom_boxplot()+
+  geom_line(aes(group=patientID,color=Response,size=Desulfovibrionaceae),alpha=0.5)+
+  geom_point(aes(size=Desulfovibrionaceae),color="darkblue",alpha=0.5)+
+  theme_few(base_size = 8)+
+  stat_compare_means(label = "p.signif")+
+  scale_fill_d3()+
+  theme(legend.key = element_blank(),
+        axis.title.x = element_blank())
+bar2<-ggplot(df,aes(Group,Desulfovibrionaceae,fill=Diarrhea_g))+
+  geom_boxplot()+
+  geom_line(aes(group=patientID,color=Diarrhea_g,size=Desulfovibrionaceae),alpha=0.5)+
+  geom_point(aes(size=Desulfovibrionaceae),color="darkblue",alpha=0.5)+
+  theme_few(base_size = 8)+
+  stat_compare_means(label = "p.signif")+
+  scale_fill_jama()+
+  theme(legend.key = element_blank(),
+        axis.title.x = element_blank())
+```
+```{r fig.height=4, fig.width=6, dpi=600,fig.align='center',out.width = "50%"}
+plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
+```
