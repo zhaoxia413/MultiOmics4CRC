@@ -97,7 +97,7 @@ p<-ggplot(rank_dat, aes(rank, log(abundance, 10), color = Site)) +
   scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
 ```
 
-```{r out.width = "50%",fig.height=3,fig.width=6, dpi=600,fig.align='center'}
+```{r out.width = "50%",fig.height=4,fig.width=6, dpi=600,fig.align='center'}
 p
 ```
 
@@ -242,7 +242,7 @@ for (i in seq_along(stoolComp)) {
   names(areaPlot)[i]=names(stoolComp)[i]
 }
 
-```{r results='hold',out.width = "90%",fig.height=6,fig.width=6,dpi=600,fig.align='center'}
+```{r fig.height=6,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="90%"}
 areaPlot[[1]]
 areaPlot[[2]]
 areaPlot[[3]]

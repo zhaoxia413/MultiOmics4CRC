@@ -287,43 +287,29 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     areaPlot[[1]]
 
-    ## Warning: Removed 45 rows containing missing values (position_stack).
-
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
 
     areaPlot[[2]]
-
-    ## Warning: Removed 67 rows containing missing values (position_stack).
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-2.png" width="90%" style="display: block; margin: auto;" />
 
     areaPlot[[3]]
 
-    ## Warning: Removed 90 rows containing missing values (position_stack).
-
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-3.png" width="90%" style="display: block; margin: auto;" />
 
     areaPlot[[4]]
-
-    ## Warning: Removed 152 rows containing missing values (position_stack).
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-4.png" width="90%" style="display: block; margin: auto;" />
 
     areaPlot[[5]]
 
-    ## Warning: Removed 190 rows containing missing values (position_stack).
-
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-5.png" width="90%" style="display: block; margin: auto;" />
 
     areaPlot[[6]]
 
-    ## Warning: Removed 319 rows containing missing values (position_stack).
-
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-6.png" width="90%" style="display: block; margin: auto;" />
 
     areaPlot[[7]]
-
-    ## Warning: Removed 333 rows containing missing values (position_stack).
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="90%" style="display: block; margin: auto;" />
 
