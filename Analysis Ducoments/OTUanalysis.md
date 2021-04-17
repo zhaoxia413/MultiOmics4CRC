@@ -321,10 +321,3 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="100%" style="display: block; margin: auto;" />
 </details>
-
-You can also embed plots, for example:
-
-![](OTUanalysis_files/figure-markdown_strict/pressure-1.png)
-
-Note that the `echo = FALSE` parameter was added to the code chunk to
-prevent printing of the R code that generated the plot.
