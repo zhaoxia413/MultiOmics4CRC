@@ -124,7 +124,8 @@ summary(cars)
 ```
 
 # Microbiome compostion
-```{r out.width = "90%",fig.height=6,fig.width=6, dpi=600,fig.align='center'}
+
+```{r warning=F}
 meta<-fread("../Data/Data/meta.csv",data.table = F)
 meta$Cycle<-factor(meta$Cycle,levels = c("BL","C2","C3","C4","C5","C6","C8","C10"))
 meta$Time<-meta$Cycle
@@ -205,7 +206,7 @@ otu_abundance<-list()
 areaPlot<-list()
 for (i in seq_along(stoolComp)) {
   otu_abundance[[i]]<-merge(stoolComp[[i]],salivaComp[[i]],by="Microname",all = T)
-  otu_abundance[[i]]<-melt(otu_abundance[[i]],id.vars = "Microname",
+  otu_abundance[[i]]<-reshape2::melt(otu_abundance[[i]],id.vars = "Microname",
                            variable.name = "Samples",value.name = "Abundance")
   otu_abundance[[i]]<-merge(meta,otu_abundance[[i]],by="Samples")
   otu_abundance[[i]]<-select(otu_abundance[[i]],c(Time,Site,Microname,Abundance))%>%
@@ -241,6 +242,14 @@ for (i in seq_along(stoolComp)) {
   names(areaPlot)[i]=names(stoolComp)[i]
 }
 
+```{r results='hold',out.width = "90%",fig.height=6,fig.width=6,dpi=600,fig.align='center'}
+areaPlot[[1]]
+areaPlot[[2]]
+areaPlot[[3]]
+areaPlot[[4]]
+areaPlot[[5]]
+areaPlot[[6]]
+areaPlot[[7]]
 ```
 
 You can also embed plots, for example:

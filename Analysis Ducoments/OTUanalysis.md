@@ -232,9 +232,6 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
                         TaxonLevels = TaxonLevels,
                         topTaxonomyABvalue = c(0.01,0.01,0.1,0.2,0.2,0.2,0.2))
 
-    ## Warning: `summarise_each_()` was deprecated in dplyr 0.7.0.
-    ## Please use `across()` instead.
-
     Saliva<-OTUanalysis(OTUtable = OTUsaliva,
                       TaxonLevels = TaxonLevels,
                       topTaxonomyABvalue = c(0.01,0.01,0.05,0.05,0.05,0.05,0.05))
@@ -252,7 +249,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
     areaPlot<-list()
     for (i in seq_along(stoolComp)) {
       otu_abundance[[i]]<-merge(stoolComp[[i]],salivaComp[[i]],by="Microname",all = T)
-      otu_abundance[[i]]<-melt(otu_abundance[[i]],id.vars = "Microname",
+      otu_abundance[[i]]<-reshape2::melt(otu_abundance[[i]],id.vars = "Microname",
                                variable.name = "Samples",value.name = "Abundance")
       otu_abundance[[i]]<-merge(meta,otu_abundance[[i]],by="Samples")
       otu_abundance[[i]]<-select(otu_abundance[[i]],c(Time,Site,Microname,Abundance))%>%
@@ -288,68 +285,47 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       names(areaPlot)[i]=names(stoolComp)[i]
     }
 
-    ## Warning in melt(otu_abundance[[i]], id.vars = "Microname", variable.name
-    ## = "Samples", : The melt generic in data.table has been passed a data.frame
-    ## and will attempt to redirect to the relevant reshape2 method; please note
-    ## that reshape2 is deprecated, and this redirection is now deprecated as
-    ## well. To continue using melt methods from reshape2 while both libraries
-    ## are attached, e.g. melt.list, you can prepend the namespace like
-    ## reshape2::melt(otu_abundance[[i]]). In the next version, this warning will
-    ## become an error.
+    areaPlot[[1]]
 
-    ## Warning in melt(otu_abundance[[i]], id.vars = "Microname", variable.name
-    ## = "Samples", : The melt generic in data.table has been passed a data.frame
-    ## and will attempt to redirect to the relevant reshape2 method; please note
-    ## that reshape2 is deprecated, and this redirection is now deprecated as
-    ## well. To continue using melt methods from reshape2 while both libraries
-    ## are attached, e.g. melt.list, you can prepend the namespace like
-    ## reshape2::melt(otu_abundance[[i]]). In the next version, this warning will
-    ## become an error.
+    ## Warning: Removed 45 rows containing missing values (position_stack).
 
-    ## Warning in melt(otu_abundance[[i]], id.vars = "Microname", variable.name
-    ## = "Samples", : The melt generic in data.table has been passed a data.frame
-    ## and will attempt to redirect to the relevant reshape2 method; please note
-    ## that reshape2 is deprecated, and this redirection is now deprecated as
-    ## well. To continue using melt methods from reshape2 while both libraries
-    ## are attached, e.g. melt.list, you can prepend the namespace like
-    ## reshape2::melt(otu_abundance[[i]]). In the next version, this warning will
-    ## become an error.
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
 
-    ## Warning in melt(otu_abundance[[i]], id.vars = "Microname", variable.name
-    ## = "Samples", : The melt generic in data.table has been passed a data.frame
-    ## and will attempt to redirect to the relevant reshape2 method; please note
-    ## that reshape2 is deprecated, and this redirection is now deprecated as
-    ## well. To continue using melt methods from reshape2 while both libraries
-    ## are attached, e.g. melt.list, you can prepend the namespace like
-    ## reshape2::melt(otu_abundance[[i]]). In the next version, this warning will
-    ## become an error.
+    areaPlot[[2]]
 
-    ## Warning in melt(otu_abundance[[i]], id.vars = "Microname", variable.name
-    ## = "Samples", : The melt generic in data.table has been passed a data.frame
-    ## and will attempt to redirect to the relevant reshape2 method; please note
-    ## that reshape2 is deprecated, and this redirection is now deprecated as
-    ## well. To continue using melt methods from reshape2 while both libraries
-    ## are attached, e.g. melt.list, you can prepend the namespace like
-    ## reshape2::melt(otu_abundance[[i]]). In the next version, this warning will
-    ## become an error.
+    ## Warning: Removed 67 rows containing missing values (position_stack).
 
-    ## Warning in melt(otu_abundance[[i]], id.vars = "Microname", variable.name
-    ## = "Samples", : The melt generic in data.table has been passed a data.frame
-    ## and will attempt to redirect to the relevant reshape2 method; please note
-    ## that reshape2 is deprecated, and this redirection is now deprecated as
-    ## well. To continue using melt methods from reshape2 while both libraries
-    ## are attached, e.g. melt.list, you can prepend the namespace like
-    ## reshape2::melt(otu_abundance[[i]]). In the next version, this warning will
-    ## become an error.
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-2.png" width="90%" style="display: block; margin: auto;" />
 
-    ## Warning in melt(otu_abundance[[i]], id.vars = "Microname", variable.name
-    ## = "Samples", : The melt generic in data.table has been passed a data.frame
-    ## and will attempt to redirect to the relevant reshape2 method; please note
-    ## that reshape2 is deprecated, and this redirection is now deprecated as
-    ## well. To continue using melt methods from reshape2 while both libraries
-    ## are attached, e.g. melt.list, you can prepend the namespace like
-    ## reshape2::melt(otu_abundance[[i]]). In the next version, this warning will
-    ## become an error.
+    areaPlot[[3]]
+
+    ## Warning: Removed 90 rows containing missing values (position_stack).
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-3.png" width="90%" style="display: block; margin: auto;" />
+
+    areaPlot[[4]]
+
+    ## Warning: Removed 152 rows containing missing values (position_stack).
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-4.png" width="90%" style="display: block; margin: auto;" />
+
+    areaPlot[[5]]
+
+    ## Warning: Removed 190 rows containing missing values (position_stack).
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-5.png" width="90%" style="display: block; margin: auto;" />
+
+    areaPlot[[6]]
+
+    ## Warning: Removed 319 rows containing missing values (position_stack).
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-6.png" width="90%" style="display: block; margin: auto;" />
+
+    areaPlot[[7]]
+
+    ## Warning: Removed 333 rows containing missing values (position_stack).
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="90%" style="display: block; margin: auto;" />
 
 You can also embed plots, for example:
 
