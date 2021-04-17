@@ -287,31 +287,31 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     areaPlot[[1]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="60%" style="display: block; margin: auto;" />
 
     areaPlot[[2]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-2.png" width="90%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-2.png" width="60%" style="display: block; margin: auto;" />
 
     areaPlot[[3]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-3.png" width="90%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-3.png" width="60%" style="display: block; margin: auto;" />
 
     areaPlot[[4]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-4.png" width="90%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-4.png" width="60%" style="display: block; margin: auto;" />
 
     areaPlot[[5]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-5.png" width="90%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-5.png" width="60%" style="display: block; margin: auto;" />
 
     areaPlot[[6]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-6.png" width="90%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-6.png" width="60%" style="display: block; margin: auto;" />
 
     areaPlot[[7]]
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="90%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="60%" style="display: block; margin: auto;" />
 
 You can also embed plots, for example:
 

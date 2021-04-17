@@ -242,7 +242,7 @@ for (i in seq_along(stoolComp)) {
   names(areaPlot)[i]=names(stoolComp)[i]
 }
 
-```{r fig.height=6,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="90%"}
+```{r fig.height=4,fig.width=4,dpi=600,fig.align='center',warning=F,out.width ="60%"}
 areaPlot[[1]]
 areaPlot[[2]]
 areaPlot[[3]]
