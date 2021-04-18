@@ -274,42 +274,42 @@ for (i in seq_along(stoolComp)) {
 #### Phylum compostion
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
-areaPlot$Phylum
+print(areaPlot$Phylum)
 ```
 #### Class compostion
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
-areaPlot$Class
+print(areaPlot$Class)
 ```
 
 #### Order compostion
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
-areaPlot$Order
+print(areaPlot$Order)
 ```
 
 #### Family compostion
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
-areaPlot$Family
+print(areaPlot$Family)
 ```
 
 #### Genus compostion
 
 ```{r fig.height=5,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
-areaPlot$Genus
+print(areaPlot$Genus)
 ```
 
 #### Species compostion
 
 ```{r fig.height=5,fig.width=7,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
-areaPlot$Species
+print(areaPlot$Species)
 ```
 
 #### OTU compostion
 
 ```{r fig.height=5,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
-areaPlot$OTU
+print(areaPlot$OTU)
 ```
 </details>
 

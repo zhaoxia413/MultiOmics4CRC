@@ -341,42 +341,42 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
 #### 2.1.2.1 Phylum compostion
 
-    areaPlot$Phylum
+    print(areaPlot$Phylum)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
 \#\#\#\# Class compostion
 
-    areaPlot$Class
+    print(areaPlot$Class)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### 2.1.2.2 Order compostion
 
-    areaPlot$Order
+    print(areaPlot$Order)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### 2.1.2.3 Family compostion
 
-    areaPlot$Family
+    print(areaPlot$Family)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### 2.1.2.4 Genus compostion
 
-    areaPlot$Genus
+    print(areaPlot$Genus)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### 2.1.2.5 Species compostion
 
-    areaPlot$Species
+    print(areaPlot$Species)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### 2.1.2.6 OTU compostion
 
-    areaPlot$OTU
+    print(areaPlot$OTU)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
