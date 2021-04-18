@@ -1,7 +1,12 @@
--   [0.1 R Markdown](#r-markdown)
--   [0.2 Including Plots](#including-plots)
+-   [1 Survival analysis and machine
+    learning](#survival-analysis-and-machine-learning)
+    -   [1.1 R Markdown](#r-markdown)
+    -   [1.2 Including Plots](#including-plots)
 
-0.1 R Markdown
+1 Survival analysis and machine learning
+========================================
+
+1.1 R Markdown
 --------------
 
 This is an R Markdown document. Markdown is a simple formatting syntax
@@ -23,7 +28,7 @@ chunks within the document. You can embed an R code chunk like this:
     ##  3rd Qu.:19.0   3rd Qu.: 56.00  
     ##  Max.   :25.0   Max.   :120.00
 
-0.2 Including Plots
+1.2 Including Plots
 -------------------
 
 You can also embed plots, for example:

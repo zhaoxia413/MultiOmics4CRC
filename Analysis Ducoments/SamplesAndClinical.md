@@ -1,12 +1,15 @@
--   [0.1 Introduction](#introduction)
--   [0.2 Clinical](#clinical)
--   [0.3 Samples sequending statistics](#samples-sequending-statistics)
+-   [1 Vsisualization](#vsisualization)
+    -   [1.1 Introduction](#introduction)
+    -   [1.2 Clinical](#clinical)
+    -   [1.3 Samples sequending
+        statistics](#samples-sequending-statistics)
 
+1 Vsisualization
 ================
 
 [`Return`](./)
 
-0.1 Introduction
+1.1 Introduction
 ----------------
 
 <table>
@@ -47,7 +50,7 @@
 
 </details>
 
-0.2 Clinical
+1.2 Clinical
 ------------
 
 <a href="../Data/Data/clinical.csv" target="csv">Clinical.csv</a>
@@ -732,7 +735,7 @@ exact
 </tbody>
 </table>
 
-0.3 Samples sequending statistics
+1.3 Samples sequending statistics
 ---------------------------------
 
     data<-fread("../Data/Data/samples_seqInfo.csv",data.table = F)

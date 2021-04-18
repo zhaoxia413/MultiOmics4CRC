@@ -10,6 +10,8 @@ output:
     toc: yes
 ---
 
+# Survival analysis and machine learning
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
