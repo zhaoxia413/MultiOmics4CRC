@@ -55,7 +55,9 @@ options(stringsAsFactors = F)
 
 ### OTU（Operational Taxonomic Units）
 In 16S metagenomics approaches, OTUs are cluster of similar sequence variants of the 16S rDNA marker gene sequence. Each of these cluster is intended to represent a taxonomic unit of a bacteria species or genus depending on the sequence similarity threshold. Typically, OTU cluster are defined by a 97% identity threshold of the 16S gene sequences to distinguish bacteria at the genus level.
+
 #### Limited taxonomic resolution 
+ 
 OTU resolution depends on the 16S approach which has some limits in distinguishing at the species level
 
 ### Code
@@ -240,38 +242,54 @@ for (i in seq_along(stoolComp)) {
   names(areaPlot)[i]=names(stoolComp)[i]
 }
 ```
+
 ### Figures
+
 <details>
 <summary>
 <font size=4>Figures</font>
 </summary> 
+
 #### Phylum compostion
+
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot$Phylum
 ```
 #### Class compostion
+
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot$Class
 ```
+
 #### Order compostion
+
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot$Order
 ```
+
 ####Family compostion
+
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot$Family
 ```
+
 #### Genus compostion
+
 ```{r fig.height=5,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot$Genus
 ```
+
 #### Species compostion
+
 ```{r fig.height=5,fig.width=7,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot$Species
 ```
+
 #### OTU compostion
+
 ```{r fig.height=5,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot$OTU
 ```
+
 </details>
 

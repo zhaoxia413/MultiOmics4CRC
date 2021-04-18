@@ -62,9 +62,12 @@ variants of the 16S rDNA marker gene sequence. Each of these cluster is
 intended to represent a taxonomic unit of a bacteria species or genus
 depending on the sequence similarity threshold. Typically, OTU cluster
 are defined by a 97% identity threshold of the 16S gene sequences to
-distinguish bacteria at the genus level. \#\#\#\# Limited taxonomic
-resolution OTU resolution depends on the 16S approach which has some
-limits in distinguishing at the species level
+distinguish bacteria at the genus level.
+
+#### 1.2.1.1 Limited taxonomic resolution
+
+OTU resolution depends on the 16S approach which has some limits in
+distinguishing at the species level
 
 ### 1.2.2 Code
 
@@ -306,29 +309,35 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
     areaPlot$Class
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
-\#\#\#\# Order compostion
+
+#### 2.1.2.2 Order compostion
 
     areaPlot$Order
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+
 \#\#\#\#Family compostion
 
     areaPlot$Family
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
-\#\#\#\# Genus compostion
+
+#### 2.1.2.3 Genus compostion
 
     areaPlot$Genus
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
-\#\#\#\# Species compostion
+
+#### 2.1.2.4 Species compostion
 
     areaPlot$Species
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
-\#\#\#\# OTU compostion
+
+#### 2.1.2.5 OTU compostion
 
     areaPlot$OTU
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
+
 </details>
