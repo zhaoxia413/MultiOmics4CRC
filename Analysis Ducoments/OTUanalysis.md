@@ -319,15 +319,14 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       facet_wrap(~Site)+
       theme_minimal()+
       scale_fill_manual(name="coreMicrobiome",values=c(col31,col21,col16,col11))+
-      #scale_fill_discrete(guide=FALSE)+ #hide the legend
       theme(legend.text = element_text(size = 6),legend.box = "horizontal",
             plot.background = element_rect(colour = "black", 
                                            size = 1, linetype = 1,
                                            fill = "gray"),
             legend.margin = margin(0.1,unit="pt"),
-            legend.key.size=unit(.1,"inches"),#图例分类符号的大小
-            legend.text.align=0,#0左，1右，0.5居中， 图例分类标签的对齐方式
-            legend.title=element_text(colour="black",size=8,face = "bold"),#图例标题设置
+            legend.key.size=unit(.1,"inches"),
+            legend.text.align=0,
+            legend.title=element_text(colour="black",size=8,face = "bold"),
             legend.direction ="vertical",
             legend.box.just="top",
             legend.spacing = unit(0.1,"cm"),
@@ -348,15 +347,14 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       facet_wrap(~Site,scales = "free")+
       theme_minimal()+
       scale_fill_manual(name="coreMicrobiome (Patient13)",values=c(col31,col21,col16,col11))+
-      #scale_fill_discrete(guide=FALSE)+ #hide the legend
       theme(legend.text = element_text(size = 6),legend.box = "horizontal",
             plot.background = element_rect(colour = "black", 
                                            size = 1, linetype = 1,
                                            fill = "gray"),
             legend.margin = margin(0.1,unit="pt"),
-            legend.key.size=unit(.1,"inches"),#图例分类符号的大小
-            legend.text.align=0,#0左，1右，0.5居中， 图例分类标签的对齐方式
-            legend.title=element_text(colour="black",size=8,face = "bold"),#图例标题设置
+            legend.key.size=unit(.1,"inches"),
+            legend.text.align=0,
+            legend.title=element_text(colour="black",size=8,face = "bold"),
             legend.direction ="vertical",
             legend.box.just="top",
             legend.spacing = unit(0.1,"cm"),
