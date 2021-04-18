@@ -12,8 +12,6 @@ output:
 
 # OTUanalysis
 
-=========
-
 ## Requires
 
 ```{r setup, include=FALSE}
