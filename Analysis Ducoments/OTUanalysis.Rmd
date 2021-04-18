@@ -12,7 +12,7 @@ output:
 
 # OTUanalysis
 
-================
+=========
 
 ## Requires
 
@@ -54,22 +54,7 @@ options(stringsAsFactors = F)
 
 ## Summary
 
-```{r}
-library(shiny)
-library(reactable)
 
-ui <- fluidPage(
-  reactableOutput("table")
-)
-
-server <- function(input, output) {
-  output$table <- renderReactable({
-    reactable(iris)
-  })
-}
-
-shinyApp(ui, server)
-```
 ### OTU（Operational Taxonomic Units）
 In 16S metagenomics approaches, OTUs are cluster of similar sequence variants of the 16S rDNA marker gene sequence. Each of these cluster is intended to represent a taxonomic unit of a bacteria species or genus depending on the sequence similarity threshold. Typically, OTU cluster are defined by a 97% identity threshold of the 16S gene sequences to distinguish bacteria at the genus level.
 
@@ -121,6 +106,26 @@ ggplot(meta,aes(reorder(Samples,Sequences),Sequences,fill=Site))+
   facet_grid(~Site,scales = "free",space = "free")+
   theme(axis.text.x = element_blank())+
   xlab("Samples")
+```
+
+### Taxon annotation
+
+```{r results='hold'}
+OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
+OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
+message("Taxon number on stool samples")
+for (i in 1:7) {
+
+  print(paste0(colnames(OTUstool)[i],":",
+                 length(levels(factor(OTUstool[,i])))))
+}
+message("Taxon number on saliva samples")
+for (i in 1:7) {
+  
+  print(paste0(colnames(OTUstool)[i],":",
+                 length(levels(factor(OTUsaliva[,i])))))
+}
+
 ```
 
 # Pan/Core物种分析
@@ -266,7 +271,6 @@ for (i in seq_along(stoolComp)) {
 <summary>
 <font size=4>Figures</font>
 </summary> 
-
 #### Phylum compostion
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
@@ -284,7 +288,7 @@ areaPlot$Class
 areaPlot$Order
 ```
 
-####Family compostion
+#### Family compostion
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot$Family
@@ -307,6 +311,5 @@ areaPlot$Species
 ```{r fig.height=5,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 areaPlot$OTU
 ```
-
 </details>
 
