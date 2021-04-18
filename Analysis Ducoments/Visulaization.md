@@ -1,7 +1,12 @@
 -   [1 Visulaization](#visulaization)
     -   [1.1 BMI and FBratio](#bmi-and-fbratio)
+        -   [1.1.1 Histgrams](#histgrams)
+        -   [1.1.2 Survival plot](#survival-plot)
+        -   [1.1.3 Figures](#figures)
     -   [1.2 Treated-related aderse
         events](#treated-related-aderse-events)
+        -   [1.2.1 Code](#code)
+        -   [1.2.2 Figure](#figure)
 
 1 Visulaization
 ===============
@@ -40,6 +45,8 @@
 1.1 BMI and FBratio
 -------------------
 
+### 1.1.1 Histgrams
+
     df<-fread("../Data/Data/Phylum_cli_111samples.csv",data.table = F)
     df$FBratio<-df$Firmicutes/df$Bacteroidetes
     df$FBratio_g<-ifelse(df$FBratio>=median(df$FBratio),"High","Low")
@@ -62,6 +69,8 @@
     ## BMI_g=High 10      8   3.28    2.20      NA
     ## BMI_g=Low  22     21   1.97    1.87     4.2
 
+### 1.1.2 Survival plot
+
     ggsurvplot(fit, data=data,xlab = "Time(months)",
                censor.size=0.5, size = 0.5,
                conf.int = T,tables.theme = theme_few(base_size = 6),
@@ -81,6 +90,8 @@
                     risk.table.y.text = FALSE )
 
 <img src="Visulaization_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="40%" style="display: block; margin: auto;" />
+
+### 1.1.3 Figures
 
     p1<-ggscatter(subset(df,Cycle=="BL"&Response!="NE"&FBratio<10), x = "FBratio", y = "BMI",size=0.5,mean.point = T,
               color = "Site", add.params = list(c(size=0.5,color="Site")),
@@ -127,6 +138,8 @@
 
 1.2 Treated-related aderse events
 ---------------------------------
+
+### 1.2.1 Code
 
     df <- fread("../Data/Data/paired_BL_treat_16patients.csv", data.table = F)
 
@@ -230,6 +243,8 @@
     ##                 n events median 0.95LCL 0.95UCL
     ## Diarrhea_g=no  13      4   15.5    10.3      NA
     ## Diarrhea_g=yes  3      1     NA     3.9      NA
+
+### 1.2.2 Figure
 
     plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 
