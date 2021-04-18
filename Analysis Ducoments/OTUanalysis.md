@@ -10,10 +10,11 @@
         -   [1.3.3 Effective sequences](#effective-sequences)
         -   [1.3.4 Taxon annotation](#taxon-annotation)
 -   [2 Core Microbiome](#core-microbiome)
-    -   [2.0.1 Code and Figures:](#code-and-figures)
-    -   [2.1 Microbiome compostion](#microbiome-compostion)
-        -   [2.1.1 Code](#code-2)
-        -   [2.1.2 Figures](#figures-1)
+    -   [2.1 Code](#code-2)
+    -   [2.2 Figures](#figures-1)
+    -   [2.3 Microbiome compostion](#microbiome-compostion)
+        -   [2.3.1 Code](#code-3)
+        -   [2.3.2 Figures](#figures-2)
 
 1 OTUanalysis
 =============
@@ -209,7 +210,8 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 (2009).
 <a href="https://doi.org/10.1186/1471-2180-9-259" class="uri">https://doi.org/10.1186/1471-2180-9-259</a>
 
-### 2.0.1 Code and Figures:
+2.1 Code
+--------
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
@@ -218,6 +220,9 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
     Stool<-OTUanalysis(OTUtable = OTUstool,
                         TaxonLevels = TaxonLevels,
                         topTaxonomyABvalue = c(0.01,0.01,0.1,0.2,0.2,0.2,0.2))
+
+    ## Warning: `summarise_each_()` was deprecated in dplyr 0.7.0.
+    ## Please use `across()` instead.
 
     Saliva<-OTUanalysis(OTUtable = OTUsaliva,
                       TaxonLevels = TaxonLevels,
@@ -248,7 +253,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
              show_colnames = F,
              color = scico(100,palette = "bilbao",direction = 1))
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" />
+![](OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-1.png)
 
     ABsaliva.core<-ABsaliva[apply(ABsaliva, 1, function(x){
       length(which(x==0))<21&length(which(x>0.01))!=0
@@ -271,7 +276,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
              show_colnames = F,
              color = scico(100,palette = "bilbao",direction = 1))
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-2.png" width="80%" style="display: block; margin: auto;" />
+![](OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-2.png)
 
     ABstool.core<-data.frame(Samples=colnames(ABstool.core),t(ABstool.core))%>%
       mutate(.,Others=apply(.[,-1],1, function(x) 1-sum(x)))
@@ -285,9 +290,30 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
     coreMp13<-coreMp13[,-c(1:2)]%>%group_by(Site,Time)%>%summarise_each(mean)
     coreMp13<-melt(coreMp13,id.vars = c("Site","Time"),value.name = "Abundance",
                  variable.name = "CoreMicrobiome")
+
+    ## Warning in melt(coreMp13, id.vars = c("Site", "Time"), value.name =
+    ## "Abundance", : The melt generic in data.table has been passed a grouped_df
+    ## and will attempt to redirect to the relevant reshape2 method; please note that
+    ## reshape2 is deprecated, and this redirection is now deprecated as well. To
+    ## continue using melt methods from reshape2 while both libraries are attached,
+    ## e.g. melt.list, you can prepend the namespace like reshape2::melt(coreMp13). In
+    ## the next version, this warning will become an error.
+
     coreM1<-coreM[,-c(1:2)]%>%group_by(Site,Time)%>%summarise_each(mean)
     coreM1<-melt(coreM1,id.vars = c("Site","Time"),value.name = "Abundance",
                  variable.name = "CoreMicrobiome")
+
+    ## Warning in melt(coreM1, id.vars = c("Site", "Time"), value.name = "Abundance", :
+    ## The melt generic in data.table has been passed a grouped_df and will attempt
+    ## to redirect to the relevant reshape2 method; please note that reshape2 is
+    ## deprecated, and this redirection is now deprecated as well. To continue using
+    ## melt methods from reshape2 while both libraries are attached, e.g. melt.list,
+    ## you can prepend the namespace like reshape2::melt(coreM1). In the next version,
+    ## this warning will become an error.
+
+2.2 Figures
+-----------
+
     p1<-ggplot(coreM1,aes(Time,Abundance,fill=CoreMicrobiome))+
       geom_area()+
       facet_wrap(~Site)+
@@ -315,7 +341,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       xlab("Cycles of treatment")
     p1
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-3.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" />
 
     p2<-ggplot(coreMp13,aes(Time,Abundance,fill=CoreMicrobiome))+
       geom_area()+
@@ -344,12 +370,12 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       xlab("Cycles of treatment")
     p2
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-4.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-7-2.png" width="80%" style="display: block; margin: auto;" />
 
-2.1 Microbiome compostion
+2.3 Microbiome compostion
 -------------------------
 
-### 2.1.1 Code
+### 2.3.1 Code
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
@@ -410,9 +436,9 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       names(areaPlot)[i]=names(stoolComp)[i]
     }
 
-### 2.1.2 Figures
+### 2.3.2 Figures
 
-#### 2.1.2.1 Phylum compostion
+#### 2.3.2.1 Phylum compostion
 
 <details>
 <summary>
@@ -421,10 +447,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     print(areaPlot$Phylum)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 2.1.2.2 Class compostion
+#### 2.3.2.2 Class compostion
 
 <details>
 <summary>
@@ -433,10 +459,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     print(areaPlot$Class)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 2.1.2.3 Order compostion
+#### 2.3.2.3 Order compostion
 
 <details>
 <summary>
@@ -445,10 +471,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     print(areaPlot$Order)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 2.1.2.4 Family compostion
+#### 2.3.2.4 Family compostion
 
 <details>
 <summary>
@@ -457,10 +483,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     print(areaPlot$Family)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 2.1.2.5 Genus compostion
+#### 2.3.2.5 Genus compostion
 
 <details>
 <summary>
@@ -469,10 +495,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     print(areaPlot$Genus)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 2.1.2.6 Species compostion
+#### 2.3.2.6 Species compostion
 
 <details>
 <summary>
@@ -481,10 +507,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     print(areaPlot$Species)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 2.1.2.7 OTU compostion
+#### 2.3.2.7 OTU compostion
 
 <details>
 <summary>
@@ -493,5 +519,5 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     print(areaPlot$OTU)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" />
 </details>

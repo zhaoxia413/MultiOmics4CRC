@@ -142,9 +142,9 @@ Within an individual oral cavity, we found over 3600 unique sequences, over 500 
 
 ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy "core microbiome" of oral microbial communities. BMC Microbiol 9, 259 (2009). https://doi.org/10.1186/1471-2180-9-259
 
-### Code and Figures:
+## Code
 
-```{r warning=F,fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
+```{r}
 meta<-fread("../Data/Data/meta.csv",data.table = F)
 OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
 OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
@@ -219,6 +219,11 @@ coreMp13<-melt(coreMp13,id.vars = c("Site","Time"),value.name = "Abundance",
 coreM1<-coreM[,-c(1:2)]%>%group_by(Site,Time)%>%summarise_each(mean)
 coreM1<-melt(coreM1,id.vars = c("Site","Time"),value.name = "Abundance",
              variable.name = "CoreMicrobiome")
+```
+
+## Figures
+
+```{r warning=F,fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
 p1<-ggplot(coreM1,aes(Time,Abundance,fill=CoreMicrobiome))+
   geom_area()+
   facet_wrap(~Site)+
