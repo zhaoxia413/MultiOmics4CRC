@@ -341,47 +341,80 @@ for (i in seq_along(stoolComp)) {
 
 ### Figures
 
-<details>
-<summary>
-<font size=4>Figures</font>
-</summary> 
+
 #### Phylum compostion
 
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary> 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 print(areaPlot$Phylum)
 ```
+</details>
+
 #### Class compostion
+
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary> 
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 print(areaPlot$Class)
 ```
+</details>
 
 #### Order compostion
 
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary> 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 print(areaPlot$Order)
 ```
+</details>
 
 #### Family compostion
 
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary> 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 print(areaPlot$Family)
 ```
+</details>
 
 #### Genus compostion
 
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary> 
 ```{r fig.height=5,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 print(areaPlot$Genus)
 ```
+</details>
 
 #### Species compostion
 
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary> 
 ```{r fig.height=5,fig.width=7,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 print(areaPlot$Species)
 ```
+</details>
 
 #### OTU compostion
 
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary> 
 ```{r fig.height=5,fig.width=6,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 print(areaPlot$OTU)
 ```

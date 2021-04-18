@@ -412,47 +412,84 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
 ### 2.1.2 Figures
 
+#### 2.1.2.1 Phylum compostion
+
 <details>
 <summary>
-<font size=4>Figures</font>
+<font size=4>Figure</font>
 </summary>
-
-#### 2.1.2.1 Phylum compostion
 
     print(areaPlot$Phylum)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
-\#\#\#\# Class compostion
+</details>
+
+#### 2.1.2.2 Class compostion
+
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary>
 
     print(areaPlot$Class)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
+</details>
 
-#### 2.1.2.2 Order compostion
+#### 2.1.2.3 Order compostion
+
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary>
 
     print(areaPlot$Order)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
+</details>
 
-#### 2.1.2.3 Family compostion
+#### 2.1.2.4 Family compostion
+
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary>
 
     print(areaPlot$Family)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+</details>
 
-#### 2.1.2.4 Genus compostion
+#### 2.1.2.5 Genus compostion
+
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary>
 
     print(areaPlot$Genus)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
+</details>
 
-#### 2.1.2.5 Species compostion
+#### 2.1.2.6 Species compostion
+
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary>
 
     print(areaPlot$Species)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
+</details>
 
-#### 2.1.2.6 OTU compostion
+#### 2.1.2.7 OTU compostion
+
+<details>
+<summary>
+<font size=4>Figure</font>
+</summary>
 
     print(areaPlot$OTU)
 
