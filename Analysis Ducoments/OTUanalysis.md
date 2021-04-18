@@ -1,16 +1,24 @@
--   [0.1 Summary](#summary)
-    -   [0.1.1 OTU clustering：](#otu-clustering)
-    -   [0.1.2 Code](#code)
--   [0.2 Rank-Abundance](#rank-abundance)
-    -   [0.2.1 Code](#code-1)
-    -   [0.2.2 Figures](#figures)
--   [1 Pan/Core物种分析](#pancore物种分析)
-    -   [1.0.1 Code](#code-2)
-    -   [1.1 Microbiome compostion](#microbiome-compostion)
-        -   [1.1.1 Code](#code-3)
-        -   [1.1.2 Figures](#figures-1)
+-   [1 OTUanalysis](#otuanalysis)
+    -   [1.1 Requires](#requires)
+    -   [1.2 Summary](#summary)
+        -   [1.2.1 OTU（Operational Taxonomic
+            Units）](#otuoperational-taxonomic-units)
+        -   [1.2.2 Code](#code)
+    -   [1.3 Rank-Abundance](#rank-abundance)
+        -   [1.3.1 Code](#code-1)
+        -   [1.3.2 Figures](#figures)
+-   [2 Pan/Core物种分析](#pancore物种分析)
+    -   [2.1 Microbiome compostion](#microbiome-compostion)
+        -   [2.1.1 Code](#code-2)
+        -   [2.1.2 Figures](#figures-1)
+
+1 OTUanalysis
+=============
 
 ================
+
+1.1 Requires
+------------
 
 <details>
 <summary>
@@ -44,35 +52,32 @@
 
 </details>
 
-0.1 Summary
+1.2 Summary
 -----------
 
-OTU（Operational
-TaxonomicUnits）是在系统发生学或群体遗传学研究中，为了便于进行分析，人为给某一个分类单元（品系，属，种、分组等）设置的统一标志。要了解一个样本测序结果中的菌种、菌属等数目信息，就需要对序列进行聚类（cluster）。通过聚类操作，将序列按照彼此的相似性分归为许多小组，一个小组就是一个OTU。可根据不同的相似度水平，对所有序列进行OTU划分，通常对97%相似水平下的OTU进行生物信息统计分析。
+### 1.2.1 OTU（Operational Taxonomic Units）
 
-软件平台：Uparse（vsesion 7.1
-<a href="http://drive5.com/uparse/" class="uri">http://drive5.com/uparse/</a>）
+In 16S metagenomics approaches, OTUs are cluster of similar sequence
+variants of the 16S rDNA marker gene sequence. Each of these cluster is
+intended to represent a taxonomic unit of a bacteria species or genus
+depending on the sequence similarity threshold. Typically, OTU cluster
+are defined by a 97% identity threshold of the 16S gene sequences to
+distinguish bacteria at the genus level. \#\#\#\# Limited taxonomic
+resolution OTU resolution depends on the 16S approach which has some
+limits in distinguishing at the species level
 
-### 0.1.1 OTU clustering：
+### 1.2.2 Code
 
-1.  对优化序列提取非重复序列，便于降低分析中间过程冗余计算量（<a href="http://drive5.com/usearch/manual/dereplication.html" class="uri">http://drive5.com/usearch/manual/dereplication.html</a>）；
-    2）去除没有重复的单序列（<a href="http://drive5.com/usearch/manual/singletons.html" class="uri">http://drive5.com/usearch/manual/singletons.html</a>)；
-    3）按照97%相似性对非重复序列（不含单序列）进行OTU聚类，在聚类过程中去除嵌合体，得到OTU的代表序列;
-    4）将所有优化序列map至OTU代表序列，选出与代表序列相似性在97%以上的序列，生成OTU表格。
-
-### 0.1.2 Code
-
-0.2 Rank-Abundance
+1.3 Rank-Abundance
 ------------------
 
-Rank-Abundance
-曲线是分析多样性的一种方式。构建方法是统计每个样本中，每个OTU所含的序列数，将OTUs按丰度（所含有的序列条数）由大到小等级排序，再以OTU的排序等级为横坐标，以每个OTU中所含的序列数（也可用OTU中序列数的相对百分含量）为纵坐标作图。
+A rank abundance curve or Whittaker plot is a chart used by ecologists
+to display relative species abundance, a component of biodiversity. It
+can also be used to visualize species richness and species evenness. It
+overcomes the shortcomings of biodiversity indices that cannot display
+the relative role different variables played in their calculation.
 
-Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度和群落均匀度。在水平方向，物种的丰富度由曲线的宽度来反映，曲线在横轴上的范围越大，物种的丰富度就越高；曲线的形状（平缓程度）反映了样本中群落的均匀度，曲线越平缓，物种分布越均匀。
-
-### 0.2.1 Code
-
-#### 0.2.1.1 Rank abundance curve
+### 1.3.1 Code
 
     otu<-fread("../Data/Data/OTUtable_ori.csv",data.table = F)
     meta<-fread("../Data/Data/meta.csv",data.table = F)
@@ -96,13 +101,23 @@ Rank-Abundance曲线可用来解释多样性的两个方面，即物种丰富度
       theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.key = element_rect(fill = 'transparent')) +
       scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
 
-### 0.2.2 Figures
+### 1.3.2 Figures
 
     p
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" />
+\#\#\# Effective sequences
 
-1 Pan/Core物种分析
+    ggplot(meta,aes(reorder(Samples,Sequences),Sequences,fill=Site))+
+      geom_col()+
+      scale_fill_jama()+
+      facet_grid(~Site,scales = "free",space = "free")+
+      theme(axis.text.x = element_blank())+
+      xlab("Samples")
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" />
+
+2 Pan/Core物种分析
 ==================
 
 Pan/Core物种分析用于描述随着样本量增加物种总量和核心物种量变化的情况，在微生物多样性和群落研究中，被广泛用于判断样本量是否充足以及评估环境中总物种丰富度(
@@ -155,22 +170,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 (2009).
 <a href="https://doi.org/10.1186/1471-2180-9-259" class="uri">https://doi.org/10.1186/1471-2180-9-259</a>
 
-### 1.0.1 Code
-
-    summary(cars)
-
-    ##      speed           dist       
-    ##  Min.   : 4.0   Min.   :  2.00  
-    ##  1st Qu.:12.0   1st Qu.: 26.00  
-    ##  Median :15.0   Median : 36.00  
-    ##  Mean   :15.4   Mean   : 42.98  
-    ##  3rd Qu.:19.0   3rd Qu.: 56.00  
-    ##  Max.   :25.0   Max.   :120.00
-
-1.1 Microbiome compostion
+2.1 Microbiome compostion
 -------------------------
 
-### 1.1.1 Code
+### 2.1.1 Code
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     meta$Cycle<-factor(meta$Cycle,levels = c("BL","C2","C3","C4","C5","C6","C8","C10"))
@@ -286,38 +289,46 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       names(areaPlot)[i]=names(stoolComp)[i]
     }
 
-### 1.1.2 Figures
+### 2.1.2 Figures
 
 <details>
 <summary>
 <font size=4>Figures</font>
 </summary>
 
-    areaPlot[[1]]
+#### 2.1.2.1 Phylum compostion
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" />
+    areaPlot$Phylum
 
-    areaPlot[[2]]
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" />
+\#\#\#\# Class compostion
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-2.png" width="100%" style="display: block; margin: auto;" />
+    areaPlot$Class
 
-    areaPlot[[3]]
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
+\#\#\#\# Order compostion
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-3.png" width="100%" style="display: block; margin: auto;" />
+    areaPlot$Order
 
-    areaPlot[[4]]
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+\#\#\#\#Family compostion
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-4.png" width="100%" style="display: block; margin: auto;" />
+    areaPlot$Family
 
-    areaPlot[[5]]
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
+\#\#\#\# Genus compostion
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-5.png" width="100%" style="display: block; margin: auto;" />
+    areaPlot$Genus
 
-    areaPlot[[6]]
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
+\#\#\#\# Species compostion
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-6.png" width="100%" style="display: block; margin: auto;" />
+    areaPlot$Species
 
-    areaPlot[[7]]
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+\#\#\#\# OTU compostion
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-7.png" width="100%" style="display: block; margin: auto;" />
+    areaPlot$OTU
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
