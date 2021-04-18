@@ -9,7 +9,7 @@ output:
     number_sections: yes
     toc: yes
 ---
-
+# Visulaization
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -112,7 +112,9 @@ plot_grid(p1,p2, p3,labels = c("A","B","C"), ncol =3, nrow = 1)
 
 
 ```
+
 ## Treated-related aderse events
+
 ```{r fig.height=4, fig.width=6, collapse=TRUE, dpi=600, paged.print=FALSE, results='hold', tidy=TRUE,fig.align='center'}
 df<-fread("../Data/Data/paired_BL_treat_16patients.csv",data.table = F)
 

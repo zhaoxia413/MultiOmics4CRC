@@ -1,4 +1,10 @@
--   [0.1 BMI and FBratio](#bmi-and-fbratio)
+-   [1 Visulaization](#visulaization)
+    -   [1.1 BMI and FBratio](#bmi-and-fbratio)
+    -   [1.2 Treated-related aderse
+        events](#treated-related-aderse-events)
+
+1 Visulaization
+===============
 
 <details>
 <summary>
@@ -31,7 +37,7 @@
 
 </details>
 
-0.1 BMI and FBratio
+1.1 BMI and FBratio
 -------------------
 
     df<-fread("../Data/Data/Phylum_cli_111samples.csv",data.table = F)
@@ -118,7 +124,9 @@
     ## `geom_smooth()` using formula 'y ~ x'
 
 <img src="Visulaization_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
-\#\# Treated-related aderse events
+
+1.2 Treated-related aderse events
+---------------------------------
 
     df <- fread("../Data/Data/paired_BL_treat_16patients.csv", data.table = F)
 

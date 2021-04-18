@@ -1,11 +1,11 @@
--   [1 Vsisualization](#vsisualization)
+-   [1 Samples and Clinical](#samples-and-clinical)
     -   [1.1 Introduction](#introduction)
     -   [1.2 Clinical](#clinical)
     -   [1.3 Samples sequending
         statistics](#samples-sequending-statistics)
 
-1 Vsisualization
-================
+1 Samples and Clinical
+======================
 
 [`Return`](./)
 

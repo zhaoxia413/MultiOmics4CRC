@@ -1,6 +1,6 @@
 ---
 sort: 1
-title: "Vsisualization"
+title: "Samples and Clinical"
 author: "XiaZhao"
 date: "2021-04-13"
 output: 
@@ -10,7 +10,7 @@ output:
     toc: yes
 ---
 
-# Vsisualization
+# Samples and Clinical
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
