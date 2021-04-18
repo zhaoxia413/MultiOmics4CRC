@@ -149,9 +149,9 @@ Within an individual oral cavity, we found over 3600 unique sequences, over 500 
 
 ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy "core microbiome" of oral microbial communities. BMC Microbiol 9, 259 (2009). https://doi.org/10.1186/1471-2180-9-259
 
-# Core with compositionals:
+# Core Microbiome:
 
-```{r warning=F,fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
+```{r warning=F,fig.height=4,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
 meta<-fread("../Data/Data/meta.csv",data.table = F)
 OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
 OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
