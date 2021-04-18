@@ -9,11 +9,11 @@
         -   [1.3.2 Figures](#figures)
         -   [1.3.3 Effective sequences](#effective-sequences)
         -   [1.3.4 Taxon annotation](#taxon-annotation)
--   [2 Pan/Core Microbiome](#pancore-microbiome)
--   [3 Core Microbiome:](#core-microbiome)
-    -   [3.1 Microbiome compostion](#microbiome-compostion)
-        -   [3.1.1 Code](#code-2)
-        -   [3.1.2 Figures](#figures-1)
+-   [2 Core Microbiome](#core-microbiome)
+    -   [2.0.1 Code and Figures:](#code-and-figures)
+    -   [2.1 Microbiome compostion](#microbiome-compostion)
+        -   [2.1.1 Code](#code-2)
+        -   [2.1.2 Figures](#figures-1)
 
 1 OTUanalysis
 =============
@@ -166,16 +166,8 @@ the relative role different variables played in their calculation.
     ## [1] "Species:362"
     ## [1] "OTU:722"
 
-2 Pan/Core Microbiome
-=====================
-
-Pan/Core物种分析用于描述随着样本量增加物种总量和核心物种量变化的情况，在微生物多样性和群落研究中，被广泛用于判断样本量是否充足以及评估环境中总物种丰富度(
-species
-richness)和核心物种数。Pan/Core物种分析可以在各分类学水平上进行，包括domain（域），kingdom（界），phylum（门），class（纲），order（目），family（科），genus（属），species（种），OTU等。
-
-Pan物种，即泛物种，是所有样本包含的物种总和，用于观测随着样本数目增加，总物种数目的增加情况。
-
-Core物种，即核心物种，是所有样本共有物种数目，用于观测随着样本数目增加，共有物种数目的减少情况。
+2 Core Microbiome
+=================
 
 One of the aims of the Human Microbiome Project when established in 2007
 was to identify a human ‘core microbiome’, defined as a group of
@@ -219,8 +211,11 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 (2009).
 <a href="https://doi.org/10.1186/1471-2180-9-259" class="uri">https://doi.org/10.1186/1471-2180-9-259</a>
 
-3 Core Microbiome:
-==================
+Pan/Core物种分析用于描述随着样本量增加物种总量和核心物种量变化的情况，在微生物多样性和群落研究中，被广泛用于判断样本量是否充足以及评估环境中总物种丰富度(
+species
+richness)和核心物种数。Pan/Core物种分析可以在各分类学水平上进行，包括domain（域），kingdom（界），phylum（门），class（纲），order（目），family（科），genus（属），species（种），OTU等。
+
+### 2.0.1 Code and Figures:
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
@@ -357,10 +352,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-4.png" width="80%" style="display: block; margin: auto;" />
 
-3.1 Microbiome compostion
+2.1 Microbiome compostion
 -------------------------
 
-### 3.1.1 Code
+### 2.1.1 Code
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
@@ -421,14 +416,14 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       names(areaPlot)[i]=names(stoolComp)[i]
     }
 
-### 3.1.2 Figures
+### 2.1.2 Figures
 
 <details>
 <summary>
 <font size=4>Figures</font>
 </summary>
 
-#### 3.1.2.1 Phylum compostion
+#### 2.1.2.1 Phylum compostion
 
     print(areaPlot$Phylum)
 
@@ -439,31 +434,31 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 3.1.2.2 Order compostion
+#### 2.1.2.2 Order compostion
 
     print(areaPlot$Order)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 3.1.2.3 Family compostion
+#### 2.1.2.3 Family compostion
 
     print(areaPlot$Family)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 3.1.2.4 Genus compostion
+#### 2.1.2.4 Genus compostion
 
     print(areaPlot$Genus)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 3.1.2.5 Species compostion
+#### 2.1.2.5 Species compostion
 
     print(areaPlot$Species)
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 3.1.2.6 OTU compostion
+#### 2.1.2.6 OTU compostion
 
     print(areaPlot$OTU)
 

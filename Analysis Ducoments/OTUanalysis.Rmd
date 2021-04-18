@@ -132,15 +132,7 @@ for (i in 1:7) {
 
 ```
 
-# Pan/Core Microbiome
-Pan/Core物种分析用于描述随着样本量增加物种总量和核心物种量变化的情况，在微生物多样性和群落研究中，被广泛用于判断样本量是否充足以及评估环境中总物种丰富度( species richness)和核心物种数。Pan/Core物种分析可以在各分类学水平上进行，包括domain（域），kingdom（界），phylum（门），class（纲），order（目），family（科），genus（属），species（种），OTU等。
-
-## Pan Microbiome
-Pan物种，即泛物种，是所有样本包含的物种总和，用于观测随着样本数目增加，总物种数目的增加情况。
-
-## Core Microbiome
-
-Core物种，即核心物种，是所有样本共有物种数目，用于观测随着样本数目增加，共有物种数目的减少情况。
+# Core Microbiome
 
 One of the aims of the Human Microbiome Project when established in 2007 was to identify a human ‘core microbiome’, defined as a group of microbial taxa or genes that are shared by all or most humans (Hamady & Knight, 2009; Turnbaugh et al., 2007). These pioneering studies found that a universal taxonomic core rarely exists across groups of humans, even at the scale of the family unit (Yatsunenko et al., 2012), yet most shared the same set of core microbial genes. This pattern appears to be similar for most host species studied to date, with variable microbial composition often underpinned by similar gene context across individuals (Burke, Steinberg, Rusch, Kjelleberg, & Thomas, 2011; Louca et al., 2018). Nevertheless, most ecologists aim to understand host–microbe interactions at the organismal level, accounting for microbe functional traits where possible; therefore, within this field, the core microbiome has been largely applied to taxonomically defined microbial communities with an aim to identify groups of microbes that are particularly widespread across the host population (e.g. Ainsworth et al., 2015; Grieneisen, Livermore, Alberts, Tung, & Archie, 2017; Hernandez‐Agreda, Gates, & Ainsworth, 2017; Kembel et al., 2014; Lundberg et al., 2012; Muletz Wolz, Yarwood, Campbell Grant, Fleischer, & Lips, 2018).
 
@@ -151,6 +143,9 @@ ref: Turnbaugh, P., Hamady, M., Yatsunenko, T. et al. A core gut microbiome in o
 Within an individual oral cavity, we found over 3600 unique sequences, over 500 different OTUs or "species-level" phylotypes (sequences that clustered at 3% genetic difference) and 88 - 104 higher taxa (genus or more inclusive taxon). The predominant taxa belonged to Firmicutes (genus Streptococcus, family Veillonellaceae, genus Granulicatella), Proteobacteria (genus Neisseria, Haemophilus), Actinobacteria (genus Corynebacterium, Rothia, Actinomyces), Bacteroidetes (genus Prevotella, Capnocytophaga, Porphyromonas) and Fusobacteria (genus Fusobacterium).
 
 ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy "core microbiome" of oral microbial communities. BMC Microbiol 9, 259 (2009). https://doi.org/10.1186/1471-2180-9-259
+
+Pan/Core物种分析用于描述随着样本量增加物种总量和核心物种量变化的情况，在微生物多样性和群落研究中，被广泛用于判断样本量是否充足以及评估环境中总物种丰富度( species richness)和核心物种数。Pan/Core物种分析可以在各分类学水平上进行，包括domain（域），kingdom（界），phylum（门），class（纲），order（目），family（科），genus（属），species（种），OTU等。
+
 
 ### Code and Figures:
 
