@@ -7,11 +7,13 @@
     -   [1.3 Rank-Abundance](#rank-abundance)
         -   [1.3.1 Code](#code-1)
         -   [1.3.2 Figures](#figures)
-        -   [1.3.3 Taxon annotation](#taxon-annotation)
+        -   [1.3.3 Effective sequences](#effective-sequences)
+        -   [1.3.4 Taxon annotation](#taxon-annotation)
 -   [2 Pan/Core物种分析](#pancore物种分析)
-    -   [2.1 Microbiome compostion](#microbiome-compostion)
-        -   [2.1.1 Code](#code-2)
-        -   [2.1.2 Figures](#figures-1)
+-   [3 Core with compositionals:](#core-with-compositionals)
+    -   [3.1 Microbiome compostion](#microbiome-compostion)
+        -   [3.1.1 Code](#code-2)
+        -   [3.1.2 Figures](#figures-1)
 
 1 OTUanalysis
 =============
@@ -37,7 +39,7 @@
     library(data.table)
     library(ggExtra)
     library(cowplot)
-    library(ComplexHeatmap)
+    library(pheatmap)
     library(scico)
     library(colorspace)
     library(RColorBrewer)
@@ -48,6 +50,7 @@
     library(reactable)
     source("../R_function/colors.R")
     source("../R_function/surv_plot.R")
+    source("../R_function/OTUanalysis.R")
     theme_set(theme_cowplot())
     "%ni%" <- Negate("%in%")
     options(stringsAsFactors = F)
@@ -111,7 +114,8 @@ the relative role different variables played in their calculation.
     p
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" />
-\#\#\# Effective sequences
+
+### 1.3.3 Effective sequences
 
     ggplot(meta,aes(reorder(Samples,Sequences),Sequences,fill=Site))+
       geom_col()+
@@ -122,7 +126,7 @@ the relative role different variables played in their calculation.
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" />
 
-### 1.3.3 Taxon annotation
+### 1.3.4 Taxon annotation
 
     OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
     OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
@@ -215,70 +219,157 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 (2009).
 <a href="https://doi.org/10.1186/1471-2180-9-259" class="uri">https://doi.org/10.1186/1471-2180-9-259</a>
 
-2.1 Microbiome compostion
--------------------------
-
-### 2.1.1 Code
+3 Core with compositionals:
+===========================
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
-    meta$Cycle<-factor(meta$Cycle,levels = c("BL","C2","C3","C4","C5","C6","C8","C10"))
-    meta$Time<-meta$Cycle
-    meta$Time<-ifelse(meta$Time=="BL",1,meta$Time)
-    meta$Time<-gsub("C","",meta$Time)
-    meta$Time<-as.numeric(meta$Time)
-
     OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
     OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
     TaxonLevels<-colnames(OTUstool)[1:7]
-    OTUanalysis<-function(OTUtable,TaxonLevels,topTaxonomyABvalue){
-      OTU_readsList<-list()
-      OTU_abundanceList<-list()
-      for (i in seq_along(TaxonLevels)) {
-        OTU_readsList[[i]]<-data.frame(Microname=OTUtable[,grep(TaxonLevels[i],colnames(OTUtable))],OTUtable[,-c(1:7)])
-        colnames(OTU_readsList[[i]])[1]="Microname"
-        OTU_readsList[[i]]<-OTU_readsList[[i]]%>%group_by(Microname)%>%summarise_each(sum)
-        OTU_abundanceList[[i]]<-data.frame(Microname=OTU_readsList[[i]][,1],apply(OTU_readsList[[i]][,-1], 2,function(x)x/sum(x)))
-        colnames(OTU_readsList[[i]])[1]=TaxonLevels[i]
-        colnames(OTU_abundanceList[[i]])[1]=TaxonLevels[i]
-        names(OTU_readsList)[i]=TaxonLevels[i]
-        names(OTU_abundanceList)[i]=TaxonLevels[i]
-      }
-      
-      OTU_abundanceList<-lapply(OTU_abundanceList, function(x){
-        x<-data.frame(row.names = x[,1],x[,-1])
-      })
-      
-      core_list<-list()
-      coreTaxonomy<-list()
-      for (i in seq_along(OTU_abundanceList)) {
-        for (j in seq_along(OTU_abundanceList[[i]])) {
-          index<-which(OTU_abundanceList[[i]][,j ]>=topTaxonomyABvalue[i])
-          core_list[[j]]<-data.frame(row.names = rownames(OTU_abundanceList[[i]])[index],
-                                      OTU_abundanceList[[i]][index,j ])
-          colnames(core_list[[j]])<-colnames(OTU_abundanceList[[i]])[j]
-          core_list[[j]]<-data.frame(t(core_list[[j]]))
-        }
-        coreTaxonomy[[i]]<-do.call(bind_rows,core_list)
-        names(coreTaxonomy)[i]=names(OTU_abundanceList)[i]
-      }
-      OTU_abundanceListTop<-list()
-      Others<-list()
-      OTU_compostion<-list()
-      for (i in seq_along(OTU_abundanceList)) {
-        OTU_abundanceListTop[[i]]<-OTU_abundanceList[[i]][which(rownames(OTU_abundanceList[[i]])%in%colnames(coreTaxonomy[[i]])),]
-        Others[[i]]<-apply(OTU_abundanceListTop[[i]], 2, function(x){
-          1-sum(x)
-        })
-        OTU_compostion[[i]]<-bind_rows(OTU_abundanceListTop[[i]], Others[[i]])
-        rownames(OTU_compostion[[i]])[dim(OTU_compostion[[i]])[1]]="Others"
-        names(OTU_compostion)[i]<-names(OTU_abundanceList)[i]
-      }
-      return(list(TaxonomyReads=OTU_readsList,
-                  TaxonomyAbundance=OTU_abundanceList,
-                  coreTaxonomy=coreTaxonomy,
-                  TaxonomyComposition=OTU_compostion))
+    Stool<-OTUanalysis(OTUtable = OTUstool,
+                        TaxonLevels = TaxonLevels,
+                        topTaxonomyABvalue = c(0.01,0.01,0.1,0.2,0.2,0.2,0.2))
+
+    Saliva<-OTUanalysis(OTUtable = OTUsaliva,
+                      TaxonLevels = TaxonLevels,
+                      topTaxonomyABvalue = c(0.01,0.01,0.05,0.05,0.05,0.05,0.05))
+                      
+    # Transform to compositional abundances
+    ABstool<-Stool$TaxonomyAbundance$Genus
+    ABsaliva<-Saliva$TaxonomyAbundance$Genus
+    # Pick the core (>5% relative abundance in >50% of the samples)
+    ABstool.core<-ABstool[apply(ABstool, 1, function(x){
+      length(which(x==0))<34&length(which(x>0.05))!=0
+    }),]%>%
+      .[-grep("norank",rownames(.)),]%>%
+      .[-grep("unclassified",rownames(.)),]
+
+    scico_palette_show()
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" />
+
+    mat1<-ABstool.core
+    for (i in 1:nrow(mat1)) {
+      mat1[i,][which(mat1[i,]>=0.05)]=2
+      mat1[i,][which(mat1[i,]>0&mat1[i,]<0.05)]=1
     }
 
+    pheatmap(mat1,border_color = NA,
+                width = unit(cm,"5"),height = unit(cm,"5"),
+             fontsize = 6,
+             main = "Prevalence of coreMicrobiome (Stool)",
+             legend_labels = c("0","<0.05",">0.05"),
+             legend_breaks = c(0,1,2),
+             show_colnames = F,
+             color = scico(100,palette = "bilbao",direction = 1))
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto;" />
+
+    ABsaliva.core<-ABsaliva[apply(ABsaliva, 1, function(x){
+      length(which(x==0))<21&length(which(x>0.01))!=0
+    }),]%>%
+      .[-grep("norank",rownames(.)),]%>%
+      .[-grep("unclassified",rownames(.)),]
+
+    mat2<-ABsaliva.core
+    for (i in 1:nrow(mat2)) {
+      mat2[i,][which(mat2[i,]>=0.05)]=2
+      mat2[i,][which(mat2[i,]>0&mat2[i,]<0.05)]=1
+    }
+
+    pheatmap(mat2,border_color = NA,
+             width = unit(cm,"5"),height = unit(cm,"5"),
+             fontsize = 6,
+             main = "Prevalence of coreMicrobiome (Saliva)",
+             legend_labels = c("0","<0.05",">0.05"),
+             legend_breaks = c(0,1,2),
+             show_colnames = F,
+             color = scico(100,palette = "bilbao",direction = 1))
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto;" />
+
+    ABstool.core<-data.frame(Samples=colnames(ABstool.core),t(ABstool.core))%>%
+      mutate(.,Others=apply(.[,-1],1, function(x) 1-sum(x)))
+
+    ABsaliva.core<-data.frame(Samples=colnames(ABsaliva.core),t(ABsaliva.core))%>%
+      mutate(.,Others=apply(.[,-1],1, function(x) 1-sum(x)))
+
+    coreM<-bind_rows(ABstool.core,ABsaliva.core)
+    coreM<-merge(select(meta,c(Samples,patientID,Site,Time)),coreM,by="Samples")
+    coreMp13<-subset(coreM,patientID=="Patient13")
+    coreMp13<-coreMp13[,-c(1:2)]%>%group_by(Site,Time)%>%summarise_each(mean)
+    coreMp13<-melt(coreMp13,id.vars = c("Site","Time"),value.name = "Abundance",
+                 variable.name = "CoreMicrobiome")
+    coreM1<-coreM[,-c(1:2)]%>%group_by(Site,Time)%>%summarise_each(mean)
+    coreM1<-melt(coreM1,id.vars = c("Site","Time"),value.name = "Abundance",
+                 variable.name = "CoreMicrobiome")
+    p1<-ggplot(coreM1,aes(Time,Abundance,fill=CoreMicrobiome))+
+      geom_area()+
+      facet_wrap(~Site)+
+      theme_minimal()+
+      scale_fill_manual(name="coreMicrobiome",values=c(col31,col21,col16,col11))+
+      #scale_fill_discrete(guide=FALSE)+ #hide the legend
+      theme(legend.text = element_text(size = 6),legend.box = "horizontal",
+            plot.background = element_rect(colour = "black", 
+                                           size = 1, linetype = 1,
+                                           fill = "gray"),
+            legend.margin = margin(0.1,unit="pt"),
+            legend.key.size=unit(.1,"inches"),#图例分类符号的大小
+            legend.text.align=0,#0左，1右，0.5居中， 图例分类标签的对齐方式
+            legend.title=element_text(colour="black",size=8,face = "bold"),#图例标题设置
+            legend.direction ="vertical",
+            legend.box.just="top",
+            legend.spacing = unit(0.1,"cm"),
+            legend.spacing.y = unit(0.1,"cm"),
+            legend.spacing.x =unit(0.1,"cm"),
+            legend.box.spacing = unit(0.1,"cm"),
+            legend.justification=c(.4,.4),
+            legend.position="top",
+            plot.margin = unit(c(0.2, 0.2, 0.2, 0.2), "inches"))+
+      scale_x_continuous(n.breaks = 8,minor_breaks = NULL)+
+      xlab("Cycles of treatment")
+    p1
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-4.png" width="100%" style="display: block; margin: auto;" />
+
+    p2<-ggplot(coreMp13,aes(Time,Abundance,fill=CoreMicrobiome))+
+      geom_area()+
+      facet_wrap(~Site,scales = "free")+
+      theme_minimal()+
+      scale_fill_manual(name="coreMicrobiome (Patient13)",values=c(col31,col21,col16,col11))+
+      #scale_fill_discrete(guide=FALSE)+ #hide the legend
+      theme(legend.text = element_text(size = 6),legend.box = "horizontal",
+            plot.background = element_rect(colour = "black", 
+                                           size = 1, linetype = 1,
+                                           fill = "gray"),
+            legend.margin = margin(0.1,unit="pt"),
+            legend.key.size=unit(.1,"inches"),#图例分类符号的大小
+            legend.text.align=0,#0左，1右，0.5居中， 图例分类标签的对齐方式
+            legend.title=element_text(colour="black",size=8,face = "bold"),#图例标题设置
+            legend.direction ="vertical",
+            legend.box.just="top",
+            legend.spacing = unit(0.1,"cm"),
+            legend.spacing.y = unit(0.1,"cm"),
+            legend.spacing.x =unit(0.1,"cm"),
+            legend.box.spacing = unit(0.1,"cm"),
+            legend.justification=c(.4,.4),
+            legend.position="top",
+            plot.margin = unit(c(0.2, 0.2, 0.2, 0.2), "inches"))+
+      scale_x_continuous(n.breaks = 8,minor_breaks = NULL)+
+      xlab("Cycles of treatment")
+    p2
+
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-5.png" width="100%" style="display: block; margin: auto;" />
+
+3.1 Microbiome compostion
+-------------------------
+
+### 3.1.1 Code
+
+    meta<-fread("../Data/Data/meta.csv",data.table = F)
+    OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
+    OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
+    TaxonLevels<-colnames(OTUstool)[1:7]
     Stool<-OTUanalysis(OTUtable = OTUstool,
                         TaxonLevels = TaxonLevels,
                         topTaxonomyABvalue = c(0.01,0.01,0.1,0.2,0.2,0.2,0.2))
@@ -334,51 +425,51 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       names(areaPlot)[i]=names(stoolComp)[i]
     }
 
-### 2.1.2 Figures
+### 3.1.2 Figures
 
 <details>
 <summary>
 <font size=4>Figures</font>
 </summary>
 
-#### 2.1.2.1 Phylum compostion
+#### 3.1.2.1 Phylum compostion
 
     print(areaPlot$Phylum)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
 \#\#\#\# Class compostion
 
     print(areaPlot$Class)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 2.1.2.2 Order compostion
+#### 3.1.2.2 Order compostion
 
     print(areaPlot$Order)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 2.1.2.3 Family compostion
+#### 3.1.2.3 Family compostion
 
     print(areaPlot$Family)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 2.1.2.4 Genus compostion
+#### 3.1.2.4 Genus compostion
 
     print(areaPlot$Genus)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 2.1.2.5 Species compostion
+#### 3.1.2.5 Species compostion
 
     print(areaPlot$Species)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
 
-#### 2.1.2.6 OTU compostion
+#### 3.1.2.6 OTU compostion
 
     print(areaPlot$OTU)
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
 </details>

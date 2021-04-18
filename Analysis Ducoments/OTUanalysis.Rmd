@@ -35,7 +35,7 @@ library(reshape2)
 library(data.table)
 library(ggExtra)
 library(cowplot)
-library(ComplexHeatmap)
+library(pheatmap)
 library(scico)
 library(colorspace)
 library(RColorBrewer)
@@ -46,6 +46,7 @@ library(BiodiversityR)
 library(reactable)
 source("../R_function/colors.R")
 source("../R_function/surv_plot.R")
+source("../R_function/OTUanalysis.R")
 theme_set(theme_cowplot())
 "%ni%"<-Negate("%in%")
 options(stringsAsFactors = F)
@@ -93,10 +94,13 @@ p<-ggplot(rank_dat, aes(rank, log(abundance, 10), color = Site)) +
   theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.key = element_rect(fill = 'transparent')) +
   scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
 ```
+
 ### Figures
+
 ```{r out.width = "50%",fig.height=4,fig.width=6, dpi=600,fig.align='center'}
 p
 ```
+
 ### Effective sequences
 
 ```{r out.width = "50%",fig.height=4,fig.width=6, dpi=600,fig.align='center'}
@@ -145,70 +149,147 @@ Within an individual oral cavity, we found over 3600 unique sequences, over 500 
 
 ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy "core microbiome" of oral microbial communities. BMC Microbiol 9, 259 (2009). https://doi.org/10.1186/1471-2180-9-259
 
+# Core with compositionals:
+
+```{r warning=F,fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
+meta<-fread("../Data/Data/meta.csv",data.table = F)
+OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
+OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
+TaxonLevels<-colnames(OTUstool)[1:7]
+Stool<-OTUanalysis(OTUtable = OTUstool,
+                    TaxonLevels = TaxonLevels,
+                    topTaxonomyABvalue = c(0.01,0.01,0.1,0.2,0.2,0.2,0.2))
+
+Saliva<-OTUanalysis(OTUtable = OTUsaliva,
+                  TaxonLevels = TaxonLevels,
+                  topTaxonomyABvalue = c(0.01,0.01,0.05,0.05,0.05,0.05,0.05))
+                  
+# Transform to compositional abundances
+ABstool<-Stool$TaxonomyAbundance$Genus
+ABsaliva<-Saliva$TaxonomyAbundance$Genus
+# Pick the core (>5% relative abundance in >50% of the samples)
+ABstool.core<-ABstool[apply(ABstool, 1, function(x){
+  length(which(x==0))<34&length(which(x>0.05))!=0
+}),]%>%
+  .[-grep("norank",rownames(.)),]%>%
+  .[-grep("unclassified",rownames(.)),]
+
+scico_palette_show()
+mat1<-ABstool.core
+for (i in 1:nrow(mat1)) {
+  mat1[i,][which(mat1[i,]>=0.05)]=2
+  mat1[i,][which(mat1[i,]>0&mat1[i,]<0.05)]=1
+}
+
+pheatmap(mat1,border_color = NA,
+            width = unit(cm,"5"),height = unit(cm,"5"),
+         fontsize = 6,
+         main = "Prevalence of coreMicrobiome (Stool)",
+         legend_labels = c("0","<0.05",">0.05"),
+         legend_breaks = c(0,1,2),
+         show_colnames = F,
+         color = scico(100,palette = "bilbao",direction = 1))
+
+
+ABsaliva.core<-ABsaliva[apply(ABsaliva, 1, function(x){
+  length(which(x==0))<21&length(which(x>0.01))!=0
+}),]%>%
+  .[-grep("norank",rownames(.)),]%>%
+  .[-grep("unclassified",rownames(.)),]
+
+mat2<-ABsaliva.core
+for (i in 1:nrow(mat2)) {
+  mat2[i,][which(mat2[i,]>=0.05)]=2
+  mat2[i,][which(mat2[i,]>0&mat2[i,]<0.05)]=1
+}
+
+pheatmap(mat2,border_color = NA,
+         width = unit(cm,"5"),height = unit(cm,"5"),
+         fontsize = 6,
+         main = "Prevalence of coreMicrobiome (Saliva)",
+         legend_labels = c("0","<0.05",">0.05"),
+         legend_breaks = c(0,1,2),
+         show_colnames = F,
+         color = scico(100,palette = "bilbao",direction = 1))
+
+ABstool.core<-data.frame(Samples=colnames(ABstool.core),t(ABstool.core))%>%
+  mutate(.,Others=apply(.[,-1],1, function(x) 1-sum(x)))
+
+ABsaliva.core<-data.frame(Samples=colnames(ABsaliva.core),t(ABsaliva.core))%>%
+  mutate(.,Others=apply(.[,-1],1, function(x) 1-sum(x)))
+
+coreM<-bind_rows(ABstool.core,ABsaliva.core)
+coreM<-merge(select(meta,c(Samples,patientID,Site,Time)),coreM,by="Samples")
+coreMp13<-subset(coreM,patientID=="Patient13")
+coreMp13<-coreMp13[,-c(1:2)]%>%group_by(Site,Time)%>%summarise_each(mean)
+coreMp13<-melt(coreMp13,id.vars = c("Site","Time"),value.name = "Abundance",
+             variable.name = "CoreMicrobiome")
+coreM1<-coreM[,-c(1:2)]%>%group_by(Site,Time)%>%summarise_each(mean)
+coreM1<-melt(coreM1,id.vars = c("Site","Time"),value.name = "Abundance",
+             variable.name = "CoreMicrobiome")
+p1<-ggplot(coreM1,aes(Time,Abundance,fill=CoreMicrobiome))+
+  geom_area()+
+  facet_wrap(~Site)+
+  theme_minimal()+
+  scale_fill_manual(name="coreMicrobiome",values=c(col31,col21,col16,col11))+
+  #scale_fill_discrete(guide=FALSE)+ #hide the legend
+  theme(legend.text = element_text(size = 6),legend.box = "horizontal",
+        plot.background = element_rect(colour = "black", 
+                                       size = 1, linetype = 1,
+                                       fill = "gray"),
+        legend.margin = margin(0.1,unit="pt"),
+        legend.key.size=unit(.1,"inches"),#图例分类符号的大小
+        legend.text.align=0,#0左，1右，0.5居中， 图例分类标签的对齐方式
+        legend.title=element_text(colour="black",size=8,face = "bold"),#图例标题设置
+        legend.direction ="vertical",
+        legend.box.just="top",
+        legend.spacing = unit(0.1,"cm"),
+        legend.spacing.y = unit(0.1,"cm"),
+        legend.spacing.x =unit(0.1,"cm"),
+        legend.box.spacing = unit(0.1,"cm"),
+        legend.justification=c(.4,.4),
+        legend.position="top",
+        plot.margin = unit(c(0.2, 0.2, 0.2, 0.2), "inches"))+
+  scale_x_continuous(n.breaks = 8,minor_breaks = NULL)+
+  xlab("Cycles of treatment")
+p1
+
+p2<-ggplot(coreMp13,aes(Time,Abundance,fill=CoreMicrobiome))+
+  geom_area()+
+  facet_wrap(~Site,scales = "free")+
+  theme_minimal()+
+  scale_fill_manual(name="coreMicrobiome (Patient13)",values=c(col31,col21,col16,col11))+
+  #scale_fill_discrete(guide=FALSE)+ #hide the legend
+  theme(legend.text = element_text(size = 6),legend.box = "horizontal",
+        plot.background = element_rect(colour = "black", 
+                                       size = 1, linetype = 1,
+                                       fill = "gray"),
+        legend.margin = margin(0.1,unit="pt"),
+        legend.key.size=unit(.1,"inches"),#图例分类符号的大小
+        legend.text.align=0,#0左，1右，0.5居中， 图例分类标签的对齐方式
+        legend.title=element_text(colour="black",size=8,face = "bold"),#图例标题设置
+        legend.direction ="vertical",
+        legend.box.just="top",
+        legend.spacing = unit(0.1,"cm"),
+        legend.spacing.y = unit(0.1,"cm"),
+        legend.spacing.x =unit(0.1,"cm"),
+        legend.box.spacing = unit(0.1,"cm"),
+        legend.justification=c(.4,.4),
+        legend.position="top",
+        plot.margin = unit(c(0.2, 0.2, 0.2, 0.2), "inches"))+
+  scale_x_continuous(n.breaks = 8,minor_breaks = NULL)+
+  xlab("Cycles of treatment")
+p2
+```
 
 ## Microbiome compostion
 ### Code
 
 ```{r warning=F}
 meta<-fread("../Data/Data/meta.csv",data.table = F)
-meta$Cycle<-factor(meta$Cycle,levels = c("BL","C2","C3","C4","C5","C6","C8","C10"))
-meta$Time<-meta$Cycle
-meta$Time<-ifelse(meta$Time=="BL",1,meta$Time)
-meta$Time<-gsub("C","",meta$Time)
-meta$Time<-as.numeric(meta$Time)
-
 OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
 OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
 TaxonLevels<-colnames(OTUstool)[1:7]
-OTUanalysis<-function(OTUtable,TaxonLevels,topTaxonomyABvalue){
-  OTU_readsList<-list()
-  OTU_abundanceList<-list()
-  for (i in seq_along(TaxonLevels)) {
-    OTU_readsList[[i]]<-data.frame(Microname=OTUtable[,grep(TaxonLevels[i],colnames(OTUtable))],OTUtable[,-c(1:7)])
-    colnames(OTU_readsList[[i]])[1]="Microname"
-    OTU_readsList[[i]]<-OTU_readsList[[i]]%>%group_by(Microname)%>%summarise_each(sum)
-    OTU_abundanceList[[i]]<-data.frame(Microname=OTU_readsList[[i]][,1],apply(OTU_readsList[[i]][,-1], 2,function(x)x/sum(x)))
-    colnames(OTU_readsList[[i]])[1]=TaxonLevels[i]
-    colnames(OTU_abundanceList[[i]])[1]=TaxonLevels[i]
-    names(OTU_readsList)[i]=TaxonLevels[i]
-    names(OTU_abundanceList)[i]=TaxonLevels[i]
-  }
-  
-  OTU_abundanceList<-lapply(OTU_abundanceList, function(x){
-    x<-data.frame(row.names = x[,1],x[,-1])
-  })
-  
-  core_list<-list()
-  coreTaxonomy<-list()
-  for (i in seq_along(OTU_abundanceList)) {
-    for (j in seq_along(OTU_abundanceList[[i]])) {
-      index<-which(OTU_abundanceList[[i]][,j ]>=topTaxonomyABvalue[i])
-      core_list[[j]]<-data.frame(row.names = rownames(OTU_abundanceList[[i]])[index],
-                                  OTU_abundanceList[[i]][index,j ])
-      colnames(core_list[[j]])<-colnames(OTU_abundanceList[[i]])[j]
-      core_list[[j]]<-data.frame(t(core_list[[j]]))
-    }
-    coreTaxonomy[[i]]<-do.call(bind_rows,core_list)
-    names(coreTaxonomy)[i]=names(OTU_abundanceList)[i]
-  }
-  OTU_abundanceListTop<-list()
-  Others<-list()
-  OTU_compostion<-list()
-  for (i in seq_along(OTU_abundanceList)) {
-    OTU_abundanceListTop[[i]]<-OTU_abundanceList[[i]][which(rownames(OTU_abundanceList[[i]])%in%colnames(coreTaxonomy[[i]])),]
-    Others[[i]]<-apply(OTU_abundanceListTop[[i]], 2, function(x){
-      1-sum(x)
-    })
-    OTU_compostion[[i]]<-bind_rows(OTU_abundanceListTop[[i]], Others[[i]])
-    rownames(OTU_compostion[[i]])[dim(OTU_compostion[[i]])[1]]="Others"
-    names(OTU_compostion)[i]<-names(OTU_abundanceList)[i]
-  }
-  return(list(TaxonomyReads=OTU_readsList,
-              TaxonomyAbundance=OTU_abundanceList,
-              coreTaxonomy=coreTaxonomy,
-              TaxonomyComposition=OTU_compostion))
-}
-
 Stool<-OTUanalysis(OTUtable = OTUstool,
                     TaxonLevels = TaxonLevels,
                     topTaxonomyABvalue = c(0.01,0.01,0.1,0.2,0.2,0.2,0.2))
