@@ -10,7 +10,7 @@ output:
     toc: yes
 ---
 
-# OTUanalysis
+# OTU and cor-microbiome analysis
 
 ## Requires
 
@@ -51,17 +51,13 @@ options(stringsAsFactors = F)
 ```
 </details>
 
-## Summary
+*OTU（Operational Taxonomic Units*
 
-
-### OTU（Operational Taxonomic Units）
 In 16S metagenomics approaches, OTUs are cluster of similar sequence variants of the 16S rDNA marker gene sequence. Each of these cluster is intended to represent a taxonomic unit of a bacteria species or genus depending on the sequence similarity threshold. Typically, OTU cluster are defined by a 97% identity threshold of the 16S gene sequences to distinguish bacteria at the genus level.
 
-#### Limited taxonomic resolution 
+*Limited taxonomic resolution*
  
 OTU resolution depends on the 16S approach which has some limits in distinguishing at the species level
-
-### Code
 
 ## Rank-Abundance
 
@@ -99,6 +95,7 @@ p<-ggplot(rank_dat, aes(rank, log(abundance, 10), color = Site)) +
 p
 ```
 
+
 ### Effective sequences
 
 ```{r out.width = "50%",fig.height=4,fig.width=6, dpi=600,fig.align='center'}
@@ -130,7 +127,7 @@ for (i in 1:7) {
 
 ```
 
-# Core Microbiome
+## Core Microbiome
 
 One of the aims of the Human Microbiome Project when established in 2007 was to identify a human ‘core microbiome’, defined as a group of microbial taxa or genes that are shared by all or most humans (Hamady & Knight, 2009; Turnbaugh et al., 2007). These pioneering studies found that a universal taxonomic core rarely exists across groups of humans, even at the scale of the family unit (Yatsunenko et al., 2012), yet most shared the same set of core microbial genes. This pattern appears to be similar for most host species studied to date, with variable microbial composition often underpinned by similar gene context across individuals (Burke, Steinberg, Rusch, Kjelleberg, & Thomas, 2011; Louca et al., 2018). Nevertheless, most ecologists aim to understand host–microbe interactions at the organismal level, accounting for microbe functional traits where possible; therefore, within this field, the core microbiome has been largely applied to taxonomically defined microbial communities with an aim to identify groups of microbes that are particularly widespread across the host population (e.g. Ainsworth et al., 2015; Grieneisen, Livermore, Alberts, Tung, & Archie, 2017; Hernandez‐Agreda, Gates, & Ainsworth, 2017; Kembel et al., 2014; Lundberg et al., 2012; Muletz Wolz, Yarwood, Campbell Grant, Fleischer, & Lips, 2018).
 
@@ -142,7 +139,7 @@ Within an individual oral cavity, we found over 3600 unique sequences, over 500 
 
 ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy "core microbiome" of oral microbial communities. BMC Microbiol 9, 259 (2009). https://doi.org/10.1186/1471-2180-9-259
 
-## Code
+### Code
 
 ```{r}
 meta<-fread("../Data/Data/meta.csv",data.table = F)
@@ -221,7 +218,7 @@ coreM1<-melt(coreM1,id.vars = c("Site","Time"),value.name = "Abundance",
              variable.name = "CoreMicrobiome")
 ```
 
-## Figures
+### Figures
 
 ```{r warning=F,fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
 p1<-ggplot(coreM1,aes(Time,Abundance,fill=CoreMicrobiome))+
