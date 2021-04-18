@@ -43,6 +43,7 @@ library(lubridate)
 library(tableone)
 library(kableExtra)
 library(BiodiversityR)
+library(reactable)
 source("../R_function/colors.R")
 source("../R_function/surv_plot.R")
 theme_set(theme_cowplot())
@@ -53,6 +54,22 @@ options(stringsAsFactors = F)
 
 ## Summary
 
+```{r}
+library(shiny)
+library(reactable)
+
+ui <- fluidPage(
+  reactableOutput("table")
+)
+
+server <- function(input, output) {
+  output$table <- renderReactable({
+    reactable(iris)
+  })
+}
+
+shinyApp(ui, server)
+```
 ### OTU（Operational Taxonomic Units）
 In 16S metagenomics approaches, OTUs are cluster of similar sequence variants of the 16S rDNA marker gene sequence. Each of these cluster is intended to represent a taxonomic unit of a bacteria species or genus depending on the sequence similarity threshold. Typically, OTU cluster are defined by a 97% identity threshold of the 16S gene sequences to distinguish bacteria at the genus level.
 

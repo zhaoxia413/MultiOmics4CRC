@@ -1,9 +1,7 @@
 -   [1 OTUanalysis](#otuanalysis)
     -   [1.1 Requires](#requires)
     -   [1.2 Summary](#summary)
-        -   [1.2.1 OTU（Operational Taxonomic
-            Units）](#otuoperational-taxonomic-units)
-        -   [1.2.2 Code](#code)
+        -   [1.2.1 Code](#code)
     -   [1.3 Rank-Abundance](#rank-abundance)
         -   [1.3.1 Code](#code-1)
         -   [1.3.2 Figures](#figures)
@@ -44,6 +42,7 @@
     library(tableone)
     library(kableExtra)
     library(BiodiversityR)
+    library(reactable)
     source("../R_function/colors.R")
     source("../R_function/surv_plot.R")
     theme_set(theme_cowplot())
@@ -55,21 +54,46 @@
 1.2 Summary
 -----------
 
-### 1.2.1 OTU（Operational Taxonomic Units）
+    library(shiny)
 
-In 16S metagenomics approaches, OTUs are cluster of similar sequence
-variants of the 16S rDNA marker gene sequence. Each of these cluster is
-intended to represent a taxonomic unit of a bacteria species or genus
-depending on the sequence similarity threshold. Typically, OTU cluster
-are defined by a 97% identity threshold of the 16S gene sequences to
-distinguish bacteria at the genus level.
+    ## 
+    ## Attaching package: 'shiny'
 
-#### 1.2.1.1 Limited taxonomic resolution
+    ## The following object is masked from 'package:ggExtra':
+    ## 
+    ##     runExample
+
+    library(reactable)
+
+    ui <- fluidPage(
+      reactableOutput("table")
+    )
+
+    server <- function(input, output) {
+      output$table <- renderReactable({
+        reactable(iris)
+      })
+    }
+
+    shinyApp(ui, server)
+
+    ## PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.
+
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+\#\#\# OTU（Operational Taxonomic Units） In 16S metagenomics
+approaches, OTUs are cluster of similar sequence variants of the 16S
+rDNA marker gene sequence. Each of these cluster is intended to
+represent a taxonomic unit of a bacteria species or genus depending on
+the sequence similarity threshold. Typically, OTU cluster are defined by
+a 97% identity threshold of the 16S gene sequences to distinguish
+bacteria at the genus level.
+
+#### 1.2.0.1 Limited taxonomic resolution
 
 OTU resolution depends on the 16S approach which has some limits in
 distinguishing at the species level
 
-### 1.2.2 Code
+### 1.2.1 Code
 
 1.3 Rank-Abundance
 ------------------
@@ -108,7 +132,7 @@ the relative role different variables played in their calculation.
 
     p
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" />
 \#\#\# Effective sequences
 
     ggplot(meta,aes(reorder(Samples,Sequences),Sequences,fill=Site))+
@@ -118,7 +142,7 @@ the relative role different variables played in their calculation.
       theme(axis.text.x = element_blank())+
       xlab("Samples")
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="50%" style="display: block; margin: auto;" />
 
 2 Pan/Core物种分析
 ==================
@@ -303,41 +327,41 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
     areaPlot$Phylum
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
 \#\#\#\# Class compostion
 
     areaPlot$Class
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### 2.1.2.2 Order compostion
 
     areaPlot$Order
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 
 \#\#\#\#Family compostion
 
     areaPlot$Family
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### 2.1.2.3 Genus compostion
 
     areaPlot$Genus
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### 2.1.2.4 Species compostion
 
     areaPlot$Species
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 
 #### 2.1.2.5 OTU compostion
 
     areaPlot$OTU
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
 
 </details>
