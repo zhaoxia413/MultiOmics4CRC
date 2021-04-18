@@ -135,15 +135,6 @@ the relative role different variables played in their calculation.
       print(paste0(colnames(OTUstool)[i],":",
                      length(levels(factor(OTUstool[,i])))))
     }
-    message("Taxon number on saliva samples")
-
-    ## Taxon number on saliva samples
-
-    for (i in 1:7) {
-      
-      print(paste0(colnames(OTUstool)[i],":",
-                     length(levels(factor(OTUsaliva[,i])))))
-    }
 
     ## [1] "Phylum:11"
     ## [1] "Class:17"
@@ -152,6 +143,17 @@ the relative role different variables played in their calculation.
     ## [1] "Genus:188"
     ## [1] "Species:433"
     ## [1] "OTU:1260"
+
+    message("Taxon number on saliva samples")
+
+    ## Taxon number on saliva samples
+
+    for (i in 1:7) {
+      
+      print(paste0(colnames(OTUsaliva)[i],":",
+                     length(levels(factor(OTUsaliva[,i])))))
+    }
+
     ## [1] "Phylum:11"
     ## [1] "Class:18"
     ## [1] "Order:45"

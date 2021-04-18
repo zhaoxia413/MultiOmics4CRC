@@ -110,7 +110,7 @@ ggplot(meta,aes(reorder(Samples,Sequences),Sequences,fill=Site))+
 
 ### Taxon annotation
 
-```{r results='hold'}
+```{r}
 OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
 OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
 message("Taxon number on stool samples")
@@ -122,7 +122,7 @@ for (i in 1:7) {
 message("Taxon number on saliva samples")
 for (i in 1:7) {
   
-  print(paste0(colnames(OTUstool)[i],":",
+  print(paste0(colnames(OTUsaliva)[i],":",
                  length(levels(factor(OTUsaliva[,i])))))
 }
 
