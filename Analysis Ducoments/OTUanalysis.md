@@ -9,7 +9,7 @@
         -   [1.3.2 Figures](#figures)
         -   [1.3.3 Effective sequences](#effective-sequences)
         -   [1.3.4 Taxon annotation](#taxon-annotation)
--   [2 Pan/Core物种分析](#pancore物种分析)
+-   [2 Pan/Core Microbiome](#pancore-microbiome)
 -   [3 Core Microbiome:](#core-microbiome)
     -   [3.1 Microbiome compostion](#microbiome-compostion)
         -   [3.1.1 Code](#code-2)
@@ -166,8 +166,8 @@ the relative role different variables played in their calculation.
     ## [1] "Species:362"
     ## [1] "OTU:722"
 
-2 Pan/Core物种分析
-==================
+2 Pan/Core Microbiome
+=====================
 
 Pan/Core物种分析用于描述随着样本量增加物种总量和核心物种量变化的情况，在微生物多样性和群落研究中，被广泛用于判断样本量是否充足以及评估环境中总物种丰富度(
 species
@@ -244,10 +244,6 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       .[-grep("norank",rownames(.)),]%>%
       .[-grep("unclassified",rownames(.)),]
 
-    scico_palette_show()
-
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" />
-
     mat1<-ABstool.core
     for (i in 1:nrow(mat1)) {
       mat1[i,][which(mat1[i,]>=0.05)]=2
@@ -263,7 +259,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
              show_colnames = F,
              color = scico(100,palette = "bilbao",direction = 1))
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-2.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" />
 
     ABsaliva.core<-ABsaliva[apply(ABsaliva, 1, function(x){
       length(which(x==0))<21&length(which(x>0.01))!=0
@@ -286,7 +282,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
              show_colnames = F,
              color = scico(100,palette = "bilbao",direction = 1))
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-3.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-2.png" width="80%" style="display: block; margin: auto;" />
 
     ABstool.core<-data.frame(Samples=colnames(ABstool.core),t(ABstool.core))%>%
       mutate(.,Others=apply(.[,-1],1, function(x) 1-sum(x)))
@@ -330,7 +326,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       xlab("Cycles of treatment")
     p1
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-4.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-3.png" width="80%" style="display: block; margin: auto;" />
 
     p2<-ggplot(coreMp13,aes(Time,Abundance,fill=CoreMicrobiome))+
       geom_area()+
@@ -359,7 +355,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       xlab("Cycles of treatment")
     p2
 
-<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-5.png" width="80%" style="display: block; margin: auto;" />
+<img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-6-4.png" width="80%" style="display: block; margin: auto;" />
 
 3.1 Microbiome compostion
 -------------------------

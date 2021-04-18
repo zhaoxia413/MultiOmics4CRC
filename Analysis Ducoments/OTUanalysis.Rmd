@@ -132,10 +132,13 @@ for (i in 1:7) {
 
 ```
 
-# Pan/Core物种分析
+# Pan/Core Microbiome
 Pan/Core物种分析用于描述随着样本量增加物种总量和核心物种量变化的情况，在微生物多样性和群落研究中，被广泛用于判断样本量是否充足以及评估环境中总物种丰富度( species richness)和核心物种数。Pan/Core物种分析可以在各分类学水平上进行，包括domain（域），kingdom（界），phylum（门），class（纲），order（目），family（科），genus（属），species（种），OTU等。
 
+## Pan Microbiome
 Pan物种，即泛物种，是所有样本包含的物种总和，用于观测随着样本数目增加，总物种数目的增加情况。
+
+## Core Microbiome
 
 Core物种，即核心物种，是所有样本共有物种数目，用于观测随着样本数目增加，共有物种数目的减少情况。
 
@@ -149,7 +152,7 @@ Within an individual oral cavity, we found over 3600 unique sequences, over 500 
 
 ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy "core microbiome" of oral microbial communities. BMC Microbiol 9, 259 (2009). https://doi.org/10.1186/1471-2180-9-259
 
-# Core Microbiome:
+### Code and Figures:
 
 ```{r warning=F,fig.height=4,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
 meta<-fread("../Data/Data/meta.csv",data.table = F)
@@ -174,7 +177,6 @@ ABstool.core<-ABstool[apply(ABstool, 1, function(x){
   .[-grep("norank",rownames(.)),]%>%
   .[-grep("unclassified",rownames(.)),]
 
-scico_palette_show()
 mat1<-ABstool.core
 for (i in 1:nrow(mat1)) {
   mat1[i,][which(mat1[i,]>=0.05)]=2
@@ -283,6 +285,7 @@ p2
 ```
 
 ## Microbiome compostion
+
 ### Code
 
 ```{r warning=F}
