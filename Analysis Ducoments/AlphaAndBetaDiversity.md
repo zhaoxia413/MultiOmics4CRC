@@ -3,13 +3,12 @@
     Analysis](#alpha-and-beta-diversity-analysis)
     -   [2.1 Description](#description)
     -   [2.2 Alpha diversity](#alpha-diversity)
-        -   [2.2.1 Code](#code)
-        -   [2.2.2 Figures](#figures)
-        -   [2.2.3 patients with both saliva and stool samples at
+        -   [2.2.1 Relationship Alpha diversity and
+            Response](#relationship-alpha-diversity-and-response)
+        -   [2.2.2 Patients with both saliva and stool samples at
             baseline](#patients-with-both-saliva-and-stool-samples-at-baseline)
-        -   [2.2.4 Paired baseline saliva and stool
+        -   [2.2.3 Paired baseline saliva and stool
             samples](#paired-baseline-saliva-and-stool-samples)
-        -   [2.2.5 Figure](#figure)
     -   [2.3 beta diversity](#beta-diversity)
         -   [2.3.1 meta](#meta)
         -   [2.3.2 anosim: Analysis of
@@ -83,7 +82,7 @@ April 19, 2021, from
 2.2 Alpha diversity
 -------------------
 
-### 2.2.1 Code
+### 2.2.1 Relationship Alpha diversity and Response
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     alpha<-fread("../Data/Data/alpha_diversity.csv",data.table = F)[,c(1:4)]
@@ -150,8 +149,6 @@ April 19, 2021, from
       theme_few(base_size = 8)+ 
       theme(axis.title.x = element_blank())
 
-### 2.2.2 Figures
-
     plot_grid(p1,p2,p3,p4, labels = c("A","B","C","D"), ncol =2, nrow = 2)
 
     ## `stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.
@@ -161,12 +158,12 @@ April 19, 2021, from
 
 <img src="AlphaAndBetaDiversity_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto;" />
 
-### 2.2.3 patients with both saliva and stool samples at baseline
+### 2.2.2 Patients with both saliva and stool samples at baseline
 
     paired_meta<-fread("../Data/Data/stool_saliva_BL_paried.csv",data.table = F)
     alpha_paired<-subset(alpha,Samples%in%paired_meta$Samples)
     alpha_paired<-merge(paired_meta,alpha_paired,by="Samples")%>%filter(.,Response!="NE")
-    p5<-ggplot(alpha_paired,aes(Site,shannon,fill=Site))+
+    ggplot(alpha_paired,aes(Site,shannon,fill=Site))+
       geom_boxplot()+
       geom_line(aes(group=patientID))+
       geom_point(size=1)+
@@ -175,9 +172,9 @@ April 19, 2021, from
       facet_wrap(~Effect,scales = "free_x")+
       scale_fill_d3()
 
-### 2.2.4 Paired baseline saliva and stool samples
+<img src="AlphaAndBetaDiversity_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="30%" style="display: block; margin: auto;" />
 
-#### 2.2.4.1 Code
+### 2.2.3 Paired baseline saliva and stool samples
 
     load("../Data/Data/regaMicrcobiome.RData")
     phylum_saliva<-regaMicrobiome$SalivaMicrobiome$TaxonomyComposition$Phylum
@@ -240,8 +237,6 @@ April 19, 2021, from
     ##  [7] "Proteobacteria"    "Spirochaetota"     "Others"           
     ## [10] "Desulfobacterota"  "Synergistota"      "Verrucomicrobiota"
 
-### 2.2.5 Figure
-
     plot_grid(p1,p2, labels = c("A","B"), ncol =1, nrow = 2)
 
 <img src="AlphaAndBetaDiversity_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="60%" style="display: block; margin: auto;" />
@@ -301,7 +296,7 @@ April 19, 2021, from
 statistically whether there is a significant difference between two or
 more groups of sampling units.
 
-    par(mfrow=c(1,3))
+    par(mfrow=c(3,1))
     plot(anosim(vegdist(otu_stool,method = "bray"), meta_file_stool$Group),xlab="",ylab="",col=c("gray","#8000FFFF","#80FF00FF"))
     plot(anosim(vegdist(otu_saliva,method = "bray"), meta_file_saliva$Group),xlab="",ylab="",col=c("gray","#00FFFFFF","#FF0000FF"))
     plot(anosim(vegdist(otu_BL,method = "bray"), meta_file_BL$Group),xlab="",ylab="",col=c("gray","#00FFFFFF","#FF0000FF","#8000FFFF","#80FF00FF"))
@@ -328,7 +323,7 @@ matrices; uses a permutation test with pseudo-F ratios.
                   round(res_stool$stress,3),")",sep="")
     )
 
-<img src="AlphaAndBetaDiversity_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="AlphaAndBetaDiversity_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="30%" style="display: block; margin: auto;" />
 
     res_saliva <- metaMDS(unifract_dist_saliva,k = 2,distance = "bray")
     s.class(
@@ -337,7 +332,7 @@ matrices; uses a permutation test with pseudo-F ratios.
       sub = paste("NMDS plot of OTU \n (p ",adonis_saliva$`Pr(>F)`[1],", stress ",round(res_saliva$stress,3),")",sep="")
     )
 
-<img src="AlphaAndBetaDiversity_files/figure-markdown_strict/unnamed-chunk-9-2.png" width="50%" style="display: block; margin: auto;" />
+<img src="AlphaAndBetaDiversity_files/figure-markdown_strict/unnamed-chunk-9-2.png" width="30%" style="display: block; margin: auto;" />
 
     res_BL <- metaMDS(unifract_dist_BL,k = 2,distance = "bray")
     s.class(
@@ -347,106 +342,102 @@ matrices; uses a permutation test with pseudo-F ratios.
                   round(res_BL$stress,3),")",sep="")
     )
 
-<img src="AlphaAndBetaDiversity_files/figure-markdown_strict/unnamed-chunk-9-3.png" width="50%" style="display: block; margin: auto;" />
+<img src="AlphaAndBetaDiversity_files/figure-markdown_strict/unnamed-chunk-9-3.png" width="30%" style="display: block; margin: auto;" />
 
     ## Run 0 stress 0.1685622 
-    ## Run 1 stress 0.168407 
-    ## ... New best solution
-    ## ... Procrustes: rmse 0.01290151  max resid 0.05543061 
-    ## Run 2 stress 0.1685622 
-    ## ... Procrustes: rmse 0.01290431  max resid 0.05539302 
+    ## Run 1 stress 0.1685622 
+    ## ... Procrustes: rmse 1.470863e-05  max resid 6.422478e-05 
+    ## ... Similar to previous best
+    ## Run 2 stress 0.1740149 
     ## Run 3 stress 0.168407 
     ## ... New best solution
-    ## ... Procrustes: rmse 1.288954e-05  max resid 3.889078e-05 
-    ## ... Similar to previous best
-    ## Run 4 stress 0.2124112 
-    ## Run 5 stress 0.2023698 
-    ## Run 6 stress 0.1731867 
-    ## Run 7 stress 0.1685622 
-    ## ... Procrustes: rmse 0.012908  max resid 0.05542092 
-    ## Run 8 stress 0.1740149 
-    ## Run 9 stress 0.2176128 
-    ## Run 10 stress 0.2275268 
+    ## ... Procrustes: rmse 0.0129008  max resid 0.05542212 
+    ## Run 4 stress 0.1685622 
+    ## ... Procrustes: rmse 0.01289925  max resid 0.05536435 
+    ## Run 5 stress 0.1987313 
+    ## Run 6 stress 0.1685622 
+    ## ... Procrustes: rmse 0.01291624  max resid 0.0554523 
+    ## Run 7 stress 0.1668062 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.0641624  max resid 0.3365322 
+    ## Run 8 stress 0.1754553 
+    ## Run 9 stress 0.1689635 
+    ## Run 10 stress 0.2173753 
     ## Run 11 stress 0.1668062 
-    ## ... New best solution
-    ## ... Procrustes: rmse 0.06416315  max resid 0.3365418 
-    ## Run 12 stress 0.213827 
-    ## Run 13 stress 0.1685622 
-    ## Run 14 stress 0.1731686 
+    ## ... Procrustes: rmse 9.950925e-06  max resid 4.231405e-05 
+    ## ... Similar to previous best
+    ## Run 12 stress 0.1689634 
+    ## Run 13 stress 0.1913187 
+    ## Run 14 stress 0.1668062 
+    ## ... Procrustes: rmse 9.200012e-06  max resid 3.840477e-05 
+    ## ... Similar to previous best
     ## Run 15 stress 0.1685622 
-    ## Run 16 stress 0.1689634 
-    ## Run 17 stress 0.1912442 
-    ## Run 18 stress 0.1694642 
-    ## Run 19 stress 0.168407 
-    ## Run 20 stress 0.168407 
-    ## *** No convergence -- monoMDS stopping criteria:
-    ##      1: no. of iterations >= maxit
-    ##     17: stress ratio > sratmax
-    ##      2: scale factor of the gradient < sfgrmin
-    ## Run 0 stress 0.07988775 
-    ## Run 1 stress 0.0989745 
-    ## Run 2 stress 0.07988776 
-    ## ... Procrustes: rmse 2.386883e-05  max resid 8.552938e-05 
-    ## ... Similar to previous best
-    ## Run 3 stress 0.09897454 
-    ## Run 4 stress 0.07988775 
-    ## ... Procrustes: rmse 5.570222e-06  max resid 2.052879e-05 
-    ## ... Similar to previous best
-    ## Run 5 stress 0.09333011 
-    ## Run 6 stress 0.08928076 
-    ## Run 7 stress 0.1142582 
-    ## Run 8 stress 0.08928076 
-    ## Run 9 stress 0.09333011 
-    ## Run 10 stress 0.09333012 
-    ## Run 11 stress 0.07988776 
-    ## ... Procrustes: rmse 2.513094e-05  max resid 8.887206e-05 
-    ## ... Similar to previous best
-    ## Run 12 stress 0.09333011 
-    ## Run 13 stress 0.08928077 
-    ## Run 14 stress 0.1125236 
-    ## Run 15 stress 0.07988776 
-    ## ... Procrustes: rmse 2.914718e-05  max resid 0.0001044393 
-    ## ... Similar to previous best
-    ## Run 16 stress 0.07988776 
-    ## ... Procrustes: rmse 7.807039e-06  max resid 2.261067e-05 
-    ## ... Similar to previous best
-    ## Run 17 stress 0.09897446 
-    ## Run 18 stress 0.07988775 
+    ## Run 16 stress 0.1685622 
+    ## Run 17 stress 0.168407 
+    ## Run 18 stress 0.1668062 
     ## ... New best solution
-    ## ... Procrustes: rmse 1.045107e-06  max resid 2.081361e-06 
+    ## ... Procrustes: rmse 5.129414e-06  max resid 1.751809e-05 
     ## ... Similar to previous best
-    ## Run 19 stress 0.1147202 
-    ## Run 20 stress 0.1155594 
+    ## Run 19 stress 0.1685622 
+    ## Run 20 stress 0.1764919 
+    ## *** Solution reached
+    ## Run 0 stress 0.07988775 
+    ## Run 1 stress 0.07988776 
+    ## ... Procrustes: rmse 1.56881e-05  max resid 5.678516e-05 
+    ## ... Similar to previous best
+    ## Run 2 stress 0.08928076 
+    ## Run 3 stress 0.1144174 
+    ## Run 4 stress 0.09548344 
+    ## Run 5 stress 0.09972515 
+    ## Run 6 stress 0.08928077 
+    ## Run 7 stress 0.09897446 
+    ## Run 8 stress 0.1176597 
+    ## Run 9 stress 0.08928076 
+    ## Run 10 stress 0.1125236 
+    ## Run 11 stress 0.08928077 
+    ## Run 12 stress 0.09897451 
+    ## Run 13 stress 0.09443043 
+    ## Run 14 stress 0.07988776 
+    ## ... Procrustes: rmse 1.826532e-05  max resid 6.424777e-05 
+    ## ... Similar to previous best
+    ## Run 15 stress 0.112533 
+    ## Run 16 stress 0.08928076 
+    ## Run 17 stress 0.09972511 
+    ## Run 18 stress 0.0989745 
+    ## Run 19 stress 0.09333011 
+    ## Run 20 stress 0.09972529 
     ## *** Solution reached
     ## Run 0 stress 0.1175033 
-    ## Run 1 stress 0.1175033 
-    ## ... Procrustes: rmse 8.282464e-06  max resid 4.493787e-05 
+    ## Run 1 stress 0.1536876 
+    ## Run 2 stress 0.1175033 
+    ## ... Procrustes: rmse 8.312975e-06  max resid 5.142803e-05 
     ## ... Similar to previous best
-    ## Run 2 stress 0.1330585 
-    ## Run 3 stress 0.1617583 
-    ## Run 4 stress 0.1386751 
+    ## Run 3 stress 0.1395504 
+    ## Run 4 stress 0.1565893 
     ## Run 5 stress 0.1175033 
-    ## ... Procrustes: rmse 1.141995e-06  max resid 6.365644e-06 
+    ## ... Procrustes: rmse 7.229981e-06  max resid 3.982653e-05 
     ## ... Similar to previous best
-    ## Run 6 stress 0.1438214 
-    ## Run 7 stress 0.1411128 
-    ## Run 8 stress 0.1535976 
-    ## Run 9 stress 0.1175033 
-    ## ... Procrustes: rmse 5.462271e-06  max resid 3.07049e-05 
+    ## Run 6 stress 0.1175033 
+    ## ... Procrustes: rmse 4.53565e-06  max resid 2.569473e-05 
     ## ... Similar to previous best
-    ## Run 10 stress 0.1626249 
-    ## Run 11 stress 0.1175033 
-    ## ... Procrustes: rmse 3.819085e-06  max resid 2.466558e-05 
+    ## Run 7 stress 0.1457774 
+    ## Run 8 stress 0.1175033 
+    ## ... Procrustes: rmse 6.942335e-06  max resid 4.602578e-05 
     ## ... Similar to previous best
-    ## Run 12 stress 0.1386743 
-    ## Run 13 stress 0.1430345 
-    ## Run 14 stress 0.1463152 
-    ## Run 15 stress 0.1233122 
-    ## Run 16 stress 0.1175033 
-    ## ... Procrustes: rmse 2.476553e-06  max resid 1.552655e-05 
+    ## Run 9 stress 0.1426608 
+    ## Run 10 stress 0.1616086 
+    ## Run 11 stress 0.1542791 
+    ## Run 12 stress 0.1516694 
+    ## Run 13 stress 0.1175033 
+    ## ... Procrustes: rmse 6.837063e-06  max resid 4.304509e-05 
     ## ... Similar to previous best
-    ## Run 17 stress 0.1580135 
-    ## Run 18 stress 0.1430345 
-    ## Run 19 stress 0.1412382 
-    ## Run 20 stress 0.1330585 
+    ## Run 14 stress 0.1330585 
+    ## Run 15 stress 0.1516694 
+    ## Run 16 stress 0.1419744 
+    ## Run 17 stress 0.1514029 
+    ## Run 18 stress 0.1175033 
+    ## ... Procrustes: rmse 1.856959e-05  max resid 8.940436e-05 
+    ## ... Similar to previous best
+    ## Run 19 stress 0.1233161 
+    ## Run 20 stress 0.1233161 
     ## *** Solution reached
