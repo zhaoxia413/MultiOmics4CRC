@@ -10,20 +10,13 @@ output:
     toc: yes
 ---
 
-# Samples and Clinical
+[`Return`](./)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-[`Return`](./)
-
-
-## Introduction
-
-<table><tr><td bgcolor=#AFEEEE>
-<font size=4>This is introduction</font></td></tr></table>
-
+# Requires
 
 <details>
 <summary>
@@ -56,7 +49,17 @@ options(stringsAsFactors = F)
 ```
 </details>
 
+
+# Samples and Clinical
+
+## Description
+
+<table><tr><td bgcolor=#AFEEEE>
+<font size=4>This is introduction</font></td></tr></table>
+
+
 ## Clinical
+
 <a href="../Data/Data/clinical.csv" target="csv">Clinical.csv</a>
 
 ```{r}

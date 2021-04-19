@@ -1,23 +1,23 @@
--   [1 OTU and cor-microbiome
+-   [1 Requires](#requires)
+-   [2 OTU and cor-microbiome
     analysis](#otu-and-cor-microbiome-analysis)
-    -   [1.1 Requires](#requires)
-    -   [1.2 Rank-Abundance](#rank-abundance)
-        -   [1.2.1 Code](#code)
-        -   [1.2.2 Figures](#figures)
-        -   [1.2.3 Effective sequences](#effective-sequences)
-        -   [1.2.4 Taxon annotation](#taxon-annotation)
-    -   [1.3 Core Microbiome](#core-microbiome)
-        -   [1.3.1 Code](#code-1)
-        -   [1.3.2 Figures](#figures-1)
-    -   [1.4 Microbiome compostion](#microbiome-compostion)
-        -   [1.4.1 Code](#code-2)
-        -   [1.4.2 Figures](#figures-2)
+    -   [2.1 Description](#description)
+    -   [2.2 Rank-Abundance](#rank-abundance)
+        -   [2.2.1 Code](#code)
+        -   [2.2.2 Figures](#figures)
+        -   [2.2.3 Effective sequences](#effective-sequences)
+        -   [2.2.4 Taxon annotation](#taxon-annotation)
+    -   [2.3 Core Microbiome](#core-microbiome)
+        -   [2.3.1 Code](#code-1)
+        -   [2.3.2 Figures](#figures-1)
+    -   [2.4 Microbiome compostion](#microbiome-compostion)
+        -   [2.4.1 Code](#code-2)
+        -   [2.4.2 Figures](#figures-2)
 
-1 OTU and cor-microbiome analysis
-=================================
+[`Return`](./)
 
-1.1 Requires
-------------
+1 Requires
+==========
 
 <details>
 <summary>
@@ -53,6 +53,12 @@
 
 </details>
 
+2 OTU and cor-microbiome analysis
+=================================
+
+2.1 Description
+---------------
+
 *OTU（Operational Taxonomic Units*
 
 In 16S metagenomics approaches, OTUs are cluster of similar sequence
@@ -67,7 +73,7 @@ distinguish bacteria at the genus level.
 OTU resolution depends on the 16S approach which has some limits in
 distinguishing at the species level
 
-1.2 Rank-Abundance
+2.2 Rank-Abundance
 ------------------
 
 A rank abundance curve or Whittaker plot is a chart used by ecologists
@@ -76,7 +82,7 @@ can also be used to visualize species richness and species evenness. It
 overcomes the shortcomings of biodiversity indices that cannot display
 the relative role different variables played in their calculation.
 
-### 1.2.1 Code
+### 2.2.1 Code
 
     otu<-fread("../Data/Data/OTUtable_ori.csv",data.table = F)
     meta<-fread("../Data/Data/meta.csv",data.table = F)
@@ -100,13 +106,13 @@ the relative role different variables played in their calculation.
       theme(panel.grid = element_blank(), panel.background = element_rect(fill = 'transparent', color = 'black'), legend.key = element_rect(fill = 'transparent')) +
       scale_y_continuous(breaks = 0:-5, labels = c('100', '10', '1', '0.1', '0.01', '0.001'), limits = c(-5, 0))
 
-### 1.2.2 Figures
+### 2.2.2 Figures
 
     p
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" />
 
-### 1.2.3 Effective sequences
+### 2.2.3 Effective sequences
 
     ggplot(meta,aes(reorder(Samples,Sequences),Sequences,fill=Site))+
       geom_col()+
@@ -117,7 +123,7 @@ the relative role different variables played in their calculation.
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" />
 
-### 1.2.4 Taxon annotation
+### 2.2.4 Taxon annotation
 
     OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
     OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
@@ -157,7 +163,7 @@ the relative role different variables played in their calculation.
     ## [1] "Species:362"
     ## [1] "OTU:722"
 
-1.3 Core Microbiome
+2.3 Core Microbiome
 -------------------
 
 One of the aims of the Human Microbiome Project when established in 2007
@@ -202,7 +208,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 (2009).
 <a href="https://doi.org/10.1186/1471-2180-9-259" class="uri">https://doi.org/10.1186/1471-2180-9-259</a>
 
-### 1.3.1 Code
+### 2.3.1 Code
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
@@ -302,7 +308,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
     ## you can prepend the namespace like reshape2::melt(coreM1). In the next version,
     ## this warning will become an error.
 
-### 1.3.2 Figures
+### 2.3.2 Figures
 
     p1<-ggplot(coreM1,aes(Time,Abundance,fill=CoreMicrobiome))+
       geom_area()+
@@ -360,10 +366,10 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-7-2.png" width="80%" style="display: block; margin: auto;" />
 
-1.4 Microbiome compostion
+2.4 Microbiome compostion
 -------------------------
 
-### 1.4.1 Code
+### 2.4.1 Code
 
     meta<-fread("../Data/Data/meta.csv",data.table = F)
     OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
@@ -424,9 +430,9 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
       names(areaPlot)[i]=names(stoolComp)[i]
     }
 
-### 1.4.2 Figures
+### 2.4.2 Figures
 
-#### 1.4.2.1 Phylum compostion
+#### 2.4.2.1 Phylum compostion
 
 <details>
 <summary>
@@ -438,7 +444,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 1.4.2.2 Class compostion
+#### 2.4.2.2 Class compostion
 
 <details>
 <summary>
@@ -450,7 +456,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 1.4.2.3 Order compostion
+#### 2.4.2.3 Order compostion
 
 <details>
 <summary>
@@ -462,7 +468,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 1.4.2.4 Family compostion
+#### 2.4.2.4 Family compostion
 
 <details>
 <summary>
@@ -474,7 +480,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 1.4.2.5 Genus compostion
+#### 2.4.2.5 Genus compostion
 
 <details>
 <summary>
@@ -486,7 +492,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 1.4.2.6 Species compostion
+#### 2.4.2.6 Species compostion
 
 <details>
 <summary>
@@ -498,7 +504,7 @@ ref:Zaura, E., Keijser, B.J., Huse, S.M. et al. Defining the healthy
 <img src="OTUanalysis_files/figure-markdown_strict/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
 </details>
 
-#### 1.4.2.7 OTU compostion
+#### 2.4.2.7 OTU compostion
 
 <details>
 <summary>

@@ -1,24 +1,15 @@
--   [1 Samples and Clinical](#samples-and-clinical)
-    -   [1.1 Introduction](#introduction)
-    -   [1.2 Clinical](#clinical)
-    -   [1.3 Samples sequending
+-   [1 Requires](#requires)
+-   [2 Samples and Clinical](#samples-and-clinical)
+    -   [2.1 Description](#description)
+    -   [2.2 Clinical](#clinical)
+    -   [2.3 Samples sequending
         statistics](#samples-sequending-statistics)
-
-1 Samples and Clinical
-======================
 
 [`Return`](./)
 
-1.1 Introduction
-----------------
+1 Requires
+==========
 
-<table>
-<tr>
-<td bgcolor="#AFEEEE">
-<font size=4>This is introduction</font>
-</td>
-</tr>
-</table>
 <details>
 <summary>
 <font size=4>Requires</font>
@@ -50,7 +41,21 @@
 
 </details>
 
-1.2 Clinical
+2 Samples and Clinical
+======================
+
+2.1 Description
+---------------
+
+<table>
+<tr>
+<td bgcolor="#AFEEEE">
+<font size=4>This is introduction</font>
+</td>
+</tr>
+</table>
+
+2.2 Clinical
 ------------
 
 <a href="../Data/Data/clinical.csv" target="csv">Clinical.csv</a>
@@ -735,7 +740,7 @@ exact
 </tbody>
 </table>
 
-1.3 Samples sequending statistics
+2.3 Samples sequending statistics
 ---------------------------------
 
     data<-fread("../Data/Data/samples_seqInfo.csv",data.table = F)

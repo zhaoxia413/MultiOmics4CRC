@@ -3,6 +3,8 @@
     -   [1.1 R Markdown](#r-markdown)
     -   [1.2 Including Plots](#including-plots)
 
+[`Return`](./)
+
 1 Survival analysis and machine learning
 ========================================
 

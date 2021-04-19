@@ -1,5 +1,5 @@
 ---
-sort: 3
+sort: 5
 title: "Survival analysis and machine learning"
 author: "XiaZhao"
 date: "2021-04-13"
@@ -10,11 +10,14 @@ output:
     toc: yes
 ---
 
-# Survival analysis and machine learning
+[`Return`](./)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Survival analysis and machine learning
+
 
 ## R Markdown
 
