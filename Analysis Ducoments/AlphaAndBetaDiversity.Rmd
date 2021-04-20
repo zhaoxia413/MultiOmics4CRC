@@ -144,13 +144,13 @@ p4<-ggplot(stool_treat1,aes(Response,Value))+
   theme(axis.title.x = element_blank())
 ```
 
-```{r warning=F,fig.height=5,fig.width=7,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
+```{r fig.height=5,fig.width=7,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
 plot_grid(p1,p2,p3,p4, labels = c("A","B","C","D"), ncol =2, nrow = 2)
 ```
 
 ### Patients with both saliva and stool samples at baseline
 
-```{r warning=F,fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="30%",results='hold'}
+```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="30%",results='hold'}
 paired_meta<-fread("../Data/Data/stool_saliva_BL_paried.csv",data.table = F)
 alpha_paired<-subset(alpha,Samples%in%paired_meta$Samples)
 alpha_paired<-merge(paired_meta,alpha_paired,by="Samples")%>%filter(.,Response!="NE")

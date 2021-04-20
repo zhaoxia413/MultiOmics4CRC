@@ -209,7 +209,7 @@ plot_color_saliva<-rainbow(length(levels(saliva_groups)))[saliva_groups]
 # anosim: Analysis of Similarities
 # Description
 # Analysis of similarities (ANOSIM) provides a way to test statistically whether there is a significant difference between two or more groups of sampling units.
-par()
+par(mfrow=c(1,3))
 plot(anosim(vegdist(otu_stool,method = "bray"), meta_file_stool$Group),xlab="",ylab="",col=c("gray","#8000FFFF","#80FF00FF"))
 plot(anosim(vegdist(otu_saliva,method = "bray"), meta_file_saliva$Group),xlab="",ylab="",col=c("gray","#00FFFFFF","#FF0000FF"))
 plot(anosim(vegdist(otu_BL,method = "bray"), meta_file_BL$Group),xlab="",ylab="",col=c("gray","#00FFFFFF","#FF0000FF","#8000FFFF","#80FF00FF"))
