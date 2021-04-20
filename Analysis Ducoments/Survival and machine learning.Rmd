@@ -129,7 +129,7 @@ single_pick <-rownames(res_single)
 
 ```
 
-### multivariable Cox screening
+## multivariable Cox screening
 
 ```{r warning=F,results= 'hold'}
 fmla <- as.formula(paste0("Surv(time, status) ~",paste0(single_pick,collapse = '+')))
@@ -146,7 +146,7 @@ final_fmla <- as.formula(paste0("Surv(time, status) ~",paste0(coVar,collapse = '
 model <- coxph( final_fmla ,data = survival_dat_merge )
 ```
 
-### Final CoxPH modle
+## Final CoxPH modle
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="50%",results='hold'}
 ggforest(model,data = survival_dat_merge,
          noDigits = 2,fontsize =0.5)+
@@ -154,7 +154,7 @@ ggforest(model,data = survival_dat_merge,
 
 ```
 
-### Reclassified patients based on CoxPH modle
+## Reclassified patients based on CoxPH modle
 
 ```{r warning=F,results= 'hold'}
 riskScore=predict(cox,type="risk",newdata=survival_dat_merge)
@@ -163,7 +163,7 @@ multiCOX_risk_result<-cbind(id=rownames(cbind(survival_dat_merge[,1:2],riskScore
                             cbind(survival_dat_merge[,1:2],riskScore,risk))
 ```
 
-### PFS survival curve
+## PFS survival curve
 
 ```{r warning=F,results= 'hold'}
 rt1<-multiCOX_risk_result
@@ -192,7 +192,7 @@ p1<-ggsurvplot(fit1, data=rt1,pval.method = T,
 p1
 ```
 
-### ROC and Precision-Recall curves
+## ROC and Precision-Recall curves
 
 ```{r warning=F,results= 'hold'}
 rt<-multiCOX_risk_result
@@ -262,7 +262,7 @@ SROC1= survivalROC(Stime = rt$time, status = rt$risk_binary,
 plot(SROC$FP,SROC$TP, type="l", xlim=c(0,1), ylim=c(0,1),  
      ylab = "TP",main = "11-month PFS ROC", col="#0072B5FF",xlab="FP")
 lines(SROC1$FP, SROC1$TP, type="l",col="#E18727FF",xlim=c(0,1), ylim=c(0,1))
-legend(0.6,0.2,c(paste("AUC of KM =",round(SROC$AUC,3)),
+legend(0.3,0.2,c(paste("AUC of KM =",round(SROC$AUC,3)),
                  paste("AUC of NNE =",round(SROC1$AUC,3))),
        x.intersp=1, y.intersp=1,
        lty= 1 ,lwd= 2,col=c( "#0072B5FF","#E18727FF" ),

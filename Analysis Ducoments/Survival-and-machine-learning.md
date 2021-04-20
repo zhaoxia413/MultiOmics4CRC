@@ -1,15 +1,14 @@
 -   [1 Requires](#requires)
 -   [2 Risk prediction model for PFS](#risk-prediction-model-for-pfs)
     -   [2.1 univariable CoxPH screening](#univariable-coxph-screening)
-        -   [2.1.1 multivariable Cox
-            screening](#multivariable-cox-screening)
-        -   [2.1.2 Final CoxPH modle](#final-coxph-modle)
-        -   [2.1.3 Reclassified patients based on CoxPH
-            modle](#reclassified-patients-based-on-coxph-modle)
-        -   [2.1.4 PFS survival curve](#pfs-survival-curve)
-        -   [2.1.5 ROC and Precision-Recall
-            curves](#roc-and-precision-recall-curves)
-    -   [2.2 Time‐dependent ROC curves](#timedependent-roc-curves)
+    -   [2.2 multivariable Cox screening](#multivariable-cox-screening)
+    -   [2.3 Final CoxPH modle](#final-coxph-modle)
+    -   [2.4 Reclassified patients based on CoxPH
+        modle](#reclassified-patients-based-on-coxph-modle)
+    -   [2.5 PFS survival curve](#pfs-survival-curve)
+    -   [2.6 ROC and Precision-Recall
+        curves](#roc-and-precision-recall-curves)
+    -   [2.7 Time‐dependent ROC curves](#timedependent-roc-curves)
 
 [`Return`](./)
 
@@ -137,15 +136,15 @@
     ## [25] "shannon"         "simpson"         "Alistipes"       "Fusobacterium"  
     ## $Age
     ## Surv(time, status) ~ Age
-    ## <environment: 0x7fc3403fc6d8>
+    ## <environment: 0x7fcf1a36e6d8>
     ## 
     ## $BMI
     ## Surv(time, status) ~ BMI
-    ## <environment: 0x7fc3403f9938>
+    ## <environment: 0x7fcf1a36b938>
     ## 
     ## $antiVEGF
     ## Surv(time, status) ~ antiVEGF
-    ## <environment: 0x7fc3402e7ba0>
+    ## <environment: 0x7fcf1a259ba0>
     ## 
     ## [1] "j=1"
     ## [1] "j=2"
@@ -219,7 +218,8 @@
 </tbody>
 </table>
 
-### 2.1.1 multivariable Cox screening
+2.2 multivariable Cox screening
+-------------------------------
 
     fmla <- as.formula(paste0("Surv(time, status) ~",paste0(single_pick,collapse = '+')))
     colnames(PFSdata)[c(2,3)]=c("status","time")
@@ -278,7 +278,8 @@
     ## - BMI             1 151.31
     ## - shannon         1 155.28
 
-### 2.1.2 Final CoxPH modle
+2.3 Final CoxPH modle
+---------------------
 
     ggforest(model,data = survival_dat_merge,
              noDigits = 2,fontsize =0.5)+
@@ -286,14 +287,16 @@
 
 <img src="Survival-and-machine-learning_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" />
 
-### 2.1.3 Reclassified patients based on CoxPH modle
+2.4 Reclassified patients based on CoxPH modle
+----------------------------------------------
 
     riskScore=predict(cox,type="risk",newdata=survival_dat_merge)
     risk=as.vector(ifelse(riskScore>1,"high","low"))
     multiCOX_risk_result<-cbind(id=rownames(cbind(survival_dat_merge[,1:2],riskScore,risk)),
                                 cbind(survival_dat_merge[,1:2],riskScore,risk))
 
-### 2.1.4 PFS survival curve
+2.5 PFS survival curve
+----------------------
 
     rt1<-multiCOX_risk_result
     colnames(rt1)[2:3]=c("PFS","PFStime")
@@ -325,7 +328,8 @@
 
 <img src="Survival-and-machine-learning_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="30%" style="display: block; margin: auto;" />
 
-### 2.1.5 ROC and Precision-Recall curves
+2.6 ROC and Precision-Recall curves
+-----------------------------------
 
     rt<-multiCOX_risk_result
     sscurves <- evalmod(scores = rt$time, labels = rt$risk)
@@ -365,7 +369,7 @@
 
 <img src="Survival-and-machine-learning_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="30%" style="display: block; margin: auto;" />
 
-2.2 Time‐dependent ROC curves
+2.7 Time‐dependent ROC curves
 -----------------------------
 
     rt<-multiCOX_risk_result
@@ -419,7 +423,7 @@
     plot(SROC$FP,SROC$TP, type="l", xlim=c(0,1), ylim=c(0,1),  
          ylab = "TP",main = "11-month PFS ROC", col="#0072B5FF",xlab="FP")
     lines(SROC1$FP, SROC1$TP, type="l",col="#E18727FF",xlim=c(0,1), ylim=c(0,1))
-    legend(0.6,0.2,c(paste("AUC of KM =",round(SROC$AUC,3)),
+    legend(0.3,0.2,c(paste("AUC of KM =",round(SROC$AUC,3)),
                      paste("AUC of NNE =",round(SROC1$AUC,3))),
            x.intersp=1, y.intersp=1,
            lty= 1 ,lwd= 2,col=c( "#0072B5FF","#E18727FF" ),
