@@ -1,7 +1,8 @@
 -   [1 Requires](#requires)
 -   [2 Risk prediction model for PFS](#risk-prediction-model-for-pfs)
     -   [2.1 univariable CoxPH screening](#univariable-coxph-screening)
-    -   [2.2 multivariable Cox screening](#multivariable-cox-screening)
+    -   [2.2 multivariable CoxPH
+        screening](#multivariable-coxph-screening)
     -   [2.3 Final CoxPH modle](#final-coxph-modle)
     -   [2.4 Reclassified patients based on CoxPH
         modle](#reclassified-patients-based-on-coxph-modle)
@@ -136,15 +137,15 @@
     ## [25] "shannon"         "simpson"         "Alistipes"       "Fusobacterium"  
     ## $Age
     ## Surv(time, status) ~ Age
-    ## <environment: 0x7fcf1a36e6d8>
+    ## <environment: 0x7fa1ada526d8>
     ## 
     ## $BMI
     ## Surv(time, status) ~ BMI
-    ## <environment: 0x7fcf1a36b938>
+    ## <environment: 0x7fa1ada4f938>
     ## 
     ## $antiVEGF
     ## Surv(time, status) ~ antiVEGF
-    ## <environment: 0x7fcf1a259ba0>
+    ## <environment: 0x7fa1ad93dba0>
     ## 
     ## [1] "j=1"
     ## [1] "j=2"
@@ -218,8 +219,8 @@
 </tbody>
 </table>
 
-2.2 multivariable Cox screening
--------------------------------
+2.2 multivariable CoxPH screening
+---------------------------------
 
     fmla <- as.formula(paste0("Surv(time, status) ~",paste0(single_pick,collapse = '+')))
     colnames(PFSdata)[c(2,3)]=c("status","time")

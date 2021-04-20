@@ -129,7 +129,7 @@ single_pick <-rownames(res_single)
 
 ```
 
-## multivariable Cox screening
+## multivariable CoxPH screening
 
 ```{r warning=F,results= 'hold'}
 fmla <- as.formula(paste0("Surv(time, status) ~",paste0(single_pick,collapse = '+')))
