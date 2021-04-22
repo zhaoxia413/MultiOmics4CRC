@@ -1,7 +1,7 @@
 -   [1 Requires](#requires)
 -   [2 Patients with BL and treat stool and saliva
     sampls](#patients-with-bl-and-treat-stool-and-saliva-sampls)
-    -   [2.1 Cluser Dendrogram](#cluser-dendrogram)
+    -   [2.1 Cluser Dendrograms](#cluser-dendrograms)
     -   [2.2 Phylum and Family
         composition](#phylum-and-family-composition)
 -   [3 Autoencoder for the patients with completion
@@ -138,8 +138,8 @@
 
     ## [1] "BL_Saliva"    "BL_Stool"     "Treat_Saliva" "Treat_Stool"
 
-2.1 Cluser Dendrogram
----------------------
+2.1 Cluser Dendrograms
+----------------------
 
     plot_grid(p1,p2,p3,p4,p5, labels = c("A","B","C","D","E"), ncol =5 ,nrow = 1)
 
@@ -185,7 +185,7 @@
     p1<-ggplot(data_list$phylum_saliva,aes(Group,Abundance,fill=MicroName))+
       geom_bar(stat = "identity", width=1)+
       facet_grid(Site~patientID,space="free",scales = "free")+
-      theme_few(base_size = 6)+
+      theme_few(base_size = 5)+
       scale_fill_manual(name="Phylum",values = col16)+
       theme(legend.box.just="top",
             legend.spacing = unit(0.1,"cm"),
@@ -193,12 +193,12 @@
             legend.spacing.x =unit(0.1,"cm"),
             legend.box.spacing = unit(0.1,"cm"),
             legend.justification=c(.4,.4),
-            legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=6,angle = 90,vjust = 1,hjust = 1),
+            legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=5,angle = 90,vjust = 1,hjust = 1),
             axis.title.x = element_blank())
     p2<-ggplot(data_list$phylum_stool,aes(Group,Abundance,fill=MicroName))+
       geom_bar(stat = "identity", width=1)+
       facet_grid(Site~patientID,space="free",scales = "free")+
-      theme_few(base_size = 6)+
+      theme_few(base_size = 5)+
       scale_fill_manual(name="Phylum",values = col16)+
       theme(legend.box.just="top",
             legend.spacing = unit(0.1,"cm"),
@@ -206,13 +206,13 @@
             legend.spacing.x =unit(0.1,"cm"),
             legend.box.spacing = unit(0.1,"cm"),
             legend.justification=c(.4,.4),
-            legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=6,angle = 90,vjust = 1,hjust = 1),
+            legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=5,angle = 90,vjust = 1,hjust = 1),
             axis.title.x = element_blank())
 
     p3<-ggplot(data_list$family_saliva,aes(Group,Abundance,fill=MicroName))+
       geom_bar(stat = "identity", width=1)+
       facet_grid(Site~patientID,space="free",scales = "free")+
-      theme_few(base_size = 6)+
+      theme_few(base_size = 5)+
       scale_fill_manual(name="Family",values = col31[c(1:21,24)])+
       theme(legend.box.just="top",
             legend.spacing = unit(0.1,"cm"),
@@ -220,12 +220,12 @@
             legend.spacing.x =unit(0.1,"cm"),
             legend.box.spacing = unit(0.1,"cm"),
             legend.justification=c(.4,.4),
-            legend.position="top",legend.key.size=unit(.1,"inches"), axis.text.x = element_text(size=6,angle = 90,vjust = 1,hjust = 1),
+            legend.position="top",legend.key.size=unit(.1,"inches"), axis.text.x = element_text(size=5,angle = 90,vjust = 1,hjust = 1),
             axis.title.x = element_blank())
     p4<-ggplot(data_list$family_stool,aes(Group,Abundance,fill=MicroName))+
       geom_bar(stat = "identity", width=1)+
       facet_grid(Site~patientID,space="free",scales = "free")+
-      theme_few(base_size = 6)+
+      theme_few(base_size = 5)+
       scale_fill_manual(name="Family",values =col31[c(1:21,24)])+
       theme(legend.box.just="top",
             legend.spacing = unit(0.1,"cm"),
@@ -233,7 +233,7 @@
             legend.spacing.x =unit(0.1,"cm"),
             legend.box.spacing = unit(0.1,"cm"),
             legend.justification=c(.4,.4),
-            legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=6,angle = 90,vjust = 1,hjust = 1),
+            legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=5,angle = 90,vjust = 1,hjust = 1),
             axis.title.x = element_blank())
 
     plot_grid(p1,p3,p2,p4, labels = c("A","B","C","D"), ncol =2 ,nrow = 2)

@@ -120,9 +120,9 @@ p4<-fviz_dend(res.hc4, k = 2, main = "BL_Treat",ggtheme = theme_few(base_size = 
 p5<-fviz_dend(res.hc5, k = 2,main = "Clinical", ggtheme = theme_few(base_size = 6),palette = "lancet", cex = 0.5)
 ```
 
-## Cluser Dendrogram
+## Cluser Dendrograms
 
-```{r fig.height=3,fig.width=8,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
+```{r fig.height=7,fig.width=8,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
 plot_grid(p1,p2,p3,p4,p5, labels = c("A","B","C","D","E"), ncol =5 ,nrow = 1)
 ```
 
@@ -167,7 +167,7 @@ data_list[[4]]$patientID<-factor(data_list[[4]]$patientID,
 p1<-ggplot(data_list$phylum_saliva,aes(Group,Abundance,fill=MicroName))+
   geom_bar(stat = "identity", width=1)+
   facet_grid(Site~patientID,space="free",scales = "free")+
-  theme_few(base_size = 6)+
+  theme_few(base_size = 5)+
   scale_fill_manual(name="Phylum",values = col16)+
   theme(legend.box.just="top",
         legend.spacing = unit(0.1,"cm"),
@@ -175,12 +175,12 @@ p1<-ggplot(data_list$phylum_saliva,aes(Group,Abundance,fill=MicroName))+
         legend.spacing.x =unit(0.1,"cm"),
         legend.box.spacing = unit(0.1,"cm"),
         legend.justification=c(.4,.4),
-        legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=6,angle = 90,vjust = 1,hjust = 1),
+        legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=5,angle = 90,vjust = 1,hjust = 1),
         axis.title.x = element_blank())
 p2<-ggplot(data_list$phylum_stool,aes(Group,Abundance,fill=MicroName))+
   geom_bar(stat = "identity", width=1)+
   facet_grid(Site~patientID,space="free",scales = "free")+
-  theme_few(base_size = 6)+
+  theme_few(base_size = 5)+
   scale_fill_manual(name="Phylum",values = col16)+
   theme(legend.box.just="top",
         legend.spacing = unit(0.1,"cm"),
@@ -188,13 +188,13 @@ p2<-ggplot(data_list$phylum_stool,aes(Group,Abundance,fill=MicroName))+
         legend.spacing.x =unit(0.1,"cm"),
         legend.box.spacing = unit(0.1,"cm"),
         legend.justification=c(.4,.4),
-        legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=6,angle = 90,vjust = 1,hjust = 1),
+        legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=5,angle = 90,vjust = 1,hjust = 1),
         axis.title.x = element_blank())
 
 p3<-ggplot(data_list$family_saliva,aes(Group,Abundance,fill=MicroName))+
   geom_bar(stat = "identity", width=1)+
   facet_grid(Site~patientID,space="free",scales = "free")+
-  theme_few(base_size = 6)+
+  theme_few(base_size = 5)+
   scale_fill_manual(name="Family",values = col31[c(1:21,24)])+
   theme(legend.box.just="top",
         legend.spacing = unit(0.1,"cm"),
@@ -202,12 +202,12 @@ p3<-ggplot(data_list$family_saliva,aes(Group,Abundance,fill=MicroName))+
         legend.spacing.x =unit(0.1,"cm"),
         legend.box.spacing = unit(0.1,"cm"),
         legend.justification=c(.4,.4),
-        legend.position="top",legend.key.size=unit(.1,"inches"), axis.text.x = element_text(size=6,angle = 90,vjust = 1,hjust = 1),
+        legend.position="top",legend.key.size=unit(.1,"inches"), axis.text.x = element_text(size=5,angle = 90,vjust = 1,hjust = 1),
         axis.title.x = element_blank())
 p4<-ggplot(data_list$family_stool,aes(Group,Abundance,fill=MicroName))+
   geom_bar(stat = "identity", width=1)+
   facet_grid(Site~patientID,space="free",scales = "free")+
-  theme_few(base_size = 6)+
+  theme_few(base_size = 5)+
   scale_fill_manual(name="Family",values =col31[c(1:21,24)])+
   theme(legend.box.just="top",
         legend.spacing = unit(0.1,"cm"),
@@ -215,12 +215,12 @@ p4<-ggplot(data_list$family_stool,aes(Group,Abundance,fill=MicroName))+
         legend.spacing.x =unit(0.1,"cm"),
         legend.box.spacing = unit(0.1,"cm"),
         legend.justification=c(.4,.4),
-        legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=6,angle = 90,vjust = 1,hjust = 1),
+        legend.position="top",legend.key.size=unit(.1,"inches"),axis.text.x = element_text(size=5,angle = 90,vjust = 1,hjust = 1),
         axis.title.x = element_blank())
 ```
 
 
-```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
+```{r fig.height=8,fig.width=8,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 plot_grid(p1,p3,p2,p4, labels = c("A","B","C","D"), ncol =2 ,nrow = 2)
 ```
 
