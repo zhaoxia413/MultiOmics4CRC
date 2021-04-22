@@ -596,7 +596,7 @@
 3.4 PCA plot based on the representative OTUs
 ---------------------------------------------
 
-    fviz_pca_ind(limma_pca,
+    fviz_pca_ind(limma_pca,legend.title = "k-means cluster",
                  label = "none", # hide individual labels
                  col.ind = final_mat$Class, # color by groups
                  palette = c("#00AFBB", "#E7B800", "#FC4E07"),

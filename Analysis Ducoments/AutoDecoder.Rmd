@@ -122,7 +122,7 @@ p5<-fviz_dend(res.hc5, k = 2,main = "Clinical", ggtheme = theme_few(base_size = 
 
 ## Cluser Dendrogram
 
-```{r fig.height=5,fig.width=8,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
+```{r fig.height=3,fig.width=8,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
 plot_grid(p1,p2,p3,p4,p5, labels = c("A","B","C","D","E"), ncol =5 ,nrow = 1)
 ```
 
@@ -220,7 +220,7 @@ p4<-ggplot(data_list$family_stool,aes(Group,Abundance,fill=MicroName))+
 ```
 
 
-```{r fig.height=7,fig.width=7,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
+```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="100%",results='hold'}
 plot_grid(p1,p3,p2,p4, labels = c("A","B","C","D"), ncol =2 ,nrow = 2)
 ```
 
@@ -392,7 +392,7 @@ limma_pca <- PCA(final_mat[,-c(1,2)], graph = FALSE)
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="30%",results='hold'}
 
-fviz_pca_ind(limma_pca,
+fviz_pca_ind(limma_pca,legend.title = "k-means cluster",
              label = "none", # hide individual labels
              col.ind = final_mat$Class, # color by groups
              palette = c("#00AFBB", "#E7B800", "#FC4E07"),
