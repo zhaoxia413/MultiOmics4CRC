@@ -15,8 +15,7 @@ surv_plot<-function(fit,data,colors,title){
                 pval.method.coord=c(0.05,0.3), 
                 ggtheme = theme_minimal() + 
                   theme(line = element_line(size = 0.1),
-                        text  = element_text(size = 6),
-                        legend.direction = "vertical"),
+                        text  = element_text(size = 6)),
                 palette = colors,
                 legend.labs = c("no", "yes"),
                 risk.table.col = "strata",
