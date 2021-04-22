@@ -86,10 +86,6 @@
     OTU_Treat_Stool_mat<-data.frame(row.names =OTU_Treat_Stool$patientID,OTU_Treat_Stool[,-1])%>%as.matrix()
     clinical_mat<-subset(clinical,patientID%in%paired_stool_saliva_TB$patientID)
     clinical_mat<-data.frame(row.names =clinical_mat$patientID,clinical_mat[,-1])%>%as.matrix()
-
-    OTU8paired_mat<-do.call(cbind,list(clinical_mat,OTU_BL_Saliva_mat,OTU_BL_Stool_mat,
-                                       OTU_Treat_Saliva_mat,OTU_Treat_Stool_mat))
-
     res.hc1 <- eclust(OTU_BL_Saliva_mat, "hclust", k = 2,
                       method = "ward.D2", graph =T) 
     res.hc2 <- eclust(OTU_BL_Stool_mat, "hclust", k = 2,
@@ -359,8 +355,10 @@
     knitr::kable(limma_res)
 
     final_res<-dplyr::select(ano_data,c(patientID,km.res.cluster,limma_res$Factor))
-    final_mat<-data.frame(row.names = final_res$patientID,final_res[,-c(1,2)])%>%as.matrix()
-    final_col<-data.frame(row.names =ano_data$patientID,Class=ano_data$km.res.cluster)
+    final_mat<-data.frame(patientID = final_res$patientID,final_res[,-c(1,2)])
+    final_col<-data.frame(patientID =ano_data$patientID,Class=ano_data$km.res.cluster)
+    final_mat<-merge(final_col,final_mat,by="patientID")
+    limma_pca <- PCA(final_mat[,-c(1,2)], graph = FALSE)
 
     ## [1] -5276.452  5715.119
 
@@ -542,15 +540,12 @@
 </tbody>
 </table>
 
-    limma_pca <- PCA(final_mat, graph = FALSE)
-    fviz_pca_ind(limma_pca,
+    p1<-fviz_pca_ind(limma_pca,
                  label = "none", # hide individual labels
-                 #habillage = final_col$Class, # color by groups
+                 col.ind = final_mat$Class, # color by groups
                  palette = c("#00AFBB", "#E7B800", "#FC4E07"),
                  addEllipses = TRUE # Concentration ellipses
     )
-
-<img src="AutoDecoder_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="30%" style="display: block; margin: auto;" />
 
     cli<-fread("../Data/Data/final_clinical_40pt.csv")
     meta<-fread("../Data/Data/meta.csv",data.table = F)%>%subset(.,Site=="Stool")
