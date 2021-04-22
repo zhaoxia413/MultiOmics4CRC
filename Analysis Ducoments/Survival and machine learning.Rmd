@@ -38,6 +38,10 @@ library(precrec)
 library(timeROC)
 library(survival)
 library(survivalROC)
+library(ANN2)
+library(NeuralNetTools)
+library(factoextra)
+library(limma)
 library("scales")
 pal_nejm("default")(8)
 "%ni%"<-Negate("%in%")
@@ -270,3 +274,7 @@ legend(0.3,0.2,c(paste("AUC of KM =",round(SROC$AUC,3)),
        seg.len=1,cex=1)
 abline(0,1)
 ```
+
+
+
+
