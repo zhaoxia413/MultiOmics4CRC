@@ -9,7 +9,7 @@ surv_plot<-function(fit,data,colors,title){
                 risk.table = F,
                 legend.title = title,
                 tables.theme = theme_few(base_size = 6),
-                #legend = c(0.84, 0.8),
+                legend = c(0.84, 0.8),
                 pval = TRUE,pval.size = 2, 
                 pval.coord=c(0.8,0.2),pval.method=F,
                 pval.method.coord=c(0.05,0.3), 

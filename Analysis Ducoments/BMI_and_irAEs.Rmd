@@ -70,14 +70,13 @@ fit
 
 ### PFS survival plot for BMI
 
-```{r fig.width=3, fig.height=3.2,dpi=600,fig.align='center',,out.width = "30%"}
+```{r fig.width=3, fig.height=3.2,dpi=600,fig.align='center',,out.width = "40%"}
 ggsurvplot(fit, data=data,xlab = "Time(months)",
            censor.size=0.5, size = 0.5,
            tables.theme = theme_few(base_size = 6),
-           linetype = "strata", legend.labs = c("High", "Low"),
-                legend.title = "BMI",palette = c("black","red"),
+           legend.labs = c(">25", "<=25"),
+                legend.title = "BMI",palette = c("red","black"),
                 risk.table = T,
-                #legend = c(0.84, 0.8),
                 pval = TRUE,pval.size = 3, 
                 pval.coord=c(0.8,0.2),pval.method=F,
                 pval.method.coord=c(0.05,0.3), 
@@ -122,7 +121,7 @@ plot_grid(p1,p2, p3,labels = c("A","B","C"), ncol =3, nrow = 1)
 
 ## Correlation of BMI and stroma CD3 expression
 
-```{r fig.width=6, fig.height=4,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "70%"}
+```{r fig.width=7, fig.height=4,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "70%"}
 bmi<-fread("../Data/Data/BMI_CD3.csv",data.table = F)
 ggscatter(bmi,x = "value", y = "BMI",size=1,mean.point = T,
           add.params = list(c(size=0.5,color="variable")),color="variable",
@@ -141,7 +140,7 @@ ggscatter(bmi,x = "value", y = "BMI",size=1,mean.point = T,
 
 ### Correlation Firmucutes and Bacteroidetes
 
-```{r fig.width=5, fig.height=2,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "40%"}
+```{r fig.width=5, fig.height=2,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "70%"}
 df1<-fread("../Data/Data/publicData/PRJNA541981_phylum.csv",data.table = F)
 df2<-fread("../Data/Data/publicData/PRJEB22863_phylum.csv",data.table = F)
 df3<-fread("../Data/Data/publicData/PRJNA399742_phylum.csv",data.table = F)

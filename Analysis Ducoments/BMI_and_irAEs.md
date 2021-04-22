@@ -92,10 +92,9 @@
     ggsurvplot(fit, data=data,xlab = "Time(months)",
                censor.size=0.5, size = 0.5,
                tables.theme = theme_few(base_size = 6),
-               linetype = "strata", legend.labs = c("High", "Low"),
-                    legend.title = "BMI",palette = c("black","red"),
+               legend.labs = c(">25", "<=25"),
+                    legend.title = "BMI",palette = c("red","black"),
                     risk.table = T,
-                    #legend = c(0.84, 0.8),
                     pval = TRUE,pval.size = 3, 
                     pval.coord=c(0.8,0.2),pval.method=F,
                     pval.method.coord=c(0.05,0.3), 
@@ -107,7 +106,7 @@
                     risk.table.y.text.col = T,
                     risk.table.y.text = FALSE )
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="30%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="40%" style="display: block; margin: auto;" />
 
 ### 1.1.3 Correlation of BMI and gut FBratio
 
@@ -196,7 +195,7 @@
 
     plot_grid(p1,p2,labels = c("A","B"), ncol =2, nrow = 1)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="40%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
 
 ### 1.4.2 Diagnostic value of Gut FBratio in CRC cohorts
 
