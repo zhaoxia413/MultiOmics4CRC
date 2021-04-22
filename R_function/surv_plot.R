@@ -4,9 +4,10 @@ surv_plot<-function(fit,data,colors,title){
   library(survival)
   library(grid)
   library(ggplotify)
-  p<-ggsurvplot(fit, data=data,xlab = "Time(months)", linetype = "strata",
-                legend.title = "",censor.size=0.3, size = 0.3,
+  p<-ggsurvplot(fit,data=data,xlab = "Time(months)", linetype = "strata",
+                censor.size=0.3, size = 0.3,
                 risk.table = F,
+                legend.title = title,
                 tables.theme = theme_few(base_size = 6),
                 #legend = c(0.84, 0.8),
                 pval = TRUE,pval.size = 2, 
@@ -17,7 +18,7 @@ surv_plot<-function(fit,data,colors,title){
                         text  = element_text(size = 6),
                         legend.direction = "vertical"),
                 palette = colors,
-                main=title,
+                legend.labs = c("no", "yes"),
                 risk.table.col = "strata",
                 surv.median.line = "hv",
                 risk.table.y.text.col = T,

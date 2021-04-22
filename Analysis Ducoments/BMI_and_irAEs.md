@@ -12,6 +12,12 @@
     -   [1.3 BMI ralated KEGG pathways](#bmi-ralated-kegg-pathways)
     -   [1.4 Validate the clinical value of gut FBratio with public
         datasets](#validate-the-clinical-value-of-gut-fbratio-with-public-datasets)
+        -   [1.4.1 Correlation Firmucutes and
+            Bacteroidetes](#correlation-firmucutes-and-bacteroidetes)
+        -   [1.4.2 Diagnostic value of Gut FBratio in CRC
+            cohorts](#diagnostic-value-of-gut-fbratio-in-crc-cohorts)
+        -   [1.4.3 Gut FBratio in
+            immunotherapy](#gut-fbratio-in-immunotherapy)
 -   [2 Treated-related aderse events](#treated-related-aderse-events)
     -   [2.1 PFS survival curves for each
         events](#pfs-survival-curves-for-each-events)
@@ -86,8 +92,8 @@
     ggsurvplot(fit, data=data,xlab = "Time(months)",
                censor.size=0.5, size = 0.5,
                tables.theme = theme_few(base_size = 6),
-               linetype = "strata",
-                    legend.title = "",palette = c("black","red"),
+               linetype = "strata", legend.labs = c("High", "Low"),
+                    legend.title = "BMI",palette = c("black","red"),
                     risk.table = T,
                     #legend = c(0.84, 0.8),
                     pval = TRUE,pval.size = 3, 
@@ -164,6 +170,8 @@
 1.4 Validate the clinical value of gut FBratio with public datasets
 -------------------------------------------------------------------
 
+### 1.4.1 Correlation Firmucutes and Bacteroidetes
+
     df1<-fread("../Data/Data/publicData/PRJNA541981_phylum.csv",data.table = F)
     df2<-fread("../Data/Data/publicData/PRJEB22863_phylum.csv",data.table = F)
     df3<-fread("../Data/Data/publicData/PRJNA399742_phylum.csv",data.table = F)
@@ -189,6 +197,10 @@
     plot_grid(p1,p2,labels = c("A","B"), ncol =2, nrow = 1)
 
 <img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="40%" style="display: block; margin: auto;" />
+
+### 1.4.2 Diagnostic value of Gut FBratio in CRC cohorts
+
+### 1.4.3 Gut FBratio in immunotherapy
 
 2 Treated-related aderse events
 ===============================
@@ -218,6 +230,10 @@
     splots[[1]] <- surv_plot(fit_PFS, df_treat, colors = c("darkgreen", "darkorange"), 
         title = "HandFoodSyndrom_PFS")
     ## Loading required package: prodlim
+    splots[[1]]
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+
     splots[[2]] <- surv_plot(fit_OS, df_treat, colors = c("black", "red"), title = "HandFoodSyndrom_OS")
 
     fit_PFS <- survfit(Surv(PFStime, PFS) ~ Rash_g, data = df_treat)
@@ -245,7 +261,7 @@
     require(survminer)
     arrange_ggsurvplots(x = splots, print = TRUE, ncol = 4, nrow = 2)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-2.png" style="display: block; margin: auto;" />
 
     ## Call: survfit(formula = Surv(PFStime, PFS) ~ Hand_food_syndrom_g, data = df_treat)
     ## 
