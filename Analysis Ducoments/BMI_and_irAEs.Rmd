@@ -1,6 +1,6 @@
 ---
 sort: 4
-title: "Visulaization"
+title: "BMI and irAEs related features"
 author: "XiaZhao"
 date: "4/17/2021"
 output: 
@@ -90,7 +90,7 @@ ggsurvplot(fit, data=data,xlab = "Time(months)",
                 risk.table.y.text = FALSE )
 ```
 
-## Correlation of BMI and gut FBratio
+### Correlation of BMI and gut FBratio
 
 ```{r fig.width=10, fig.height=4,dpi=600,fig.align='center',,out.width = "90%"}
 p1<-ggscatter(subset(df,Cycle=="BL"&Response!="NE"&FBratio<10), x = "FBratio", y = "BMI",size=0.5,mean.point = T,
@@ -120,7 +120,7 @@ plot_grid(p1,p2, p3,labels = c("A","B","C"), ncol =3, nrow = 1)
 
 ```
 
-### Correlation of BMI and stroma CD3 expression
+## Correlation of BMI and stroma CD3 expression
 
 ```{r fig.width=6, fig.height=4,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "40%"}
 bmi<-fread("../Data/Data/BMI_CD3.csv",data.table = F)

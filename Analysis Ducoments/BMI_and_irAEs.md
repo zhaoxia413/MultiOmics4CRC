@@ -5,10 +5,10 @@
             FBartio](#histgrams-for-bmi-and-fbartio)
         -   [1.1.2 PFS survival plot for
             BMI](#pfs-survival-plot-for-bmi)
-    -   [1.2 Correlation of BMI and gut
-        FBratio](#correlation-of-bmi-and-gut-fbratio)
-        -   [1.2.1 Correlation of BMI and stroma CD3
-            expression](#correlation-of-bmi-and-stroma-cd3-expression)
+        -   [1.1.3 Correlation of BMI and gut
+            FBratio](#correlation-of-bmi-and-gut-fbratio)
+    -   [1.2 Correlation of BMI and stroma CD3
+        expression](#correlation-of-bmi-and-stroma-cd3-expression)
     -   [1.3 Validate the clinical value of gut FBratio with public
         datasets](#validate-the-clinical-value-of-gut-fbratio-with-public-datasets)
 -   [2 Treated-related aderse events](#treated-related-aderse-events)
@@ -102,8 +102,7 @@
 
 <img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-3-1.png" width="30%" style="display: block; margin: auto;" />
 
-1.2 Correlation of BMI and gut FBratio
---------------------------------------
+### 1.1.3 Correlation of BMI and gut FBratio
 
     p1<-ggscatter(subset(df,Cycle=="BL"&Response!="NE"&FBratio<10), x = "FBratio", y = "BMI",size=0.5,mean.point = T,
               color = "Site", add.params = list(c(size=0.5,color="Site")),
@@ -144,7 +143,8 @@
 
 <img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />
 
-### 1.2.1 Correlation of BMI and stroma CD3 expression
+1.2 Correlation of BMI and stroma CD3 expression
+------------------------------------------------
 
     bmi<-fread("../Data/Data/BMI_CD3.csv",data.table = F)
     ggscatter(bmi,x = "value", y = "BMI",size=1,mean.point = T,
