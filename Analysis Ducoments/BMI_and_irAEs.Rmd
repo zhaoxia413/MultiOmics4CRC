@@ -70,7 +70,7 @@ fit
 
 ### PFS survival plot for BMI
 
-```{r fig.width=3, fig.height=3,dpi=600,fig.align='center',,out.width = "30%"}
+```{r fig.width=3, fig.height=3.2,dpi=600,fig.align='center',,out.width = "30%"}
 ggsurvplot(fit, data=data,xlab = "Time(months)",
            censor.size=0.5, size = 0.5,
            tables.theme = theme_few(base_size = 6),
@@ -122,7 +122,7 @@ plot_grid(p1,p2, p3,labels = c("A","B","C"), ncol =3, nrow = 1)
 
 ## Correlation of BMI and stroma CD3 expression
 
-```{r fig.width=6, fig.height=4,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "40%"}
+```{r fig.width=6, fig.height=4,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "70%"}
 bmi<-fread("../Data/Data/BMI_CD3.csv",data.table = F)
 ggscatter(bmi,x = "value", y = "BMI",size=1,mean.point = T,
           add.params = list(c(size=0.5,color="variable")),color="variable",

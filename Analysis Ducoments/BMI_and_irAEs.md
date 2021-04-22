@@ -162,7 +162,7 @@
       theme_few(base_size = 8)+
       scale_color_aaas()
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="40%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" />
 
 1.3 BMI ralated KEGG pathways
 -----------------------------
