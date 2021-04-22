@@ -182,20 +182,20 @@
     data<-bind_rows(select(df1,index),select(df2,index),select(df3,index),select(df4,index))
     p1<-ggscatter(data, x = "Firmicutes", 
               y = "Bacteroidetes",size=0.5,alpha=0.4,color="datasets",cor.method = "spearman",mean.point = T,
-              palette = "jco",add.params = list(alpha=0.5,size=0.5), ggtheme = theme_few(base_size = 10),
+              palette = "jco",add.params = list(alpha=0.5,size=0.5), ggtheme = theme_few(base_size = 6),
               add = "reg.line", conf.int = TRUE)+
-      stat_cor(aes(color=datasets),label.x = 0.55,size=2)
+      stat_cor(aes(color=datasets),label.x = 0.55,size=1)
 
     p2<-ggscatter(data, x = "Firmicutes", mean.point = T,cor.method = "spearman",
-              ggtheme = theme_few(base_size = 10),
+              ggtheme = theme_few(base_size = 6),
               y = "Bacteroidetes",size=0.5,alpha=0.4,color="Cancer",
               palette = "jco",add.params = list(alpha=0.5,size=0.5),
               add = "reg.line", conf.int = TRUE)+
-      stat_cor(aes(color=Cancer),label.x = 0.55,size=2)
+      stat_cor(aes(color=Cancer),label.x = 0.55,size=1)
 
     plot_grid(p1,p2,labels = c("A","B"), ncol =2, nrow = 1)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" />
 
 ### 1.4.2 Diagnostic value of Gut FBratio in CRC cohorts
 
