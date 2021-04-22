@@ -230,10 +230,6 @@
     splots[[1]] <- surv_plot(fit_PFS, df_treat, colors = c("darkgreen", "darkorange"), 
         title = "HandFoodSyndrom_PFS")
     ## Loading required package: prodlim
-    splots[[1]]
-
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
-
     splots[[2]] <- surv_plot(fit_OS, df_treat, colors = c("black", "red"), title = "HandFoodSyndrom_OS")
 
     fit_PFS <- survfit(Surv(PFStime, PFS) ~ Rash_g, data = df_treat)
@@ -261,7 +257,7 @@
     require(survminer)
     arrange_ggsurvplots(x = splots, print = TRUE, ncol = 4, nrow = 2)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-2.png" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
     ## Call: survfit(formula = Surv(PFStime, PFS) ~ Hand_food_syndrom_g, data = df_treat)
     ## 

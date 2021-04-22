@@ -178,7 +178,7 @@ plot_grid(p1,p2,labels = c("A","B"), ncol =2, nrow = 1)
 
 ## PFS survival curves for each events
 
-```{r fig.height=5, fig.width=6, collapse=TRUE, dpi=600, paged.print=FALSE, results='hold', tidy=TRUE,fig.align='center'}
+```{r fig.height=4.8, fig.width=6, collapse=TRUE, dpi=600, paged.print=FALSE, results='hold', tidy=TRUE,fig.align='center'}
 df<-fread("../Data/Data/paired_BL_treat_16patients.csv",data.table = F)
 
 df$Hand_food_syndrom<-as.factor(df$Hand_food_syndrom)
@@ -201,7 +201,6 @@ fit_OS<-survfit(Surv(OStime,OS) ~ Hand_food_syndrom_g,
                  data = df_treat)
 fit_OS
 splots[[1]]<-surv_plot(fit_PFS,df_treat,colors = c("darkgreen","darkorange"),title="HandFoodSyndrom_PFS")
-splots[[1]]
 splots[[2]]<-surv_plot(fit_OS,df_treat,colors = c("black","red"),title="HandFoodSyndrom_OS")
 
 fit_PFS<-survfit(Surv(PFStime,PFS) ~ Rash_g,
