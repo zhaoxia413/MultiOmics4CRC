@@ -4,7 +4,7 @@ surv_plot<-function(fit,data,colors,title){
   library(survival)
   library(grid)
   library(ggplotify)
-  p<-ggsurvplot(fit,data=data,xlab = "Time(months)", linetype = "strata",
+  p<-ggsurvplot(fit,data=data,xlab = "Time(months)",
                 censor.size=0.3, size = 0.3,
                 risk.table = F,
                 legend.title = title,
