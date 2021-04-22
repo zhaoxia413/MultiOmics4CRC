@@ -191,7 +191,8 @@
               y = "Bacteroidetes",size=0.5,alpha=0.4,color="Cancer",
               palette = "jco",add.params = list(alpha=0.5,size=0.5),
               add = "reg.line", conf.int = TRUE)+
-      stat_cor(aes(color=Cancer),label.x = 0.55,size=1)
+      stat_cor(aes(color=Cancer),label.x = 0.55,size=1)+
+      theme(legend.text = element_text(size=5))
 
     plot_grid(p1,p2,labels = c("A","B"), ncol =2, nrow = 1)
 
@@ -254,7 +255,7 @@
         title = "Diarrhea_PFS")
     splots[[8]] <- surv_plot(fit_OS, df_treat, colors = c("black", "red"), title = "Diarrhea_OS")
     require(survminer)
-    arrange_ggsurvplots(x = splots, print = TRUE, ncol = 4, nrow = 2)
+    arrange_ggsurvplots(x = splots, print = TRUE, ncol = 3, nrow = 3)
 
 <img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
