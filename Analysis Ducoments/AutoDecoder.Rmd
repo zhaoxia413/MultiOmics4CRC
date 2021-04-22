@@ -120,9 +120,14 @@ p4<-fviz_dend(res.hc4, k = 2, main = "BL_Treat",ggtheme = theme_few(base_size = 
 p5<-fviz_dend(res.hc5, k = 2,main = "Clinical", ggtheme = theme_few(base_size = 6),palette = "lancet", cex = 0.5)
 ```
 
+## Cluser Dendrogram
+
 ```{r fig.height=5,fig.width=8,dpi=600,fig.align='center',warning=F,out.width ="80%",results='hold'}
 plot_grid(p1,p2,p3,p4,p5, labels = c("A","B","C","D","E"), ncol =5 ,nrow = 1)
 ```
+
+## Phylum and Family composition
+
 
 ```{r warning=F,results= 'hold'}
 load("../Data/Data/regaMicrcobiome.RData")
@@ -219,6 +224,8 @@ p4<-ggplot(data_list$family_stool,aes(Group,Abundance,fill=MicroName))+
 plot_grid(p1,p3,p2,p4, labels = c("A","B","C","D"), ncol =2 ,nrow = 2)
 ```
 
+# Autoencoder for the patients with completion data
+
 ```{r warning=F,results= 'hold'}
 clinical<-fread("../Data/Data/clinical_adver_41p.csv",data.table = F)
 cd<-fread("../Data/Data/cd3cd8.csv",data.table = F)
@@ -276,6 +283,10 @@ rownames(AE_df)<-rownames(X)
 
 ```
 
+## K-means clustering
+
+### Choose k value
+
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="30%",results='hold'}
 fviz_nbclust(
   AE_df, 
@@ -285,6 +296,8 @@ fviz_nbclust(
   verbose = FALSE)
 ```
 
+### Plot K-means clustering
+
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="30%",results='hold'}
 km.res <- kmeans(scale(AE_df),6, nstart = 25)
 fviz_cluster(km.res, data = AE_df,repel = T,labelsize = 12,
@@ -292,6 +305,8 @@ fviz_cluster(km.res, data = AE_df,repel = T,labelsize = 12,
              ggtheme = theme_minimal(),
              main = "Kmeans Clustering Plot")
 ```
+
+### PFS survival based on Autoencoder data
 
 ```{r warning=F,results= 'hold'}
 cluster<-data.frame(km.res$cluster)
@@ -318,6 +333,8 @@ p1<-ggsurvplot(fit1, data=new,pval.method = T,add.all = T,
                risk.table.y.text = F )
 p1
 ```
+
+## Representative features of the k-means clusters
 
 ```{r warning=F,results= 'hold'}
 otu_info<-fread("../Data/Data/OTUtabale_regaStool.csv")[,c(1:7)]
@@ -354,9 +371,15 @@ limma_res$Group<-rownames(limma_res)
 limma_res$Group<-gsub("^.*_","",limma_res$Group)
 limma_res<-merge(limma_res,otu_info,by="OTUid")
 limma_res$Taxonomy<-gsub("d__Bacteria;k__norank_d__Bacteria;p__","",limma_res$Taxonomy)
+```
 
+## Table of representative OTUs for the k-means clusters
+
+``````{r warning=F,results= 'hold'}
 knitr::kable(limma_res)
+```
 
+``````{r warning=F,results= 'hold'}
 final_res<-dplyr::select(ano_data,c(patientID,km.res.cluster,limma_res$Factor))
 final_mat<-data.frame(patientID = final_res$patientID,final_res[,-c(1,2)])
 final_col<-data.frame(patientID =ano_data$patientID,Class=ano_data$km.res.cluster)
@@ -365,10 +388,11 @@ limma_pca <- PCA(final_mat[,-c(1,2)], graph = FALSE)
 
 ```
 
+## PCA plot based on the representative OTUs
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="30%",results='hold'}
 
-p1<-fviz_pca_ind(limma_pca,
+fviz_pca_ind(limma_pca,
              label = "none", # hide individual labels
              col.ind = final_mat$Class, # color by groups
              palette = c("#00AFBB", "#E7B800", "#FC4E07"),
@@ -376,6 +400,8 @@ p1<-fviz_pca_ind(limma_pca,
 )
 
 ```
+
+# Reclassify the patients with incompletion data by the representative OTUs
 
 ```{r warning=F,results= 'hold'}
 cli<-fread("../Data/Data/final_clinical_40pt.csv")
@@ -409,6 +435,10 @@ otu_bl_limma_mat<-data.frame(row.names = df_bl$patientID,df_bl[,-c(1:6)])
 otu_treat_limma_mat<-data.frame(row.names = paste0(df_treat$patientID,"_",df_treat$Cycle),df_treat[,-c(1:6)])
 ```
 
+## All the patients with  baseline samples
+
+### Choose k value
+
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="30%",results='hold'}
 fviz_nbclust(
   otu_bl_limma_mat, 
@@ -418,6 +448,8 @@ fviz_nbclust(
   verbose = FALSE)
 ```
 
+### Plot K-means clustering
+
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="30%",results='hold'}
 km.res <- kmeans(scale(otu_bl_limma_mat),3, nstart = 25)
 fviz_cluster(km.res, data = otu_bl_limma_mat,repel = T,labelsize = 12,
@@ -426,6 +458,8 @@ fviz_cluster(km.res, data = otu_bl_limma_mat,repel = T,labelsize = 12,
              main = "Kmeans Clustering Plot")
 ```
 
+## All the patients with treated samples
+
 ```{r warning=F,results= 'hold'}
 cluster_BL<-data.frame(km.res$cluster)
 cluster_BL$patientID<-rownames(cluster_BL)
@@ -433,6 +467,9 @@ cluster_BL$km.res.cluster<-paste0("km",cluster_BL$km.res.cluster)
 stat_num<-cluster_BL%>%group_by(km.res.cluster)%>%summarise(Num=n())
 cluster_BL$km.res.cluster<-ifelse(cluster_BL$km.res.cluster==stat_num$km.res.cluster[which(stat_num$Num>5)],"km1","km2")
 ```
+
+
+### Choose k value
 
 ```{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="30%",results='hold'}
 fviz_nbclust(
@@ -443,6 +480,8 @@ fviz_nbclust(
   verbose = FALSE)
 ```
 
+### Plot K-means clustering
+
 ```{r warning=F,results= 'hold'}
 set.seed(123)
 km.res <- kmeans(scale(otu_treat_limma_mat),4, nstart = 25)
@@ -450,6 +489,12 @@ fviz_cluster(km.res, data = otu_treat_limma_mat,repel = T,labelsize = 12,
               palette = c("#00AFBB", "#E7B800", "black","red","blue","gray"),
              ggtheme = theme_minimal(),
              main = "Kmeans Clustering Plot")
+```
+
+
+## PFS survival of the Patients with incompletion data 
+
+```{r warning=F,results= 'hold'}
 cluster_treat<-data.frame(km.res$cluster)
 cluster_treat$patientID<-rownames(cluster_treat)
 cluster_treat$km.res.cluster<-paste0("km",cluster_treat$km.res.cluster)
@@ -468,6 +513,7 @@ fit2<-survfit(Surv(PFStime,PFS) ~ km.res.cluster,
               data = df_treat)
 fit2
 ```
+
 
 ``````{r fig.height=5,fig.width=5,dpi=600,fig.align='center',warning=F,out.width ="50%",results='hold'}
 p1<-ggsurvplot(fit1, data=df_bl,pval.method = T,combine = T, 
