@@ -9,7 +9,8 @@
             FBratio](#correlation-of-bmi-and-gut-fbratio)
     -   [1.2 Correlation of BMI and stroma CD3
         expression](#correlation-of-bmi-and-stroma-cd3-expression)
-    -   [1.3 Validate the clinical value of gut FBratio with public
+    -   [1.3 BMI ralated KEGG pathways](#bmi-ralated-kegg-pathways)
+    -   [1.4 Validate the clinical value of gut FBratio with public
         datasets](#validate-the-clinical-value-of-gut-fbratio-with-public-datasets)
 -   [2 Treated-related aderse events](#treated-related-aderse-events)
     -   [2.1 PFS survival curves for each
@@ -157,8 +158,37 @@
 
 <img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-5-1.png" width="40%" style="display: block; margin: auto;" />
 
-1.3 Validate the clinical value of gut FBratio with public datasets
+1.3 BMI ralated KEGG pathways
+-----------------------------
+
+1.4 Validate the clinical value of gut FBratio with public datasets
 -------------------------------------------------------------------
+
+    df1<-fread("../Data/Data/publicData/PRJNA541981_phylum.csv",data.table = F)
+    df2<-fread("../Data/Data/publicData/PRJEB22863_phylum.csv",data.table = F)
+    df3<-fread("../Data/Data/publicData/PRJNA399742_phylum.csv",data.table = F)
+    df4<-fread("../Data/Data/publicData/gFBratio_subsetCRC_810samples.csv",data.table = F)
+    colnames(df4)[c(2,3)]=c("Cancer","datasets")
+    colnames(df3)[1]="samples"
+    colnames(df4)[1]="samples"
+    index<-colnames(df4)[-9]
+    data<-bind_rows(select(df1,index),select(df2,index),select(df3,index),select(df4,index))
+    p1<-ggscatter(data, x = "Firmicutes", 
+              y = "Bacteroidetes",size=0.5,alpha=0.4,color="datasets",cor.method = "spearman",mean.point = T,
+              palette = "jco",add.params = list(alpha=0.5,size=0.5), ggtheme = theme_few(base_size = 10),
+              add = "reg.line", conf.int = TRUE)+
+      stat_cor(aes(color=datasets),label.x = 0.55,size=2)
+
+    p2<-ggscatter(data, x = "Firmicutes", mean.point = T,cor.method = "spearman",
+              ggtheme = theme_few(base_size = 10),
+              y = "Bacteroidetes",size=0.5,alpha=0.4,color="Cancer",
+              palette = "jco",add.params = list(alpha=0.5,size=0.5),
+              add = "reg.line", conf.int = TRUE)+
+      stat_cor(aes(color=Cancer),label.x = 0.55,size=2)
+
+    plot_grid(p1,p2,labels = c("A","B"), ncol =2, nrow = 1)
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="40%" style="display: block; margin: auto;" />
 
 2 Treated-related aderse events
 ===============================
@@ -215,7 +245,7 @@
     require(survminer)
     arrange_ggsurvplots(x = splots, print = TRUE, ncol = 4, nrow = 2)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
     ## Call: survfit(formula = Surv(PFStime, PFS) ~ Hand_food_syndrom_g, data = df_treat)
     ## 
@@ -282,4 +312,4 @@
 
     plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;" />
