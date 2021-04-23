@@ -747,8 +747,62 @@ ZellerG\_2014
 
     ### Gut FBratio in immunotherapy
 
+    #### Gut FBratio and PFS 
+
 
     ```r
+    ggplot(subset(df1,PFS_3_month!="NA"),
+           aes(PFS_3_month,log10(FBratio),fill=PFS_3_month))+
+      geom_boxplot(outlier.size = 0.2,outlier.alpha = 0.5)+
+      geom_jitter(color="black",alpha=0.8,size=1)+
+      stat_compare_means(bracket.size = 0.1,ref.group = "S_PFS",
+                         label = "p.signif",vjust = 0.5)+
+      theme_few()+
+      facet_grid(~Time,scales = "free",space = "free_x")+
+      scale_fill_manual(values = col31[c(10,18)])+
+      theme(axis.title.x = element_blank(),
+            strip.text.x = element_text(size = 8),
+            legend.position = "top",legend.text = element_text(size = 8))
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" />
+
+    surv_cut_PFS <- surv_cutpoint(
+      df1,
+      time = "PFSmonth",
+      event = "PFS",
+      variables = c("FBratio"))
+    df1$FB<-ifelse(df1$FBratio>=summary(surv_cut_PFS)[,1],"High","Low")
+    fit1<-survfit(Surv(PFSmonth,PFS) ~ FB,
+                  data = df1)
+    fit1
+    ggsurvplot(fit1, df1,xlab = "Time(months)",
+               censor.size=0.5, size = 0.5,
+               tables.theme = theme_few(base_size = 5),
+               legend.labs = c("High","Low"),
+                    legend.title = "FBratio",
+                    risk.table = T,
+                    pval = TRUE,pval.size = 3, 
+                    pval.coord=c(0.8,0.2),pval.method=F,
+                    pval.method.coord=c(0.05,0.3), 
+                    ggtheme = theme_minimal() + 
+                      theme(line = element_line(size = 0.1),
+                            text  = element_text(size = 6)),
+                    risk.table.col = "strata",
+                    surv.median.line = "hv",
+                    risk.table.y.text.col = T,
+                    risk.table.y.text = FALSE )
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-2.png" width="50%" style="display: block; margin: auto;" />
+
+    ## Call: survfit(formula = Surv(PFSmonth, PFS) ~ FB, data = df1)
+    ## 
+    ##    25 observations deleted due to missingness 
+    ##          n events median 0.95LCL 0.95UCL
+    ## FB=High 10     10   5.68    3.32      NA
+    ## FB=Low  13     13   2.63    2.56      NA
+
+#### 1.4.2.5 Gut FBratio and Response
+
     ICI_stat<-fread("../Data/Data/publicData/ICI_FBratio_stat.csv",data.table = F)
     ICI_stat$Cancer<-factor(ICI_stat$Cancer,levels = c("Melanoma","RCC","NSCLC"))
     sumrepdat <- summarySE(ICI_stat, measurevar = "FBratio", groupvars=c("Cancer", "Response"))
@@ -768,7 +822,7 @@ ZellerG\_2014
       ylab("Log10(FBratio)")+
       theme(axis.title.x = element_blank())
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="50%" style="display: block; margin: auto;" />
 
     ICI_stat$Response<-factor(ICI_stat$Response,levels = c("R","NR"))
     ggstatsplot::grouped_ggbarstats(data = ICI_stat,x=Response,
@@ -780,7 +834,7 @@ ZellerG\_2014
                                     main = Response, nboot = 10,
                                     legend.title = "Response")
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-2.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-2.png" width="50%" style="display: block; margin: auto;" />
 
     ggstatsplot::ggbarstats(data = ICI_stat,x=Response,ggtheme = ggplot2::theme_bw(base_size=6),
                                     y = FBratio_group,
@@ -791,7 +845,7 @@ ZellerG\_2014
                                     main = Response, nboot = 10,
                                     legend.title = "Response")
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-3.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-3.png" width="50%" style="display: block; margin: auto;" />
 
 2 Treated-related aderse events
 ===============================
@@ -799,8 +853,8 @@ ZellerG\_2014
 2.1 PFS survival curves for each events
 ---------------------------------------
 
-    df <- fread("../Data/Data/paired_BL_treat_16patients.csv", data.table = F)
 
+    df <- fread("../Data/Data/paired_BL_treat_16patients.csv", data.table = F)
     df$Hand_food_syndrom <- as.factor(df$Hand_food_syndrom)
     df$Hand_food_syndrom_g <- ifelse(df$Hand_food_syndrom %in% c("0", "1"), "no", "yes")
     df$Rash <- as.factor(df$Rash)
@@ -848,7 +902,7 @@ ZellerG\_2014
     require(survminer)
     arrange_ggsurvplots(x = splots, print = TRUE, ncol = 4, nrow = 2)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
 
     ## Call: survfit(formula = Surv(PFStime, PFS) ~ Hand_food_syndrom_g, data = df_treat)
     ## 
@@ -915,4 +969,4 @@ ZellerG\_2014
 
     plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-15-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-16-1.png" width="50%" style="display: block; margin: auto;" />

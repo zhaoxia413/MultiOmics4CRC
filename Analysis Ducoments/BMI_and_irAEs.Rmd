@@ -403,6 +403,52 @@ ggplot(auc_res,aes(Group,AUC,fill=Group))+
 
 ### Gut FBratio in immunotherapy
 
+#### Gut FBratio and PFS 
+
+```{r fig.width=3, fig.height=5,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "50%"}
+
+ggplot(subset(df1,PFS_3_month!="NA"),
+       aes(PFS_3_month,log10(FBratio),fill=PFS_3_month))+
+  geom_boxplot(outlier.size = 0.2,outlier.alpha = 0.5)+
+  geom_jitter(color="black",alpha=0.8,size=1)+
+  stat_compare_means(bracket.size = 0.1,ref.group = "S_PFS",
+                     label = "p.signif",vjust = 0.5)+
+  theme_few()+
+  facet_grid(~Time,scales = "free",space = "free_x")+
+  scale_fill_manual(values = col31[c(10,18)])+
+  theme(axis.title.x = element_blank(),
+        strip.text.x = element_text(size = 8),
+        legend.position = "top",legend.text = element_text(size = 8))
+surv_cut_PFS <- surv_cutpoint(
+  df1,
+  time = "PFSmonth",
+  event = "PFS",
+  variables = c("FBratio"))
+df1$FB<-ifelse(df1$FBratio>=summary(surv_cut_PFS)[,1],"High","Low")
+fit1<-survfit(Surv(PFSmonth,PFS) ~ FB,
+              data = df1)
+fit1
+ggsurvplot(fit1, df1,xlab = "Time(months)",
+           censor.size=0.5, size = 0.5,
+           tables.theme = theme_few(base_size = 5),
+           legend.labs = c("High","Low"),
+                legend.title = "FBratio",
+                risk.table = T,
+                pval = TRUE,pval.size = 3, 
+                pval.coord=c(0.8,0.2),pval.method=F,
+                pval.method.coord=c(0.05,0.3), 
+                ggtheme = theme_minimal() + 
+                  theme(line = element_line(size = 0.1),
+                        text  = element_text(size = 6)),
+                risk.table.col = "strata",
+                surv.median.line = "hv",
+                risk.table.y.text.col = T,
+                risk.table.y.text = FALSE )
+           
+```
+
+#### Gut FBratio and Response
+
 ```{r fig.width=5, fig.height=4,dpi=600,fig.align='center',warning=F,results='hold',message=FALSE,out.width = "50%"}
 
 ICI_stat<-fread("../Data/Data/publicData/ICI_FBratio_stat.csv",data.table = F)
@@ -448,8 +494,8 @@ ggstatsplot::ggbarstats(data = ICI_stat,x=Response,ggtheme = ggplot2::theme_bw(b
 ## PFS survival curves for each events
 
 ```{r fig.height=4.8, fig.width=6, collapse=TRUE, dpi=600, paged.print=FALSE, results='hold', tidy=TRUE,fig.align='center'}
-df<-fread("../Data/Data/paired_BL_treat_16patients.csv",data.table = F)
 
+df<-fread("../Data/Data/paired_BL_treat_16patients.csv",data.table = F)
 df$Hand_food_syndrom<-as.factor(df$Hand_food_syndrom)
 df$Hand_food_syndrom_g<-ifelse(df$Hand_food_syndrom%in%c("0","1"),"no","yes")
 df$Rash<-as.factor(df$Rash)
