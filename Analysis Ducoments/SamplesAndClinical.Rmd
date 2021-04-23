@@ -76,7 +76,7 @@ table1_groups <- print(x = tableone_groups,
                        noSpaces = TRUE, 
                        printToggle = FALSE) 
 table1_groups %>%
-  knitr::kable(caption = "Recreating booktabs style table") 
+  knitr::kable(caption = "Clinical") 
 ```
 ## Samples sequending statistics
 

@@ -16,8 +16,6 @@
             Bacteroidetes](#correlation-firmucutes-and-bacteroidetes)
         -   [1.4.2 Diagnostic value of Gut FBratio in CRC
             cohorts](#diagnostic-value-of-gut-fbratio-in-crc-cohorts)
-        -   [1.4.3 Gut FBratio in
-            immunotherapy](#gut-fbratio-in-immunotherapy)
 -   [2 Treated-related aderse events](#treated-related-aderse-events)
     -   [2.1 PFS survival curves for each
         events](#pfs-survival-curves-for-each-events)
@@ -52,8 +50,15 @@
     library(lubridate)
     library(tableone)
     library(kableExtra)
+    library(ROCR)
+    library(caret)
+    library(ggrepel)
+    library(randomForest)
+    library(lavaan)
     source("../R_function/colors.R")
     source("../R_function/surv_plot.R")
+    source("../R_function/geom_flat_violin.R")
+    source("../R_function/summarySE.R")
     theme_set(theme_cowplot())
     "%ni%" <- Negate("%in%")
     options(stringsAsFactors = F)
@@ -174,7 +179,7 @@
     df1<-fread("../Data/Data/publicData/PRJNA541981_phylum.csv",data.table = F)
     df2<-fread("../Data/Data/publicData/PRJEB22863_phylum.csv",data.table = F)
     df3<-fread("../Data/Data/publicData/PRJNA399742_phylum.csv",data.table = F)
-    df4<-fread("../Data/Data/publicData/gFBratio_subsetCRC_810samples.csv",data.table = F)
+    df4<-fread("../Data/Data/publicData/gFBratio_subsetCRC_810samples.csv",data.table = F)[,-c(2:4)]
     colnames(df4)[c(2,3)]=c("Cancer","datasets")
     colnames(df3)[1]="samples"
     colnames(df4)[1]="samples"
@@ -182,18 +187,18 @@
     data<-bind_rows(select(df1,index),select(df2,index),select(df3,index),select(df4,index))
     p1<-ggscatter(data, x = "Firmicutes", 
               y = "Bacteroidetes",size=1,alpha=0.4,color="datasets",cor.method = "spearman",mean.point = T,
-              palette = "jco",add.params = list(alpha=0.5,size=1), ggtheme = theme_few(base_size = 8),
+              palette = "jco",add.params = list(alpha=0.5,size=0.5), ggtheme = theme_few(base_size = 7),
               add = "reg.line", conf.int = TRUE)+
-      stat_cor(aes(color=datasets),label.x = 0.55,size=4)+
-      theme(legend.text = element_text(size=8))
+      stat_cor(aes(color=datasets),label.x = 0.55,size=2)+
+      theme(legend.text = element_text(size=7))
 
     p2<-ggscatter(data, x = "Firmicutes", mean.point = T,cor.method = "spearman",
-              ggtheme = theme_few(base_size = 8),
+              ggtheme = theme_few(base_size = 7),
               y = "Bacteroidetes",size=1,alpha=0.4,color="Cancer",
-              palette = "jco",add.params = list(alpha=0.5,size=1),
+              palette = "jco",add.params = list(alpha=0.5,size=0.5),
               add = "reg.line", conf.int = TRUE)+
-      stat_cor(aes(color=Cancer),label.x = 0.55,size=4)+
-      theme(legend.text = element_text(size=8))
+      stat_cor(aes(color=Cancer),label.x = 0.55,size=2)+
+      theme(legend.text = element_text(size=7))
 
     plot_grid(p1,p2,labels = c("A","B"), ncol =2, nrow = 1)
 
@@ -201,7 +206,592 @@
 
 ### 1.4.2 Diagnostic value of Gut FBratio in CRC cohorts
 
-### 1.4.3 Gut FBratio in immunotherapy
+#### 1.4.2.1 Datasets infomation
+
+    data<-fread("../Data/Data/publicData/gFBratio_subsetCRC_810samples.csv",data.table = F)
+    data%>%group_by(dataset_name,Disease)%>%dplyr::summarise(Samples_num=n())%>%
+      knitr::kable(caption = "Datasets and Disease") 
+
+    ## `summarise()` has grouped output by 'dataset_name'. You can override using the `.groups` argument.
+
+<table>
+<caption>
+Datasets and Disease
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+dataset\_name
+</th>
+<th style="text-align:left;">
+Disease
+</th>
+<th style="text-align:right;">
+Samples\_num
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+FengQ\_2015
+</td>
+<td style="text-align:left;">
+Adenoma
+</td>
+<td style="text-align:right;">
+47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FengQ\_2015
+</td>
+<td style="text-align:left;">
+CRC
+</td>
+<td style="text-align:right;">
+46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FengQ\_2015
+</td>
+<td style="text-align:left;">
+Normal
+</td>
+<td style="text-align:right;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRJEB6070
+</td>
+<td style="text-align:left;">
+Adenoma
+</td>
+<td style="text-align:right;">
+38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRJEB6070
+</td>
+<td style="text-align:left;">
+CRC
+</td>
+<td style="text-align:right;">
+41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRJEB6070
+</td>
+<td style="text-align:left;">
+Normal
+</td>
+<td style="text-align:right;">
+50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRJNA290926
+</td>
+<td style="text-align:left;">
+Adenoma
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRJNA290926
+</td>
+<td style="text-align:left;">
+CRC
+</td>
+<td style="text-align:right;">
+90
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRJNA290926
+</td>
+<td style="text-align:left;">
+Normal
+</td>
+<td style="text-align:right;">
+92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ThomasAM\_2018a
+</td>
+<td style="text-align:left;">
+Adenoma
+</td>
+<td style="text-align:right;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ThomasAM\_2018a
+</td>
+<td style="text-align:left;">
+CRC
+</td>
+<td style="text-align:right;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ThomasAM\_2018a
+</td>
+<td style="text-align:left;">
+Normal
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ZellerG\_2014
+</td>
+<td style="text-align:left;">
+Adenoma
+</td>
+<td style="text-align:right;">
+42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ZellerG\_2014
+</td>
+<td style="text-align:left;">
+CRC
+</td>
+<td style="text-align:right;">
+91
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ZellerG\_2014
+</td>
+<td style="text-align:left;">
+Normal
+</td>
+<td style="text-align:right;">
+66
+</td>
+</tr>
+</tbody>
+</table>
+
+#### 1.4.2.2 Gut Phylum composition
+
+    data$Disease<-factor(data$Disease,levels = c("Normal","Adenoma","CRC"))
+    comp<-list(c("Normal","Adenoma"),
+               c("Normal","CRC"),
+               c("Adenoma","CRC"))
+    ggplot(data,aes(Disease,log10(FBratio),fill=Disease))+
+      geom_jitter(size=0.5,alpha=0.5)+
+      geom_boxplot(color="black",outlier.size = 0.2,outlier.color = "gray")+
+      theme_few()+
+      stat_compare_means(comparisons = comp,label = "p.signif")+
+      theme(axis.title.x = element_blank(),
+            axis.text.x = element_text(angle = 45,vjust = 1,hjust = 1,size = 6))+
+      scale_fill_uchicago()+
+      facet_grid(~dataset_name,scales = "free",space = "free_x")+
+      theme(strip.text = element_text(size = 3))
+
+![](BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-8-1.png)
+
+    compdata<-melt(data[,-c(1:4,6:7)],
+                   id.vars = "Disease",
+                   variable.name = "Phylum",
+                   value.name = "Abundance")%>%
+      group_by(Disease,Phylum)%>%
+      dplyr::summarise_each(mean)
+
+    compdata$Abundance<-round(compdata$Abundance,3)
+    compdata$Phylum<-factor(compdata$Phylum,levels = c("Firmicutes","Bacteroidetes","Actinobacteria","Proteobacteria","Other"))
+    df<-split.data.frame(compdata,f = compdata$Disease,drop = T)
+    levels(factor(compdata$Disease))
+    fb<-dcast(compdata,Disease~Phylum)
+
+    ## Using 'Abundance' as value column. Use 'value.var' to override
+
+    fb$FBratio=fb$Firmicutes/fb$Bacteroidetes
+    p<-list()
+
+    for (i in seq_along(df)) {
+      df[[i]]$fraction<-df[[i]]$Abundance/sum(df[[i]]$Abundance)
+      df[[i]]$ymax<-cumsum(df[[i]]$fraction)
+      df[[i]]$ymin<-c(0,head(df[[i]]$ymax,n=-1))
+      df[[i]]$labelPosition<-(df[[i]]$ymax + df[[i]]$ymin)/2
+      df[[i]]$label<-paste0(df[[i]]$Abundance)
+      p[[i]]<-ggplot(df[[i]],aes(ymax=ymax,ymin=ymin,
+                                 xmax=4,xmin=3))+
+        geom_rect(aes(fill=Phylum))+
+        geom_text_repel(x=3.5,box.padding = 0.5, max.overlaps = Inf,
+                        aes(y=labelPosition,label=label),size=3)+
+        scale_fill_d3()+
+        coord_polar(theta = "y")+
+        xlim(2,4)+
+        #facet_grid(~Disease)+
+        theme_void()+
+        ggtitle(paste0(names(df)[i]))+
+        theme(legend.position = "none",
+            legend.key.size=unit(.1,"inches"),
+            legend.text.align=0,
+            legend.title=element_text(colour="black",size=8,face = "bold"),
+            legend.direction ="vertical",
+              legend.spacing = unit(0.1,"cm"),
+            legend.spacing.y = unit(0.1,"cm"),
+            legend.spacing.x =unit(0.1,"cm"),
+            legend.box.spacing = unit(0.1,"cm"),
+            legend.justification=c(.4,.4),
+              plot.title = element_text(vjust = -30,hjust = +0.5))+
+        ggtitle(paste0(names(df)[i]))
+      }
+
+    ## [1] "Normal"  "Adenoma" "CRC"
+
+    plot_grid(p[[1]],p[[2]],p[[3]]+theme(legend.position = "right"),
+              labels = c("A","B","C"), ncol =2, nrow = 2)
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="60%" style="display: block; margin: auto;" />
+
+#### 1.4.2.3 RF classifiers for each dataset
+
+    data<-fread("../Data/Data/publicData/gFBratio_subsetCRC_810samples.csv",data.table = F)
+    dflist<-split.data.frame(data,f=data$dataset_name,drop = F)
+    data<-list();data1<-list();data2<-list();data3<-list()
+    trainData<-list();testData<-list();trainData<-list();testData<-list()
+    re_rf<-list();pred_rf<-list();pred<-list();perf<-list();auc<-list()
+    trainData1<-list();testData1<-list();trainData1<-list();testData1<-list()
+    re_rf1<-list();pred_rf1<-list();pred1<-list();perf1<-list();auc1<-list()
+    trainData2<-list();testData2<-list();trainData2<-list();testData2<-list()
+    re_rf2<-list();pred_rf2<-list();pred2<-list();perf2<-list();auc2<-list()
+    trainData3<-list();testData3<-list();trainData3<-list();testData3<-list()
+    re_rf3<-list();pred_rf3<-list();pred3<-list();perf3<-list();auc3<-list()
+    NC_res<-list();NA_res<-list();CA_res<-list();NCA_res<-list()
+    predictor<-c("Normal vs CRC","Normal vs Adenoma",
+                 "CRC vs Adenoma","Normal vs CRC/Adenoma")
+    for (i in seq_along(dflist)) {
+      data[[i]]<-subset(dflist[[i]],Disease%in%c("Normal","CRC"))
+      data1[[i]]<-subset(dflist[[i]],Disease%in%c("Normal","Adenoma"))
+      data2[[i]]<-subset(dflist[[i]],Disease%in%c("CRC","Adenoma"))
+      data3[[i]]<-subset(dflist[[i]],Disease%in%c("Normal","CRC","Adenoma"))
+      
+      data[[i]]$Disease<-ifelse(data[[i]]$Disease=="Normal","Normal","CRC")
+      data1[[i]]$Disease<-ifelse(data1[[i]]$Disease=="Normal","Normal","Adenoma")
+      data2[[i]]$Disease<-ifelse(data2[[i]]$Disease=="CRC","CRC","Adenoma")
+      data3[[i]]$Disease<-ifelse(data3[[i]]$Disease=="Normal","Normal","Other")
+      set.seed(1000)
+      trainIndex<-sample(nrow(data[[i]]),nrow(data[[i]])*0.8)
+      trainData[[i]]<-data[[i]][trainIndex,]
+      testData[[i]]<-data[[i]][-trainIndex,]
+      trainData[[i]]$Disease = as.factor(trainData[[i]]$Disease)
+      testData[[i]]$Disease = as.factor(testData[[i]]$Disease)
+      re_rf[[i]] = randomForest(Disease~FBratio+Age,
+                                data = trainData[[i]],ntree=500)
+      pred_rf[[i]]=predict(re_rf[[i]],newdata=testData[[i]],type="prob") 
+      pred[[i]]<-prediction(pred_rf[[i]][,2],testData[[i]]$Disease)
+      perf[[i]]<-performance(pred[[i]],"tpr","fpr")
+      auc[[i]] <- performance(pred[[i]],'auc')
+      auc[[i]] = unlist(slot(auc[[i]],"y.values"))
+      auc[[i]]=round(auc[[i]],digits = 3)
+      
+      set.seed(1234)
+      trainIndex1<-sample(nrow(data1[[i]]),nrow(data1[[i]])*0.8)
+      trainData1[[i]]<-data1[[i]][trainIndex1,]
+      testData1[[i]]<-data1[[i]][-trainIndex1,]
+      trainData1[[i]]$Disease = as.factor(trainData1[[i]]$Disease)
+      testData1[[i]]$Disease = as.factor(testData1[[i]]$Disease)
+      re_rf1[[i]] = randomForest(Disease~FBratio+Age,
+                                 data = trainData1[[i]],ntree=500)
+      pred_rf1[[i]]=predict(re_rf1[[i]],newdata=testData1[[i]],type="prob") 
+      pred1[[i]]<-prediction(pred_rf1[[i]][,2],testData1[[i]]$Disease)
+      perf1[[i]]<-performance(pred1[[i]],"tpr","fpr")
+      auc1[[i]] <- performance(pred1[[i]],'auc')
+      auc1[[i]] = unlist(slot(auc1[[i]],"y.values"))
+      auc1[[i]]=round(auc1[[i]],digits = 3)
+      
+      set.seed(123467)
+      trainIndex2<-sample(nrow(data2[[i]]),nrow(data2[[i]])*0.8)
+      trainData2[[i]]<-data2[[i]][trainIndex2,]
+      testData2[[i]]<-data2[[i]][-trainIndex2,]
+      trainData2[[i]]$Disease = as.factor(trainData2[[i]]$Disease)
+      testData2[[i]]$Disease = as.factor(testData2[[i]]$Disease)
+      re_rf2[[i]] = randomForest(Disease~FBratio+Age,
+                                 data = trainData2[[i]],ntree=500)
+      pred_rf2[[i]]=predict(re_rf2[[i]],newdata=testData2[[i]],type="prob") 
+      pred2[[i]]<-prediction(pred_rf2[[i]][,2],testData2[[i]]$Disease)
+      perf2[[i]]<-performance(pred2[[i]],"tpr","fpr")
+      auc2[[i]] <- performance(pred2[[i]],'auc')
+      auc2[[i]] = unlist(slot(auc2[[i]],"y.values"))
+      auc2[[i]]=round(auc2[[i]],digits = 3)
+      
+      set.seed(1001)
+      trainIndex3<-sample(nrow(data3[[i]]),nrow(data3[[i]])*0.8)
+      trainData3[[i]]<-data3[[i]][trainIndex3,]
+      testData3[[i]]<-data3[[i]][-trainIndex3,]
+      trainData3[[i]]$Disease = as.factor(trainData3[[i]]$Disease)
+      testData3[[i]]$Disease = as.factor(testData3[[i]]$Disease)
+      re_rf3[[i]] = randomForest(Disease~FBratio+Age,
+                                 data = trainData3[[i]],ntree=500)
+      pred_rf3[[i]]=predict(re_rf3[[i]],newdata=testData3[[i]],type="prob") 
+      pred3[[i]]<-prediction(pred_rf3[[i]][,2],testData3[[i]]$Disease)
+      perf3[[i]]<-performance(pred3[[i]],"tpr","fpr")
+      auc3[[i]] <- performance(pred3[[i]],'auc')
+      auc3[[i]] = unlist(slot(auc3[[i]],"y.values"))
+      auc3[[i]]=round(auc3[[i]],digits = 3)
+      NC_res[[i]]<-list(PerRF=perf[[i]],AUC=auc[[i]])
+      NA_res[[i]]<-list(PerRF=perf1[[i]],AUC=auc1[[i]])
+      CA_res[[i]]<-list(PerRF=perf2[[i]],AUC=auc2[[i]])
+      NCA_res[[i]]<-list(PerRF=perf3[[i]],AUC=auc3[[i]])
+      names(NC_res)[i]=names(dflist)[i]
+      names(NA_res)[i]=names(dflist)[i]
+      names(CA_res)[i]=names(dflist)[i]
+      names( NCA_res)[i]=names(dflist)[i]
+      print(plot(perf[[i]],col='blue',colorize=F,fontsize=8,
+                 xlim=c(0,1), ylim=c(0,1),
+                 main=paste(names(dflist)[i]))+
+              plot(perf1[[i]],col='red',colorize=F,add=T,
+                   xlim=c(0,1), ylim=c(0,1))+
+              plot(perf2[[i]],col='black',colorize=F,add=T,
+                   xlim=c(0,1), ylim=c(0,1))+
+              plot(perf3[[i]],col='orange',colorize=F,add=T,
+                   xlim=c(0,1), ylim=c(0,1))+
+              abline(0,1))
+      legend(0.4,0.2,text.col=c('blue','red','black','orange'),cex=0.7,
+             legend = c(paste0(predictor[1],":",auc[[i]]), 
+                        paste0(predictor[2],":",auc1[[i]]),
+                        paste0(predictor[3],":",auc2[[i]]),
+                        paste0(predictor[4],":",auc3[[i]])),
+             lty = 1, lwd=2,col = c('blue','red','black','orange'))
+
+    }
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="30%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-2.png" width="30%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-3.png" width="30%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-4.png" width="30%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-5.png" width="30%" style="display: block; margin: auto;" />
+
+    dev.off()
+
+    ## integer(0)
+    ## integer(0)
+    ## integer(0)
+    ## integer(0)
+    ## integer(0)
+    ## null device 
+    ##           1
+
+#### 1.4.2.4 AUC results
+
+    ML_res<-list(Normal_CRC=NC_res,
+                 Normal_Adenoma=NA_res,
+                 CRC_Adenoma=CA_res,
+                 Normal_CRCAdenoma=NCA_res)
+
+    auc_res<-data.frame(dataset=names(dflist),"Normal vs CRC"=unlist(auc),
+                        "Normal vs Adenoma" =unlist(auc1),
+                        "Adenoma vs CRC" =unlist(auc2),
+                        "Normal vs CRC/Adenoma" =unlist(auc3))
+    auc_res%>%
+      knitr::kable(caption = "auc_res") 
+    auc_res<-melt(auc_res,id.vars = "dataset",value.name = "AUC",variable.name = "Group")
+
+    ## Warning in melt(auc_res, id.vars = "dataset", value.name = "AUC", variable.name
+    ## = "Group"): The melt generic in data.table has been passed a data.frame and will
+    ## attempt to redirect to the relevant reshape2 method; please note that reshape2
+    ## is deprecated, and this redirection is now deprecated as well. To continue using
+    ## melt methods from reshape2 while both libraries are attached, e.g. melt.list,
+    ## you can prepend the namespace like reshape2::melt(auc_res). In the next version,
+    ## this warning will become an error.
+
+    ggplot(auc_res,aes(Group,AUC,fill=Group))+
+      geom_boxplot(outlier.size = 0.5,outlier.alpha = 0.5)+
+      geom_jitter(aes(color=dataset))+
+      theme_few(base_size = 8)+
+      theme(axis.text.x = element_text(angle = 60,vjust = 1,hjust = 1),
+            axis.title.x = element_blank())+
+      scale_fill_jama()+
+      scale_color_lancet()
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="50%" style="display: block; margin: auto;" />
+<table>
+<caption>
+auc\_res
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+dataset
+</th>
+<th style="text-align:right;">
+Normal.vs.CRC
+</th>
+<th style="text-align:right;">
+Normal.vs.Adenoma
+</th>
+<th style="text-align:right;">
+Adenoma.vs.CRC
+</th>
+<th style="text-align:right;">
+Normal.vs.CRC.Adenoma
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+FengQ\_2015
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+<td style="text-align:right;">
+0.752
+</td>
+<td style="text-align:right;">
+0.567
+</td>
+<td style="text-align:right;">
+0.598
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRJEB6070
+</td>
+<td style="text-align:right;">
+0.702
+</td>
+<td style="text-align:right;">
+0.416
+</td>
+<td style="text-align:right;">
+0.508
+</td>
+<td style="text-align:right;">
+0.481
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRJNA290926
+</td>
+<td style="text-align:right;">
+0.561
+</td>
+<td style="text-align:right;">
+0.617
+</td>
+<td style="text-align:right;">
+0.512
+</td>
+<td style="text-align:right;">
+0.614
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ThomasAM\_2018a
+</td>
+<td style="text-align:right;">
+0.571
+</td>
+<td style="text-align:right;">
+0.571
+</td>
+<td style="text-align:right;">
+0.433
+</td>
+<td style="text-align:right;">
+0.675
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ZellerG\_2014
+</td>
+<td style="text-align:right;">
+0.700
+</td>
+<td style="text-align:right;">
+0.339
+</td>
+<td style="text-align:right;">
+0.648
+</td>
+<td style="text-align:right;">
+0.466
+</td>
+</tr>
+</tbody>
+</table>
+
+
+    ### Gut FBratio in immunotherapy
+
+
+    ```r
+    ICI_stat<-fread("../Data/Data/publicData/ICI_FBratio_stat.csv",data.table = F)
+    ICI_stat$Cancer<-factor(ICI_stat$Cancer,levels = c("Melanoma","RCC","NSCLC"))
+    sumrepdat <- summarySE(ICI_stat, measurevar = "FBratio", groupvars=c("Cancer", "Response"))
+    ggplot(ICI_stat, aes(x = Cancer, y =  FBratio, fill = Response)) +
+      stat_compare_means(comparisons = list(c("Melanoma","RCC"),
+                                            c("NSCLC","RCC"),c("Melanoma","NSCLC")),label = "p.signif")+
+      geom_flat_violin(aes(fill =  Response),position = position_nudge(x = .1, y = 0), adjust = 1.5, trim = FALSE, alpha = .5, colour = NA)+
+      geom_point(aes(x = as.numeric(Cancer)-.15, y = FBratio, colour =  Response),position = position_jitter(width = .05), size = .25, shape = 20)+
+      geom_boxplot(aes(x = Cancer, y = FBratio, fill =  Response),outlier.shape = NA, alpha = .2, width = .4, colour = "black")+
+      geom_line(data = sumrepdat, aes(x = as.numeric(Cancer)+.1, y = FBratio_mean, group =  Response, colour =  Response), linetype = 3)+
+      geom_point(data = sumrepdat, aes(x = as.numeric(Cancer)+.1, y = FBratio_mean, group =  Response, colour =  Response),shape = 18) +
+      geom_errorbar(data = sumrepdat, aes(x = as.numeric(Cancer)+.1, y = FBratio_mean, group =  Response, colour =  Response, ymin = FBratio_mean-se, ymax = FBratio_mean+se), width = .05)+
+      scale_colour_aaas()+
+      scale_fill_aaas()+
+     # ggtitle("Figure 12: Repeated Measures - Factorial (Extended)")+
+      theme_few()+
+      ylab("Log10(FBratio)")+
+      theme(axis.title.x = element_blank())
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" />
+
+    ICI_stat$Response<-factor(ICI_stat$Response,levels = c("R","NR"))
+    ggstatsplot::grouped_ggbarstats(data = ICI_stat,x=Response,
+                                    ggtheme= theme_few(base_size = 6),
+                                    y = FBratio_group,results.subtitle=F,
+                                    grouping.var = Cancer,
+                                    ggstatsplot.layer = FALSE,
+                                    messages = FALSE,
+                                    main = Response, nboot = 10,
+                                    legend.title = "Response")
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-2.png" width="50%" style="display: block; margin: auto;" />
+
+    ggstatsplot::ggbarstats(data = ICI_stat,x=Response,ggtheme = ggplot2::theme_bw(base_size=6),
+                                    y = FBratio_group,
+                                    ggstatsplot.layer = FALSE,
+                                    messages = FALSE,
+                            package = "ggsci",
+                            palette = "default_aaas",
+                                    main = Response, nboot = 10,
+                                    legend.title = "Response")
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-3.png" width="50%" style="display: block; margin: auto;" />
 
 2 Treated-related aderse events
 ===============================
@@ -256,9 +846,9 @@
         title = "Diarrhea_PFS")
     splots[[8]] <- surv_plot(fit_OS, df_treat, colors = c("black", "red"), title = "Diarrhea_OS")
     require(survminer)
-    arrange_ggsurvplots(x = splots, print = TRUE, ncol = 3, nrow = 3)
+    arrange_ggsurvplots(x = splots, print = TRUE, ncol = 4, nrow = 2)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
 
     ## Call: survfit(formula = Surv(PFStime, PFS) ~ Hand_food_syndrom_g, data = df_treat)
     ## 
@@ -325,4 +915,4 @@
 
     plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-15-1.png" width="50%" style="display: block; margin: auto;" />

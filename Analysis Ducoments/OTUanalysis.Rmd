@@ -283,7 +283,7 @@ p2
 
 ### Code
 
-```{r warning=F}
+```{r warning=F,results="hold"}
 meta<-fread("../Data/Data/meta.csv",data.table = F)
 OTUstool<-fread("../Data/Data/OTUtabale_regaStool.csv",data.table = F)
 OTUsaliva<-fread("../Data/Data/OTUtabale_regaSaliva.csv",data.table = F)
