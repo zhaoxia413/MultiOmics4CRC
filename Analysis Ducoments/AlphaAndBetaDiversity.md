@@ -1,3 +1,7 @@
+---
+sort: 3
+---
+
 -   [1 Requires](#requires)
 -   [2 Alpha and Beta Diversity
     Analysis](#alpha-and-beta-diversity-analysis)

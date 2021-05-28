@@ -1,3 +1,7 @@
+---
+sort: 2
+---
+
 -   [1 Requires](#requires)
 -   [2 OTU and cor-microbiome
     analysis](#otu-and-cor-microbiome-analysis)
