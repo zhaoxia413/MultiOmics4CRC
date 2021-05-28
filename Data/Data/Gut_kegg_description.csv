@@ -1,0 +1,328 @@
+kegg_group,Description
+Global and overview maps,Metabolic.pathways
+Global and overview maps,Biosynthesis.of.secondary.metabolites
+Global and overview maps,Microbial.metabolism.in.diverse.environments
+Global and overview maps,Biosynthesis.of.amino.acids
+Global and overview maps,Carbon.metabolism
+Membrane transport,ABC.transporters
+Translation,Ribosome
+Signal transduction,Two-component.system
+Nucleotide metabolism,Purine.metabolism
+Cellular community - prokaryotes,Quorum.sensing
+Carbohydrate metabolism,Amino.sugar.and.nucleotide.sugar.metabolism
+Nucleotide metabolism,Pyrimidine.metabolism
+Carbohydrate metabolism,Glycolysis./.Gluconeogenesis
+Carbohydrate metabolism,Starch.and.sucrose.metabolism
+Amino acid metabolism,Cysteine.and.methionine.metabolism
+Carbohydrate metabolism,Pyruvate.metabolism
+Translation,Aminoacyl-tRNA.biosynthesis
+Energy metabolism,Oxidative.phosphorylation
+Amino acid metabolism,"Alanine,.aspartate.and.glutamate.metabolism"
+Amino acid metabolism,"Glycine,.serine.and.threonine.metabolism"
+Energy metabolism,Carbon.fixation.pathways.in.prokaryotes
+Replication and repair,Homologous.recombination
+Carbohydrate metabolism,Galactose.metabolism
+Carbohydrate metabolism,Fructose.and.mannose.metabolism
+Carbohydrate metabolism,Glyoxylate.and.dicarboxylate.metabolism
+Glycan biosynthesis and metabolism,Peptidoglycan.biosynthesis
+Carbohydrate metabolism,Pentose.phosphate.pathway
+Global and overview maps,2-Oxocarboxylic.acid.metabolism
+Energy metabolism,Methane.metabolism
+Metabolism of cofactors and vitamins,Porphyrin.and.chlorophyll.metabolism
+Replication and repair,Mismatch.repair
+Amino acid metabolism,"Phenylalanine,.tyrosine.and.tryptophan.biosynthesis"
+Membrane transport,Bacterial.secretion.system
+Carbohydrate metabolism,Propanoate.metabolism
+Carbohydrate metabolism,Butanoate.metabolism
+Carbohydrate metabolism,Citrate.cycle.(TCA.cycle)
+Replication and repair,DNA.replication
+"Folding, sorting and degradation",RNA.degradation
+Amino acid metabolism,Lysine.biosynthesis
+Metabolism of cofactors and vitamins,Pantothenate.and.CoA.biosynthesis
+"Folding, sorting and degradation",Protein.export
+Energy metabolism,Carbon.fixation.in.photosynthetic.organisms
+Global and overview maps,Fatty.acid.metabolism
+Metabolism of cofactors and vitamins,One.carbon.pool.by.folate
+Drug resistance: antimicrobial,beta-Lactam.resistance
+Lipid metabolism,Fatty.acid.biosynthesis
+Amino acid metabolism,Arginine.biosynthesis
+Lipid metabolism,Glycerophospholipid.metabolism
+Metabolism of cofactors and vitamins,Thiamine.metabolism
+Membrane transport,Phosphotransferase.system.(PTS)
+Carbohydrate metabolism,Pentose.and.glucuronate.interconversions
+Metabolism of cofactors and vitamins,Folate.biosynthesis
+Cell growth and death,Cell.cycle.-.Caulobacter
+Cell motility,Flagellar.assembly
+Metabolism of terpenoids and polyketides,Terpenoid.backbone.biosynthesis
+Amino acid metabolism,"Valine,.leucine.and.isoleucine.biosynthesis"
+Metabolism of cofactors and vitamins,Nicotinate.and.nicotinamide.metabolism
+Amino acid metabolism,Histidine.metabolism
+Glycan biosynthesis and metabolism,Lipopolysaccharide.biosynthesis
+Energy metabolism,Nitrogen.metabolism
+Cellular community - prokaryotes,Biofilm.formation.-.Escherichia.coli
+Amino acid metabolism,Arginine.and.proline.metabolism
+Drug resistance: antimicrobial,Cationic.antimicrobial.peptide.(CAMP).resistance
+Replication and repair,Base.excision.repair
+Metabolism of cofactors and vitamins,Biotin.metabolism
+Xenobiotics biodegradation and metabolism,Drug.metabolism.-.other.enzymes
+Energy metabolism,Sulfur.metabolism
+Cellular community - prokaryotes,Biofilm.formation.-.Vibrio.cholerae
+Cell motility,Bacterial.chemotaxis
+Energy metabolism,Photosynthesis
+Replication and repair,Nucleotide.excision.repair
+Lipid metabolism,Glycerolipid.metabolism
+Metabolism of other amino acids,Selenocompound.metabolism
+Biosynthesis of other secondary metabolites,Streptomycin.biosynthesis
+Carbohydrate metabolism,C5-Branched.dibasic.acid.metabolism
+Drug resistance: antimicrobial,Vancomycin.resistance
+Signal transduction,HIF-1.signaling.pathway
+Glycan biosynthesis and metabolism,Other.glycan.degradation
+"Folding, sorting and degradation",Sulfur.relay.system
+Endocrine system,Glucagon.signaling.pathway
+Biosynthesis of other secondary metabolites,Monobactam.biosynthesis
+Metabolism of other amino acids,Cyanoamino.acid.metabolism
+Cancer: overview,Central.carbon.metabolism.in.cancer
+Metabolism of other amino acids,Glutathione.metabolism
+Amino acid metabolism,"Valine,.leucine.and.isoleucine.degradation"
+Infectious disease: bacterial,Salmonella.infection
+Metabolism of cofactors and vitamins,Vitamin.B6.metabolism
+Cell growth and death,Necroptosis
+Metabolism of cofactors and vitamins,Riboflavin.metabolism
+Drug resistance: antineoplastic,Antifolate.resistance
+Amino acid metabolism,Phenylalanine.metabolism
+Lipid metabolism,Sphingolipid.metabolism
+Amino acid metabolism,Lysine.degradation
+Environmental adaptation,Plant-pathogen.interaction
+Lipid metabolism,Fatty.acid.degradation
+Cardiovascular disease,Fluid.shear.stress.and.atherosclerosis
+Metabolism of cofactors and vitamins,Ubiquinone.and.other.terpenoid-quinone.biosynthesis
+Aging,Longevity.regulating.pathway.-.worm
+Metabolism of terpenoids and polyketides,Polyketide.sugar.unit.biosynthesis
+Amino acid metabolism,Tyrosine.metabolism
+Transcription,RNA.polymerase
+Transport and catabolism,Lysosome
+Immune system,NOD-like.receptor.signaling.pathway
+Biosynthesis of other secondary metabolites,Prodigiosin.biosynthesis
+Transport and catabolism,Peroxisome
+Metabolism of other amino acids,D-Glutamine.and.D-glutamate.metabolism
+Infectious disease: bacterial,Tuberculosis
+Infectious disease: bacterial,Legionellosis
+Biosynthesis of other secondary metabolites,Novobiocin.biosynthesis
+Metabolism of other amino acids,beta-Alanine.metabolism
+Carbohydrate metabolism,Ascorbate.and.aldarate.metabolism
+Metabolism of other amino acids,Taurine.and.hypotaurine.metabolism
+Cellular community - prokaryotes,Biofilm.formation.-.Pseudomonas.aeruginosa
+Nervous system,GABAergic.synapse
+Biosynthesis of other secondary metabolites,Phenylpropanoid.biosynthesis
+Amino acid metabolism,Tryptophan.metabolism
+Glycan biosynthesis and metabolism,Glycosphingolipid.biosynthesis.-.globo.and.isoglobo.series
+Endocrine system,PPAR.signaling.pathway
+Endocrine and metabolic disease,Insulin.resistance
+Biosynthesis of other secondary metabolites,"Tropane,.piperidine.and.pyridine.alkaloid.biosynthesis"
+Xenobiotics biodegradation and metabolism,Benzoate.degradation
+Metabolism of other amino acids,D-Alanine.metabolism
+Signal transduction,AMPK.signaling.pathway
+Nervous system,Glutamatergic.synapse
+Glycan biosynthesis and metabolism,Glycosaminoglycan.degradation
+Metabolism of terpenoids and polyketides,Biosynthesis.of.ansamycins
+Global and overview maps,Degradation.of.aromatic.compounds
+Infectious disease: bacterial,Epithelial.cell.signaling.in.Helicobacter.pylori.infection
+Cancer: overview,MicroRNAs.in.cancer
+Metabolism of other amino acids,Phosphonate.and.phosphinate.metabolism
+Carbohydrate metabolism,Inositol.phosphate.metabolism
+Infectious disease: bacterial,Pathogenic.Escherichia.coli.infection
+Signal transduction,Phosphatidylinositol.signaling.system
+Biosynthesis of other secondary metabolites,Acarbose.and.validamycin.biosynthesis
+Endocrine system,Insulin.signaling.pathway
+Biosynthesis of other secondary metabolites,Glucosinolate.biosynthesis
+Biosynthesis of other secondary metabolites,Biosynthesis.of.various.secondary.metabolites.-.part.2
+Xenobiotics biodegradation and metabolism,Chloroalkane.and.chloroalkene.degradation
+Biosynthesis of other secondary metabolites,Carbapenem.biosynthesis
+Aging,Longevity.regulating.pathway.-.multiple.species
+Translation,RNA.transport
+Cell growth and death,Ferroptosis
+Lipid metabolism,Secondary.bile.acid.biosynthesis
+"Folding, sorting and degradation",Protein.processing.in.endoplasmic.reticulum
+Infectious disease: bacterial,Pertussis
+Biosynthesis of other secondary metabolites,"Neomycin,.kanamycin.and.gentamicin.biosynthesis"
+Cancer: overview,Pathways.in.cancer
+Endocrine system,Adipocytokine.signaling.pathway
+Endocrine and metabolic disease,Type.I.diabetes.mellitus
+Xenobiotics biodegradation and metabolism,Nitrotoluene.degradation
+Environmental adaptation,Thermogenesis
+Biosynthesis of other secondary metabolites,Phenazine.biosynthesis
+Metabolism of terpenoids and polyketides,Biosynthesis.of.siderophore.group.nonribosomal.peptides
+Infectious disease: bacterial,Shigellosis
+Biosynthesis of other secondary metabolites,Isoquinoline.alkaloid.biosynthesis
+Glycan biosynthesis and metabolism,Various.types.of.N-glycan.biosynthesis
+Glycan biosynthesis and metabolism,Glycosphingolipid.biosynthesis.-.ganglio.series
+Metabolism of terpenoids and polyketides,Zeatin.biosynthesis
+Endocrine and metabolic disease,Type.II.diabetes.mellitus
+Xenobiotics biodegradation and metabolism,Naphthalene.degradation
+Neurodegenerative disease,Alzheimer.disease
+Signal transduction,MAPK.signaling.pathway.-.plant
+Translation,Ribosome.biogenesis.in.eukaryotes
+Infectious disease: viral,Human.papillomavirus.infection
+Cancer: overview,Viral.carcinogenesis
+Signal transduction,PI3K-Akt.signaling.pathway
+Neurodegenerative disease,Huntington.disease
+Metabolism of cofactors and vitamins,Lipoic.acid.metabolism
+Metabolism of terpenoids and polyketides,Biosynthesis.of.vancomycin.group.antibiotics
+Xenobiotics biodegradation and metabolism,Aminobenzoate.degradation
+Cancer: overview,Proteoglycans.in.cancer
+Immune system,IL-17.signaling.pathway
+Immune system,Antigen.processing.and.presentation
+Endocrine system,Estrogen.signaling.pathway
+Endocrine system,Progesterone-mediated.oocyte.maturation
+Cancer: specific types,Prostate.cancer
+Immune system,Th17.cell.differentiation
+Immune disease,Primary.immunodeficiency
+Drug resistance: antineoplastic,Platinum.drug.resistance
+Signal transduction,FoxO.signaling.pathway
+Xenobiotics biodegradation and metabolism,Metabolism.of.xenobiotics.by.cytochrome.P450
+Xenobiotics biodegradation and metabolism,Drug.metabolism.-.cytochrome.P450
+Neurodegenerative disease,Amyotrophic.lateral.sclerosis.(ALS)
+Lipid metabolism,Synthesis.and.degradation.of.ketone.bodies
+Aging,Longevity.regulating.pathway
+Biosynthesis of other secondary metabolites,Penicillin.and.cephalosporin.biosynthesis
+Cell growth and death,Apoptosis.-.fly
+Infectious disease: parasitic,Amoebiasis
+Endocrine system,Prolactin.signaling.pathway
+Lipid metabolism,Primary.bile.acid.biosynthesis
+Infectious disease: bacterial,Bacterial.invasion.of.epithelial.cells
+Excretory system,Proximal.tubule.bicarbonate.reclamation
+Lipid metabolism,Arachidonic.acid.metabolism
+Endocrine system,Thyroid.hormone.synthesis
+Cancer: overview,Choline.metabolism.in.cancer
+Signal transduction,MAPK.signaling.pathway.-.fly
+Digestive system,Carbohydrate.digestion.and.absorption
+Development and regeneration,Axon.regeneration
+Signal transduction,Phospholipase.D.signaling.pathway
+Digestive system,Protein.digestion.and.absorption
+Metabolism of cofactors and vitamins,Retinol.metabolism
+Glycan biosynthesis and metabolism,N-Glycan.biosynthesis
+Lipid metabolism,Steroid.hormone.biosynthesis
+Metabolism of terpenoids and polyketides,Limonene.and.pinene.degradation
+Cell growth and death,Apoptosis
+Xenobiotics biodegradation and metabolism,Chlorocyclohexane.and.chlorobenzene.degradation
+Metabolism of terpenoids and polyketides,Geraniol.degradation
+Cancer: overview,Chemical.carcinogenesis
+Digestive system,Pancreatic.secretion
+Infectious disease: bacterial,Yersinia.infection
+Lipid metabolism,Biosynthesis.of.unsaturated.fatty.acids
+Lipid metabolism,alpha-Linolenic.acid.metabolism
+Glycan biosynthesis and metabolism,Arabinogalactan.biosynthesis.-.Mycobacterium
+Cancer: specific types,Hepatocellular.carcinoma
+Xenobiotics biodegradation and metabolism,Styrene.degradation
+Metabolism of terpenoids and polyketides,Insect.hormone.biosynthesis
+Metabolism of terpenoids and polyketides,Nonribosomal.peptide.structures
+Xenobiotics biodegradation and metabolism,Xylene.degradation
+Transport and catabolism,Autophagy.-.yeast
+Xenobiotics biodegradation and metabolism,Dioxin.degradation
+Biosynthesis of other secondary metabolites,Flavone.and.flavonol.biosynthesis
+Xenobiotics biodegradation and metabolism,Ethylbenzene.degradation
+Endocrine and metabolic disease,Cushing.syndrome
+Cancer: specific types,Renal.cell.carcinoma
+Xenobiotics biodegradation and metabolism,Caprolactam.degradation
+Xenobiotics biodegradation and metabolism,Fluorobenzoate.degradation
+Xenobiotics biodegradation and metabolism,Toluene.degradation
+Signal transduction,MAPK.signaling.pathway.-.yeast
+Neurodegenerative disease,Prion.diseases
+Biosynthesis of other secondary metabolites,Betalain.biosynthesis
+Xenobiotics biodegradation and metabolism,Atrazine.degradation
+Endocrine system,Renin-angiotensin.system
+Metabolism of other amino acids,D-Arginine.and.D-ornithine.metabolism
+Lipid metabolism,Ether.lipid.metabolism
+Infectious disease: bacterial,Staphylococcus.aureus.infection
+Neurodegenerative disease,Spinocerebellar.ataxia
+Lipid metabolism,Linoleic.acid.metabolism
+Infectious disease: parasitic,African.trypanosomiasis
+Infectious disease: parasitic,Chagas.disease.(American.trypanosomiasis)
+Cancer: specific types,Bladder.cancer
+Replication and repair,Non-homologous.end-joining
+Digestive system,Mineral.absorption
+Neurodegenerative disease,Parkinson.disease
+Endocrine and metabolic disease,Non-alcoholic.fatty.liver.disease.(NAFLD)
+Circulatory system,Cardiac.muscle.contraction
+Cell growth and death,Meiosis.-.yeast
+Metabolism of terpenoids and polyketides,Carotenoid.biosynthesis
+Metabolism of terpenoids and polyketides,Tetracycline.biosynthesis
+Immune system,RIG-I-like.receptor.signaling.pathway
+Cell growth and death,p53.signaling.pathway
+Infectious disease: viral,Herpes.simplex.virus.1.infection
+Biosynthesis of other secondary metabolites,Flavonoid.biosynthesis
+Biosynthesis of other secondary metabolites,"Stilbenoid,.diarylheptanoid.and.gingerol.biosynthesis"
+Cell growth and death,Apoptosis.-.multiple.species
+Cancer: specific types,Colorectal.cancer
+Infectious disease: viral,Epstein-Barr.virus.infection
+Infectious disease: viral,Hepatitis.B
+Infectious disease: viral,Hepatitis.C
+Infectious disease: viral,Human.cytomegalovirus.infection
+Infectious disease: viral,Human.immunodeficiency.virus.1.infection
+Infectious disease: viral,Influenza.A
+Infectious disease: viral,Kaposi.sarcoma-associated.herpesvirus.infection
+Infectious disease: viral,Measles
+Cancer: specific types,Small.cell.lung.cancer
+Infectious disease: parasitic,Toxoplasmosis
+Cardiovascular disease,Viral.myocarditis
+Immune system,Toll.and.Imd.signaling.pathway
+Metabolism of terpenoids and polyketides,Sesquiterpenoid.and.triterpenoid.biosynthesis
+Cardiovascular disease,Hypertrophic.cardiomyopathy.(HCM)
+Cardiovascular disease,Dilated.cardiomyopathy.(DCM)
+Cardiovascular disease,Arrhythmogenic.right.ventricular.cardiomyopathy.(ARVC)
+Signal transduction,cAMP.signaling.pathway
+Signal transduction,Calcium.signaling.pathway
+Circulatory system,Adrenergic.signaling.in.cardiomyocytes
+Signal transduction,Apelin.signaling.pathway
+Environmental adaptation,Circadian.entrainment
+Endocrine system,Insulin.secretion
+Endocrine system,Oxytocin.signaling.pathway
+Xenobiotics biodegradation and metabolism,Furfural.degradation
+Signal transduction,Plant.hormone.signal.transduction
+"Folding, sorting and degradation",Proteasome
+Endocrine system,Thyroid.hormone.signaling.pathway
+Lipid metabolism,Steroid.biosynthesis
+Nervous system,Retrograde.endocannabinoid.signaling
+Glycan biosynthesis and metabolism,Glycosphingolipid.biosynthesis.-.lacto.and.neolacto.series
+Digestive system,Bile.secretion
+Cancer: specific types,Gastric.cancer
+Transcription,Spliceosome
+Transport and catabolism,Endocytosis
+Xenobiotics biodegradation and metabolism,Polycyclic.aromatic.hydrocarbon.degradation
+Substance dependence,Alcoholism
+Substance dependence,Amphetamine.addiction
+Substance dependence,Cocaine.addiction
+Nervous system,Dopaminergic.synapse
+Nervous system,Serotonergic.synapse
+Signaling molecules and interaction,Cell.adhesion.molecules.(CAMs)
+Signaling molecules and interaction,ECM-receptor.interaction
+Cellular community - eukaryotes,Focal.adhesion
+Cell motility,Regulation.of.actin.cytoskeleton
+Biosynthesis of other secondary metabolites,Biosynthesis.of.various.secondary.metabolites.-.part.3
+Glycan biosynthesis and metabolism,Mannose.type.O-glycan.biosynthesis
+Glycan biosynthesis and metabolism,Other.types.of.O-glycan.biosynthesis
+Glycan biosynthesis and metabolism,Lipoarabinomannan.(LAM).biosynthesis
+Energy metabolism,Photosynthesis.-.antenna.proteins
+Transcription,Basal.transcription.factors
+Biosynthesis of other secondary metabolites,Staurosporine.biosynthesis
+Xenobiotics biodegradation and metabolism,Steroid.degradation
+Signal transduction,Sphingolipid.signaling.pathway
+Infectious disease: bacterial,Vibrio.cholerae.infection
+Nervous system,Synaptic.vesicle.cycle
+Excretory system,Vasopressin-regulated.water.reabsorption
+Endocrine system,Melanogenesis
+Biosynthesis of other secondary metabolites,Indole.alkaloid.biosynthesis
+Immune disease,Systemic.lupus.erythematosus
+Digestive system,Salivary.secretion
+Cell growth and death,Cell.cycle
+Cell growth and death,Cell.cycle.-.yeast
+Biosynthesis of other secondary metabolites,Isoflavonoid.biosynthesis
+Endocrine system,Renin.secretion
+Endocrine system,"Parathyroid.hormone.synthesis,.secretion.and.action"
+Metabolism of terpenoids and polyketides,Type.I.polyketide.structures
+Excretory system,Collecting.duct.acid.secretion
+Transport and catabolism,Phagosome
+Immune disease,Rheumatoid.arthritis
+Signal transduction,mTOR.signaling.pathway
+Replication and repair,Fanconi.anemia.pathway
+Xenobiotics biodegradation and metabolism,Bisphenol.degradation

@@ -47,6 +47,11 @@ library(caret)
 library(ggrepel)
 library(randomForest)
 library(lavaan)
+library(Hmisc)
+library(corrplot)
+library(colortools)
+library(visibly)
+library(plotly)
 source("../R_function/colors.R")
 source("../R_function/surv_plot.R")
 source("../R_function/geom_flat_violin.R")
@@ -141,7 +146,29 @@ ggscatter(bmi,x = "value", y = "BMI",size=1,mean.point = T,
 ```
 
 ## BMI ralated KEGG pathways
+```{r fig.width=6, fig.height=4,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "80%"}
+kegg_mat<-read.csv("../Data/Data/BMI_Gut_kegg.csv",header = T,row.names = 1)%>%as.matrix()
+kegg_info<-fread("../Data/Data/Gut_kegg_description.csv",data.table = F)
+CorMatrix <- function(cor,p){
+  ut <- upper.tri(cor) 
+  data.frame(row = rownames(cor)[row(cor)[ut]],
+             column = rownames(cor)[col(cor)[ut]], 
+             cor =(cor)[ut],
+             p = p[ut])}
 
+cor_res  <- rcorr(as.matrix(kegg_mat),type ="spearman")
+corMat<-CorMatrix(cor_res$r, cor_res$P)%>%filter(p<=0.05)%>%
+  filter(row%in%c("BMI"))
+colnames(corMat)[2]="Description"
+corMat<-merge(kegg_info,corMat,by="Description")
+ggplot(corMat,aes(cor,reorder(Description,cor),color=kegg_group))+
+  geom_point(aes(size=abs(cor)))+
+  scale_color_manual(values = col11)+
+  theme_bw()+
+  xlab("corValue (spearman)")+
+  ylab("KEGG")
+
+```
 
 ## Validate the clinical value of gut FBratio with public datasets
 
@@ -186,7 +213,6 @@ data%>%group_by(dataset_name,Disease)%>%dplyr::summarise(Samples_num=n())%>%
   knitr::kable(caption = "Datasets and Disease") 
 
 ```
-
 
 #### Gut Phylum composition
 
@@ -248,12 +274,12 @@ for (i in seq_along(df)) {
         legend.spacing.x =unit(0.1,"cm"),
         legend.box.spacing = unit(0.1,"cm"),
         legend.justification=c(.4,.4),
-          plot.title = element_text(vjust = -30,hjust = +0.5))+
+          plot.title = element_text(vjust = -65,hjust = +0.5))+
     ggtitle(paste0(names(df)[i]))
   }
 ```
 
-```{r fig.width=3, fig.height=3,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "60%"}
+```{r fig.width=6, fig.height=6,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "80%"}
 plot_grid(p[[1]],p[[2]],p[[3]]+theme(legend.position = "right"),
           labels = c("A","B","C"), ncol =2, nrow = 2)
 ```
@@ -261,7 +287,7 @@ plot_grid(p[[1]],p[[2]],p[[3]]+theme(legend.position = "right"),
 
 #### RF classifiers for each dataset
 
-```{r fig.width=3, fig.height=3,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "30%"}
+```{r fig.width=6, fig.height=6,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "80%"}
 data<-fread("../Data/Data/publicData/gFBratio_subsetCRC_810samples.csv",data.table = F)
 dflist<-split.data.frame(data,f=data$dataset_name,drop = F)
 data<-list();data1<-list();data2<-list();data3<-list()
@@ -376,7 +402,7 @@ dev.off()
 
 #### AUC results
 
-```{r fig.width=3, fig.height=5,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "50%"}
+```{r fig.width=3, fig.height=3,dpi=600,fig.align='center',results='hold',message=FALSE,out.width = "50%"}
 ML_res<-list(Normal_CRC=NC_res,
              Normal_Adenoma=NA_res,
              CRC_Adenoma=CA_res,

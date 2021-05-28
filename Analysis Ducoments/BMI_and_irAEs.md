@@ -1,6 +1,3 @@
----
-sort: 4
----
 -   [1 BMI related features](#bmi-related-features)
     -   [1.1 BMI and FBratio of gut
         microbiome](#bmi-and-fbratio-of-gut-microbiome)
@@ -58,6 +55,11 @@ sort: 4
     library(ggrepel)
     library(randomForest)
     library(lavaan)
+    library(Hmisc)
+    library(corrplot)
+    library(colortools)
+    library(visibly)
+    library(plotly)
     source("../R_function/colors.R")
     source("../R_function/surv_plot.R")
     source("../R_function/geom_flat_violin.R")
@@ -174,6 +176,29 @@ sort: 4
 1.3 BMI ralated KEGG pathways
 -----------------------------
 
+    kegg_mat<-read.csv("../Data/Data/BMI_Gut_kegg.csv",header = T,row.names = 1)%>%as.matrix()
+    kegg_info<-fread("../Data/Data/Gut_kegg_description.csv",data.table = F)
+    CorMatrix <- function(cor,p){
+      ut <- upper.tri(cor) 
+      data.frame(row = rownames(cor)[row(cor)[ut]],
+                 column = rownames(cor)[col(cor)[ut]], 
+                 cor =(cor)[ut],
+                 p = p[ut])}
+
+    cor_res  <- rcorr(as.matrix(kegg_mat),type ="spearman")
+    corMat<-CorMatrix(cor_res$r, cor_res$P)%>%filter(p<=0.05)%>%
+      filter(row%in%c("BMI"))
+    colnames(corMat)[2]="Description"
+    corMat<-merge(kegg_info,corMat,by="Description")
+    ggplot(corMat,aes(cor,reorder(Description,cor),color=kegg_group))+
+      geom_point(aes(size=abs(cor)))+
+      scale_color_manual(values = col11)+
+      theme_bw()+
+      xlab("corValue (spearman)")+
+      ylab("KEGG")
+
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" />
+
 1.4 Validate the clinical value of gut FBratio with public datasets
 -------------------------------------------------------------------
 
@@ -205,7 +230,7 @@ sort: 4
 
     plot_grid(p1,p2,labels = c("A","B"), ncol =2, nrow = 1)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" />
 
 ### 1.4.2 Diagnostic value of Gut FBratio in CRC cohorts
 
@@ -420,7 +445,7 @@ Normal
       facet_grid(~dataset_name,scales = "free",space = "free_x")+
       theme(strip.text = element_text(size = 3))
 
-![](BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-8-1.png)
+![](BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-9-1.png)
 
     compdata<-melt(data[,-c(1:4,6:7)],
                    id.vars = "Disease",
@@ -467,7 +492,7 @@ Normal
             legend.spacing.x =unit(0.1,"cm"),
             legend.box.spacing = unit(0.1,"cm"),
             legend.justification=c(.4,.4),
-              plot.title = element_text(vjust = -30,hjust = +0.5))+
+              plot.title = element_text(vjust = -65,hjust = +0.5))+
         ggtitle(paste0(names(df)[i]))
       }
 
@@ -476,7 +501,7 @@ Normal
     plot_grid(p[[1]],p[[2]],p[[3]]+theme(legend.position = "right"),
               labels = c("A","B","C"), ncol =2, nrow = 2)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-9-1.png" width="60%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" />
 
 #### 1.4.2.3 RF classifiers for each dataset
 
@@ -590,7 +615,7 @@ Normal
 
     }
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-1.png" width="30%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-2.png" width="30%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-3.png" width="30%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-4.png" width="30%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-10-5.png" width="30%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-11-2.png" width="80%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-11-3.png" width="80%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-11-4.png" width="80%" style="display: block; margin: auto;" /><img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-11-5.png" width="80%" style="display: block; margin: auto;" />
 
     dev.off()
 
@@ -634,7 +659,7 @@ Normal
       scale_fill_jama()+
       scale_color_lancet()
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-11-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" />
 <table>
 <caption>
 auc\_res
@@ -767,7 +792,7 @@ ZellerG\_2014
             strip.text.x = element_text(size = 8),
             legend.position = "top",legend.text = element_text(size = 8))
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="50%" style="display: block; margin: auto;" />
 
     surv_cut_PFS <- surv_cutpoint(
       df1,
@@ -795,7 +820,7 @@ ZellerG\_2014
                     risk.table.y.text.col = T,
                     risk.table.y.text = FALSE )
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-12-2.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-2.png" width="50%" style="display: block; margin: auto;" />
 
     ## Call: survfit(formula = Surv(PFSmonth, PFS) ~ FB, data = df1)
     ## 
@@ -825,7 +850,7 @@ ZellerG\_2014
       ylab("Log10(FBratio)")+
       theme(axis.title.x = element_blank())
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-14-1.png" width="50%" style="display: block; margin: auto;" />
 
     ICI_stat$Response<-factor(ICI_stat$Response,levels = c("R","NR"))
     ggstatsplot::grouped_ggbarstats(data = ICI_stat,x=Response,
@@ -837,7 +862,7 @@ ZellerG\_2014
                                     main = Response, nboot = 10,
                                     legend.title = "Response")
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-2.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-14-2.png" width="50%" style="display: block; margin: auto;" />
 
     ggstatsplot::ggbarstats(data = ICI_stat,x=Response,ggtheme = ggplot2::theme_bw(base_size=6),
                                     y = FBratio_group,
@@ -848,7 +873,7 @@ ZellerG\_2014
                                     main = Response, nboot = 10,
                                     legend.title = "Response")
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-13-3.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-14-3.png" width="50%" style="display: block; margin: auto;" />
 
 2 Treated-related aderse events
 ===============================
@@ -905,7 +930,7 @@ ZellerG\_2014
     require(survminer)
     arrange_ggsurvplots(x = splots, print = TRUE, ncol = 4, nrow = 2)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
     ## Call: survfit(formula = Surv(PFStime, PFS) ~ Hand_food_syndrom_g, data = df_treat)
     ## 
@@ -972,4 +997,4 @@ ZellerG\_2014
 
     plot_grid(bar1, bar2, labels = c("A", "B"), ncol = 2, nrow = 1)
 
-<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-16-1.png" width="50%" style="display: block; margin: auto;" />
+<img src="BMI_and_irAEs_files/figure-markdown_strict/unnamed-chunk-17-1.png" width="50%" style="display: block; margin: auto;" />
